@@ -1,11 +1,13 @@
 <template>
-  <button
+  <component
+    :is="tag"
+    :to="to"
     :class="['actionButton', `actionButton-${theme}`, { inline: isInline }]"
     :style="{ fontSize: fontSizeMap.get(size) }"
     @click="$emit('click')"
   >
     {{ text }}
-  </button>
+  </component>
 </template>
 
 <script lang="ts">
@@ -34,6 +36,13 @@ export default class ActionButton extends Vue {
 
   @Prop({ default: 'L' })
   size!: SizeType
+
+  @Prop({ default: '' })
+  to?: string
+
+  get tag() {
+    return this.to ? 'router-link' : 'button'
+  }
 }
 </script>
 
@@ -47,6 +56,7 @@ export default class ActionButton extends Vue {
   border: none;
   color: $white;
   cursor: pointer;
+  text-decoration: none;
   &.inline {
     display: inline-block;
     width: auto;
