@@ -1,5 +1,5 @@
 <template>
-  <div class="record">
+  <div>
     <div class="headerButtonContainer">
       <ActionButton text="ログアウト" size="S" theme="text" :is-inline="true" />
       <ActionButton
