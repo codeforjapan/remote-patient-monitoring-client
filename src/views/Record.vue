@@ -7,6 +7,7 @@
         size="S"
         theme="outline"
         :is-inline="true"
+        to="/history"
       />
     </div>
     <h2>体調を記録する</h2>
