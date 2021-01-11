@@ -28,7 +28,6 @@
           name="spo2"
           label="酸素飽和度(SpO2)"
           unit="％"
-          :step="0.1"
           :value="inputSpo2"
           @input="inputSpo2 = $event"
         />
