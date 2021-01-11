@@ -17,7 +17,7 @@
       </li>
     </ul>
     <ConfirmModal
-      :is-open-confirm="isOpenConfirm"
+      :is-open="isOpenConfirm"
       @click="isOpenConfirm = false"
       @click-positive="openTel(number)"
       @click-negative="isOpenConfirm = false"

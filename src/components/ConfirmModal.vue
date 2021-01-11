@@ -1,11 +1,7 @@
 <template>
   <div>
-    <div
-      v-if="isOpenConfirm"
-      class="confirmBackLayer"
-      @click="$emit('click')"
-    />
-    <div v-if="isOpenConfirm" class="confirmOverLayer">
+    <div v-if="isOpen" class="confirmBackLayer" @click="$emit('click')" />
+    <div v-if="isOpen" class="confirmOverLayer">
       <div class="confirmText">
         <slot />
       </div>
@@ -40,7 +36,7 @@ export default Vue.extend({
     ActionButton
   },
   props: {
-    isOpenConfirm: {
+    isOpen: {
       type: Boolean,
       default: false
     }
