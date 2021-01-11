@@ -16,39 +16,21 @@
         救急要請(119)
       </li>
     </ul>
-    <div
-      v-if="isOpenConfirm"
-      class="confirmBackLayer"
+    <ConfirmModal
+      :is-open-confirm="isOpenConfirm"
       @click="isOpenConfirm = false"
-    />
-    <div v-if="isOpenConfirm" class="confirmOverLayer">
-      <p class="confirmText">{{ confirmText }}</p>
-      <ul class="confirmList">
-        <li class="confirmItem">
-          <ActionButton
-            theme="primary"
-            size="L"
-            text="はい"
-            @click="openTel(number)"
-          />
-        </li>
-        <li class="confirmItem">
-          <ActionButton
-            theme="disable"
-            size="L"
-            text="いいえ"
-            @click="isOpenConfirm = false"
-          />
-        </li>
-      </ul>
-    </div>
+      @click-positive="openTel(number)"
+      @click-negative="isOpenConfirm = false"
+    >
+      {{ confirmText }}
+    </ConfirmModal>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import PhoneIcon from '@/assets/images/icon-phone.svg'
-import ActionButton from '@/components/ActionButton.vue'
+import ConfirmModal from '@/components/ConfirmModal.vue'
 
 interface PhoneItem {
   destination: string
@@ -71,7 +53,7 @@ type Methods = {
 export default Vue.extend<Data, Methods, unknown, unknown>({
   components: {
     PhoneIcon,
-    ActionButton
+    ConfirmModal
   },
   data() {
     return {
@@ -140,39 +122,5 @@ export default Vue.extend<Data, Methods, unknown, unknown>({
   &.emergency {
     background-color: $error;
   }
-}
-.confirmBackLayer {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: $bg-black;
-  opacity: 0.8;
-  z-index: 2;
-}
-.confirmOverLayer {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 80%;
-  max-width: 300px;
-  border: 1px solid $error;
-  border-radius: 8px;
-  background-color: $white;
-  padding: 16px;
-  z-index: 3;
-}
-.confirmText {
-  font-size: 20px;
-}
-.confirmList {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.confirmItem {
-  flex: 0 0 48%;
 }
 </style>
