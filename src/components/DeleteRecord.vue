@@ -1,9 +1,9 @@
 <template>
   <div>
     <div class="deleteRecordTextContainer">
-      <span class="deleteRecordText" @click="isOpenConfirm = true"
-        >この記録を削除する</span
-      >
+      <span class="deleteRecordText" @click="isOpenConfirm = true">
+        この記録を削除する
+      </span>
     </div>
     <ConfirmModal
       :is-open="isOpenConfirm"
