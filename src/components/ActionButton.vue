@@ -6,7 +6,7 @@
     :style="{ fontSize: fontSizeMap.get(size) }"
     @click="$emit('click')"
   >
-    {{ text }}
+    <slot />
   </component>
 </template>
 
@@ -30,9 +30,6 @@ export default class ActionButton extends Vue {
 
   @Prop({ default: 'primary' })
   theme!: ThemeType
-
-  @Prop({ default: '' })
-  text!: string
 
   @Prop({ default: 'L' })
   size!: SizeType

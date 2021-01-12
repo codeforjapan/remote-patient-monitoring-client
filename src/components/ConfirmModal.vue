@@ -10,9 +10,10 @@
           <ActionButton
             theme="primary"
             size="L"
-            text="はい"
             @click="handlePositiveButtonClick"
-          />
+          >
+            はい
+          </ActionButton>
         </li>
         <li class="confirmItem">
           <ActionButton
@@ -20,7 +21,9 @@
             size="L"
             text="いいえ"
             @click="handleNegativeButtonClick"
-          />
+          >
+            いいえ
+          </ActionButton>
         </li>
       </ul>
     </div>

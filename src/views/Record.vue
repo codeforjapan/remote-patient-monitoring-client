@@ -1,14 +1,12 @@
 <template>
   <div>
     <div class="headerButtonContainer">
-      <ActionButton text="ログアウト" size="S" theme="text" :is-inline="true" />
-      <ActionButton
-        text="記録一覧を見る"
-        size="S"
-        theme="outline"
-        :is-inline="true"
-        to="/history"
-      />
+      <ActionButton size="S" theme="text" :is-inline="true">
+        ログアウト
+      </ActionButton>
+      <ActionButton size="S" theme="outline" :is-inline="true" to="/history">
+        記録一覧を見る
+      </ActionButton>
     </div>
     <h2>体調を記録する</h2>
     <span class="date">2020/12/26 09:14</span>
@@ -70,7 +68,7 @@
       />
     </section>
     <div class="buttonContainer">
-      <ActionButton text="記録する" size="L" theme="primary" />
+      <ActionButton size="L" theme="primary">記録する</ActionButton>
     </div>
     <FooterButtons />
   </div>
