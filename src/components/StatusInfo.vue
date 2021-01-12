@@ -18,13 +18,13 @@
         <div>
           <span class="symptom" v-if="status.symptom.cough">せき</span>
           <span class="symptom" v-if="status.symptom.phlegm">たん</span>
-          <span class="symptom" v-if="status.symptom.suffocation">
-            息苦しさ
-          </span>
+          <span class="symptom" v-if="status.symptom.suffocation"
+            >息苦しさ</span
+          >
           <span class="symptom" v-if="status.symptom.headache">頭痛</span>
-          <span class="symptom" v-if="status.symptom.sore_throat">
-            喉の痛み
-          </span>
+          <span class="symptom" v-if="status.symptom.sore_throat"
+            >喉の痛み</span
+          >
         </div>
         <div class="symptomRemarks">{{ status.symptom.remarks }}</div>
       </dd>
