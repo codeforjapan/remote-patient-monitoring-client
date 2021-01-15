@@ -38,24 +38,17 @@ interface PhoneItem {
   text: string
 }
 
-type Data = {
-  phoneItems: PhoneItem[]
-  confirmText: string
-  number: string
-  isOpenConfirm: boolean
-}
-
-type Methods = {
-  confirmToTel(destination: string): void
-  openTel(number: string): void
-}
-
-export default Vue.extend<Data, Methods, unknown, unknown>({
+export default Vue.extend({
   components: {
     PhoneIcon,
     ConfirmModal
   },
-  data() {
+  data(): {
+    phoneItems: PhoneItem[]
+    confirmText: string
+    number: string
+    isOpenConfirm: boolean
+  } {
     return {
       phoneItems: [
         {
@@ -75,7 +68,7 @@ export default Vue.extend<Data, Methods, unknown, unknown>({
     }
   },
   methods: {
-    confirmToTel(destination) {
+    confirmToTel(destination: string): void {
       const selectedItem: PhoneItem[] = this.phoneItems.filter(v => {
         if (v.destination === destination) return true
       })
@@ -83,7 +76,7 @@ export default Vue.extend<Data, Methods, unknown, unknown>({
       this.number = selectedItem[0].telNumber
       this.isOpenConfirm = true
     },
-    openTel(number) {
+    openTel(number: string): void {
       window.open(`tel:${number}`, '_self')
     }
   }
