@@ -34,25 +34,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-
-type Status = {
-  statusId: string
-  patientId: string
-  centerId: string
-  created: string
-  SpO2: number
-  body_temperature: number
-  pulse: number
-  symptom: {
-    symptomId: string
-    cough: boolean
-    phlegm: boolean
-    suffocation: boolean
-    headache: boolean
-    sore_throat: boolean
-    remarks: string
-  }
-}
+import { Status } from '@/@types/component-interfaces/status'
 
 export default Vue.extend({
   props: {
