@@ -3,6 +3,8 @@ import VueRouter, { RouteConfig } from 'vue-router'
 import Home from '../views/Home.vue'
 import Record from '@/views/Record.vue'
 import Registered from '@/views/Registered.vue'
+import History from '@/views/History.vue'
+import Detail from '@/views/Detail.vue'
 
 Vue.use(VueRouter)
 
@@ -21,6 +23,16 @@ const routes: Array<RouteConfig> = [
     path: '/registered',
     name: 'Registered',
     component: Registered
+  },
+  {
+    path: '/history',
+    name: 'History',
+    component: History
+  },
+  {
+    path: '/detail/:statusId',
+    name: 'Detail',
+    component: Detail
   }
   // {
   //   path: '/about',
