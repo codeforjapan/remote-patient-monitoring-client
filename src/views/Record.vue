@@ -8,7 +8,7 @@
         記録一覧を見る
       </ActionButton>
     </div>
-    <h2>体調を記録する</h2>
+    <h1>体調を記録する</h1>
     <span class="date">2020/12/26 09:14</span>
     <ul class="conditionList">
       <li class="conditionItem">
