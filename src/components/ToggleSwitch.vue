@@ -2,7 +2,14 @@
   <div class="toggleSwitchContainer">
     <div class="labelText">{{ label }}</div>
     <div class="toggleSwitch">
-      <input type="checkbox" :id="name" class="checkbox" />
+      <input
+        type="checkbox"
+        :id="name"
+        class="checkbox"
+        :checked="checked"
+        :value="value"
+        @input="$emit('input', $event.target.checked, $event.target.value)"
+      />
       <label class="switch" :for="name" />
     </div>
   </div>
@@ -12,12 +19,24 @@
 import Vue from 'vue'
 
 export default Vue.extend({
+  model: {
+    prop: 'checked',
+    event: 'input'
+  },
   props: {
     name: {
       type: String,
       required: true
     },
     label: {
+      type: String,
+      default: ''
+    },
+    checked: {
+      type: Boolean,
+      default: false
+    },
+    value: {
       type: String,
       default: ''
     }

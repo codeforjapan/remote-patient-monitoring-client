@@ -4,11 +4,11 @@
       <ActionButton size="S" theme="text" :is-inline="true" to="/record">
         <AngleLeftIcon />
       </ActionButton>
-      <ActionButton size="S" theme="primary" :is-inline="true" to="/record">
+      <ActionButton size="S" theme="outline" :is-inline="true" to="/record">
         体調を記録する
       </ActionButton>
     </div>
-    <h2>{{ date }}</h2>
+    <h1>{{ date }}</h1>
     <div class="message">体調記録を登録しました</div>
     <StatusInfo :status="status" />
     <DeleteRecord :status-id="status.statusId" />
