@@ -20,15 +20,7 @@
 import Vue from 'vue'
 import ConfirmModal from '@/components/ConfirmModal.vue'
 
-type Data = {
-  isOpenConfirm: boolean
-}
-
-type Methods = {
-  deleteStatus(statusId: string): void
-}
-
-export default Vue.extend<Data, Methods, unknown, unknown>({
+export default Vue.extend({
   components: {
     ConfirmModal
   },
@@ -38,13 +30,15 @@ export default Vue.extend<Data, Methods, unknown, unknown>({
       default: ''
     }
   },
-  data() {
+  data(): {
+    isOpenConfirm: boolean
+  } {
     return {
       isOpenConfirm: false
     }
   },
   methods: {
-    deleteStatus(statusId) {
+    deleteStatus(statusId: string): void {
       console.log(statusId)
     }
   }

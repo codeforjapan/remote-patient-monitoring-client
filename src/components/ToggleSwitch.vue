@@ -61,7 +61,7 @@ export default Vue.extend({
   &:checked {
     ~ .switch {
       &::before {
-        background: $link;
+        background: $primary;
       }
       &::after {
         left: calc(2.6em - 1.2em + 4px);
