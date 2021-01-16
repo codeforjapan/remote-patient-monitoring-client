@@ -43,20 +43,17 @@
     <section class="symptomsSection">
       <h3>該当の症状はありますか？</h3>
       <ul class="symptomsList">
-        <li class="symptomsItem">
-          <ToggleSwitch name="cough" label="せき" />
-        </li>
-        <li class="symptomsItem">
-          <ToggleSwitch name="sputum" label="たん" />
-        </li>
-        <li class="symptomsItem">
-          <ToggleSwitch name="suffocation" label="息苦しさ" />
-        </li>
-        <li class="symptomsItem">
-          <ToggleSwitch name="headache" label="頭痛" />
-        </li>
-        <li class="symptomsItem">
-          <ToggleSwitch name="throat" label="のどの痛み" />
+        <li
+          v-for="(item, index) in symptomItems"
+          :key="index"
+          class="symptomsItem"
+        >
+          <ToggleSwitch
+            :name="item.name"
+            :label="item.label"
+            :value="item.name"
+            @input="itemSelectControl"
+          />
         </li>
       </ul>
       <InputField
@@ -82,6 +79,11 @@ import InputNumberField from '@/components/InputNumberField.vue'
 import ToggleSwitch from '@/components/ToggleSwitch.vue'
 import FooterButtons from '@/components/FooterButtons.vue'
 
+type SymptomItem = {
+  name: string
+  label: string
+}
+
 export default Vue.extend({
   components: {
     ActionButton,
@@ -90,12 +92,53 @@ export default Vue.extend({
     ToggleSwitch,
     FooterButtons
   },
-  data() {
+  data(): {
+    symptomItems: SymptomItem[]
+    inputTemperature: string
+    inputSpo2: string
+    inputPulse: string
+    inputMemo: string
+    selectedItems: string[]
+  } {
     return {
+      symptomItems: [
+        {
+          name: 'cough',
+          label: 'せき'
+        },
+        {
+          name: 'phlegm',
+          label: 'たん'
+        },
+        {
+          name: 'suffocation',
+          label: '息苦しさ'
+        },
+        {
+          name: 'headache',
+          label: '頭痛'
+        },
+        {
+          name: 'sore_throat',
+          label: 'のどの痛み'
+        }
+      ],
       inputTemperature: '',
       inputSpo2: '',
       inputPulse: '',
-      inputMemo: ''
+      inputMemo: '',
+      selectedItems: []
+    }
+  },
+  methods: {
+    itemSelectControl(checked: boolean, value: string) {
+      if (!this.selectedItems.includes(value)) {
+        this.selectedItems.push(value)
+      } else {
+        this.selectedItems = this.selectedItems.filter(
+          (v: string) => v !== value
+        )
+      }
     }
   }
 })
