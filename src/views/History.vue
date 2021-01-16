@@ -4,10 +4,14 @@
       <ActionButton size="S" theme="text" :is-inline="true" to="/record">
         <AngleLeftIcon />
       </ActionButton>
-      <ActionButton size="S" theme="primary" :is-inline="true" to="/record">
+      <ActionButton size="S" theme="outline" :is-inline="true" to="/record">
         体調を記録する
       </ActionButton>
     </div>
+    <header class="header">
+      <h1 class="headerTitle">体調記録</h1>
+      <ListOrGraphSwitch v-model="displayMode" />
+    </header>
     <HistoryTable :items="statuses" />
     <FooterButtons />
   </div>
@@ -17,6 +21,7 @@
 import Vue from 'vue'
 import AngleLeftIcon from '@/assets/images/icon-angle-left.svg'
 import ActionButton from '@/components/ActionButton.vue'
+import ListOrGraphSwitch from '@/components/ListOrGraphSwitch.vue'
 import HistoryTable from '@/components/HistoryTable.vue'
 import FooterButtons from '@/components/FooterButtons.vue'
 
@@ -24,11 +29,13 @@ export default Vue.extend({
   components: {
     AngleLeftIcon,
     ActionButton,
+    ListOrGraphSwitch,
     HistoryTable,
     FooterButtons
   },
   data() {
     return {
+      displayMode: 'list',
       statuses: [
         {
           statusId: 'string',
@@ -95,5 +102,12 @@ export default Vue.extend({
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+.header {
+  display: flex;
+  align-items: center;
+}
+.headerTitle {
+  margin-right: 12px;
 }
 </style>
