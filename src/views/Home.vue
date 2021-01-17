@@ -20,6 +20,7 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 .title {
+  font-size: 24px;
   text-align: center;
 }
 </style>
