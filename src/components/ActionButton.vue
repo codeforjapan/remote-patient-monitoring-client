@@ -45,7 +45,7 @@ export default class ActionButton extends Vue {
 
 <style lang="scss" scoped>
 .actionButton {
-  display: block;
+  display: inline-block;
   width: 100%;
   font-weight: bold;
   padding: 0.8em 1em;
@@ -53,9 +53,9 @@ export default class ActionButton extends Vue {
   border: none;
   color: $white;
   cursor: pointer;
+  text-align: center;
   text-decoration: none;
   &.inline {
-    display: inline-block;
     width: auto;
   }
   &-primary {

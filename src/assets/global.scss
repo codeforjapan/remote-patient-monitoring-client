@@ -1,6 +1,11 @@
 :root {
-  box-sizing: border-box;
   color: #2b2b2b;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 body {
