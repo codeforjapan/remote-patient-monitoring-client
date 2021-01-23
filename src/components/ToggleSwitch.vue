@@ -59,8 +59,8 @@ export default Vue.extend({
     content: '';
   }
   &::before {
-    width: 2.6em;
-    height: 1.2em;
+    width: 2.8em;
+    height: 1.6em;
     border-radius: 3em;
     background: $gray-4;
     padding: 3px;
@@ -83,7 +83,7 @@ export default Vue.extend({
         background: $primary;
       }
       &::after {
-        left: calc(2.6em - 1.2em + 4px);
+        left: calc(2.8em - 1.6em + 4px);
       }
     }
   }
