@@ -62,7 +62,7 @@ export default Vue.extend({
     width: 2.8em;
     height: 1.6em;
     border-radius: 3em;
-    background: $gray-4;
+    background: $gray-3;
     padding: 3px;
   }
   &::after {
