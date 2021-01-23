@@ -72,7 +72,7 @@ export default Vue.extend({
   align-items: center;
 }
 .message {
-  background-color: $bg-primary;
+  background-color: $alert-normal;
   border-radius: 10px;
   margin: 16px 0;
   padding: 16px;

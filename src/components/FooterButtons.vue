@@ -103,17 +103,19 @@ export default Vue.extend({
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  color: $white;
   font-size: 20px;
   svg {
     fill: currentColor;
     padding-right: 4px;
   }
   &.healthCenter {
-    background-color: $notice;
+    color: $primary;
+    background-color: $white;
+    border: 2px solid currentColor;
   }
   &.emergency {
-    background-color: $error;
+    color: $white;
+    background-color: $secondary;
   }
 }
 </style>
