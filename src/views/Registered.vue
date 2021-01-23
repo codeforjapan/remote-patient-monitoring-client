@@ -9,7 +9,13 @@
       </ActionButton>
     </div>
     <h1>{{ date }}</h1>
-    <div class="message">体調記録を登録しました</div>
+    <Message v-if="isError" is-error>
+      症状の悪化がみられます。<br />
+      必ず保健所に電話してください。
+    </Message>
+    <Message v-else>
+      体調記録を登録しました。
+    </Message>
     <StatusInfo :status="status" />
     <DeleteRecord :status-id="status.statusId" />
     <FooterButtons />
@@ -24,6 +30,7 @@ import ActionButton from '@/components/ActionButton.vue'
 import StatusInfo from '@/components/StatusInfo.vue'
 import DeleteRecord from '@/components/DeleteRecord.vue'
 import FooterButtons from '@/components/FooterButtons.vue'
+import Message from '@/components/Message.vue'
 
 export default Vue.extend({
   components: {
@@ -31,7 +38,8 @@ export default Vue.extend({
     ActionButton,
     StatusInfo,
     DeleteRecord,
-    FooterButtons
+    FooterButtons,
+    Message
   },
   data() {
     return {
@@ -60,6 +68,9 @@ export default Vue.extend({
       get(): string {
         return dayjs(this.status.created).format('YYYY/MM/DD HH:mm')
       }
+    },
+    isError() {
+      return false // TODO: statusIdによって切り替える
     }
   }
 })
@@ -70,11 +81,5 @@ export default Vue.extend({
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-.message {
-  background-color: $alert-normal;
-  border-radius: 10px;
-  margin: 16px 0;
-  padding: 16px;
 }
 </style>
