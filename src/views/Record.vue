@@ -16,6 +16,8 @@
           name="temperature"
           label="体温"
           unit="℃"
+          required
+          floating-point
           :step="0.1"
           :value="inputTemperature"
           @input="inputTemperature = $event"
@@ -26,6 +28,7 @@
           name="spo2"
           label="酸素飽和度(SpO2)"
           unit="％"
+          required
           :value="inputSpo2"
           @input="inputSpo2 = $event"
         />
@@ -35,6 +38,7 @@
           name="pulse"
           label="脈拍"
           unit="bpm"
+          required
           :value="inputPulse"
           @input="inputPulse = $event"
         />
