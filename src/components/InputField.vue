@@ -42,6 +42,7 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
+@import '../assets/fields.scss';
 .inputFieldContainer {
   display: flex;
   flex-direction: column;
@@ -49,16 +50,7 @@ export default Vue.extend({
 }
 .inputField {
   font-size: 16px;
-  padding: 16px;
   margin-top: 8px;
-  border-radius: 6px;
-  border: 1px solid $gray-2;
-  &:focus {
-    outline-color: $primary;
-  }
-  &:invalid:not(:focus) {
-    border: 2px solid $error;
-  }
 }
 .labelText {
   font-size: 16px;

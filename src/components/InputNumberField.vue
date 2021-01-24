@@ -115,6 +115,7 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
+@import '../assets/fields.scss';
 .inputFieldContainer {
   display: flex;
   justify-content: space-between;
@@ -133,18 +134,6 @@ export default Vue.extend({
 .inputField {
   width: 100%;
   font-size: 20px;
-  padding: 16px;
-  border-radius: 6px;
-  border: 1px solid $gray-2;
-  &:focus {
-    outline-color: $primary;
-  }
-  &-error {
-    border: 2px solid $error;
-    &:focus {
-      outline-color: $error;
-    }
-  }
 }
 .labelText {
   flex: 0 0 48%;
