@@ -83,11 +83,11 @@ export default Vue.extend({
       return {
         required: {
           isValid: this.ruleRequired,
-          message: '必須項目です'
+          message: '必須項目です' // TODO: メッセージを確定させる
         },
         floatingPoint: {
           isValid: this.ruleFloatingPoint,
-          message: '小数点まで入力してください'
+          message: '小数点まで入力してください' // TODO: メッセージを確定させる
         }
       }
     },
