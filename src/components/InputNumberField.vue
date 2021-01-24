@@ -68,6 +68,9 @@ export default Vue.extend({
   watch: {
     rules() {
       this.showError = this.hasErrors
+    },
+    value() {
+      this.$emit('validate', !this.hasErrors)
     }
   },
   data(): { showError: boolean } {

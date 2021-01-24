@@ -20,6 +20,7 @@
           floating-point
           :step="0.1"
           :value="inputTemperature"
+          @validate="validations.inputTemperature = $event"
           @input="inputTemperature = $event"
         />
       </li>
@@ -30,6 +31,7 @@
           unit="％"
           required
           :value="inputSpo2"
+          @validate="validations.inputSpo2 = $event"
           @input="inputSpo2 = $event"
         />
       </li>
@@ -40,6 +42,7 @@
           unit="bpm"
           required
           :value="inputPulse"
+          @validate="validations.inputPulse = $event"
           @input="inputPulse = $event"
         />
       </li>
@@ -69,7 +72,14 @@
       />
     </section>
     <div class="buttonContainer">
-      <ActionButton size="L" theme="primary">記録する</ActionButton>
+      <ActionButton
+        size="L"
+        :theme="btnTheme"
+        type="submit"
+        :is-submittable="isSubmittable"
+      >
+        記録する
+      </ActionButton>
     </div>
     <FooterButtons />
   </div>
@@ -103,6 +113,7 @@ export default Vue.extend({
     inputPulse: string
     inputMemo: string
     selectedItems: string[]
+    validations: { [key: string]: boolean }
   } {
     return {
       symptomItems: [
@@ -131,7 +142,20 @@ export default Vue.extend({
       inputSpo2: '',
       inputPulse: '',
       inputMemo: '',
-      selectedItems: []
+      selectedItems: [],
+      validations: {
+        inputTemperature: false,
+        inputSpo2: false,
+        inputPulse: false
+      }
+    }
+  },
+  computed: {
+    isSubmittable(): boolean {
+      return Object.keys(this.validations).every(key => this.validations[key])
+    },
+    btnTheme(): string {
+      return this.isSubmittable ? 'primary' : 'disable'
     }
   },
   methods: {
