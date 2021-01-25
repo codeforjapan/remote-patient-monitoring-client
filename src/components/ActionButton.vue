@@ -49,7 +49,7 @@ export default class ActionButton extends Vue {
     return this.to ? 'router-link' : 'button'
   }
 
-  isDisabled(): boolean {
+  get isDisabled(): boolean {
     return this.type === 'submit' && !this.isSubmittable
   }
 }
