@@ -139,7 +139,7 @@ export default Vue.extend({
   flex: 0 0 48%;
   font-size: 20px;
 }
-$message-height: 11px;
+$message-height: 14px;
 .unit {
   font-size: 20px;
   padding-left: 8px;
