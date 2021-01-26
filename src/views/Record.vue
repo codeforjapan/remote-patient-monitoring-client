@@ -63,7 +63,7 @@
           />
         </li>
       </ul>
-      <InputField
+      <InputTextField
         label="上記以外の体調の変化"
         name="memo"
         placeholder="例：昨日の20時ごろから咳が止まらない"
@@ -88,7 +88,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import ActionButton from '@/components/ActionButton.vue'
-import InputField from '@/components/InputField.vue'
+import InputTextField from '@/components/InputTextField.vue'
 import InputNumberField from '@/components/InputNumberField.vue'
 import ToggleSwitch from '@/components/ToggleSwitch.vue'
 import FooterButtons from '@/components/FooterButtons.vue'
@@ -101,7 +101,7 @@ type SymptomItem = {
 export default Vue.extend({
   components: {
     ActionButton,
-    InputField,
+    InputTextField,
     InputNumberField,
     ToggleSwitch,
     FooterButtons

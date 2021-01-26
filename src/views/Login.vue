@@ -1,13 +1,13 @@
 <template>
   <div>
     <h1 class="title">ログイン</h1>
-    <InputField
+    <InputTextField
       label="ログインID"
       name="loginId"
       :value="inputLoginId"
       @input="inputLoginId = $event"
     />
-    <InputField
+    <InputTextField
       label="パスワード"
       type="password"
       name="password"
@@ -38,13 +38,13 @@
 <script lang="ts">
 import Vue from 'vue'
 import ActionButton from '@/components/ActionButton.vue'
-import InputField from '@/components/InputField.vue'
+import InputTextField from '@/components/InputTextField.vue'
 import VCheckbox from '@/components/VCheckbox.vue'
 
 export default Vue.extend({
   components: {
     ActionButton,
-    InputField,
+    InputTextField,
     VCheckbox
   },
   data() {
