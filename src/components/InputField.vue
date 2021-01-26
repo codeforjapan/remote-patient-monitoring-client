@@ -1,21 +1,26 @@
 <template>
   <label class="inputFieldContainer">
     <span class="labelText">{{ label }}</span>
-    <input
-      class="inputField"
+    <VInputField
       :type="type"
       :name="name"
       :placeholder="placeholder"
       :value="value"
-      @input="$emit('input', $event.target.value)"
+      font-size="S"
+      @input="$emit('input', $event)"
+      @validate="$emit('validate', $event)"
     />
   </label>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
+import VInputField from '@/components/VInputField.vue'
 
 export default Vue.extend({
+  components: {
+    VInputField
+  },
   props: {
     type: {
       type: String,
@@ -42,17 +47,13 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-@import '../assets/fields.scss';
 .inputFieldContainer {
   display: flex;
   flex-direction: column;
   padding: 12px 0;
 }
-.inputField {
-  font-size: 16px;
-  margin-top: 8px;
-}
 .labelText {
   font-size: 16px;
+  margin-bottom: 8px;
 }
 </style>
