@@ -16,8 +16,11 @@
           name="temperature"
           label="体温"
           unit="℃"
+          required
+          floating-point
           :step="0.1"
           :value="inputTemperature"
+          @validate="validations.inputTemperature = $event"
           @input="inputTemperature = $event"
         />
       </li>
@@ -26,7 +29,9 @@
           name="spo2"
           label="酸素飽和度(SpO2)"
           unit="％"
+          required
           :value="inputSpo2"
+          @validate="validations.inputSpo2 = $event"
           @input="inputSpo2 = $event"
         />
       </li>
@@ -35,7 +40,9 @@
           name="pulse"
           label="脈拍"
           unit="bpm"
+          required
           :value="inputPulse"
+          @validate="validations.inputPulse = $event"
           @input="inputPulse = $event"
         />
       </li>
@@ -56,7 +63,7 @@
           />
         </li>
       </ul>
-      <InputField
+      <InputTextField
         label="上記以外の体調の変化"
         name="memo"
         placeholder="例：昨日の20時ごろから咳が止まらない"
@@ -65,7 +72,14 @@
       />
     </section>
     <div class="buttonContainer">
-      <ActionButton size="L" theme="primary">記録する</ActionButton>
+      <ActionButton
+        size="L"
+        :theme="btnTheme"
+        type="submit"
+        :is-submittable="isSubmittable"
+      >
+        記録する
+      </ActionButton>
     </div>
     <FooterButtons />
   </div>
@@ -74,7 +88,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import ActionButton from '@/components/ActionButton.vue'
-import InputField from '@/components/InputField.vue'
+import InputTextField from '@/components/InputTextField.vue'
 import InputNumberField from '@/components/InputNumberField.vue'
 import ToggleSwitch from '@/components/ToggleSwitch.vue'
 import FooterButtons from '@/components/FooterButtons.vue'
@@ -87,7 +101,7 @@ type SymptomItem = {
 export default Vue.extend({
   components: {
     ActionButton,
-    InputField,
+    InputTextField,
     InputNumberField,
     ToggleSwitch,
     FooterButtons
@@ -99,6 +113,7 @@ export default Vue.extend({
     inputPulse: string
     inputMemo: string
     selectedItems: string[]
+    validations: { [key: string]: boolean }
   } {
     return {
       symptomItems: [
@@ -127,7 +142,20 @@ export default Vue.extend({
       inputSpo2: '',
       inputPulse: '',
       inputMemo: '',
-      selectedItems: []
+      selectedItems: [],
+      validations: {
+        inputTemperature: false,
+        inputSpo2: false,
+        inputPulse: false
+      }
+    }
+  },
+  computed: {
+    isSubmittable(): boolean {
+      return Object.keys(this.validations).every(key => this.validations[key])
+    },
+    btnTheme(): string {
+      return this.isSubmittable ? 'primary' : 'disable'
     }
   },
   methods: {

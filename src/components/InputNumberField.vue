@@ -1,25 +1,29 @@
 <template>
   <label class="inputFieldContainer">
     <span class="labelText">{{ label }}</span>
-    <div class="inputFieldOuter">
-      <input
-        class="inputField"
-        type="number"
-        :name="name"
-        :placeholder="placeholder"
-        :step="step"
-        :value="value"
-        @input="$emit('input', $event.target.value)"
-      />
-      <span v-if="unit" class="unit">{{ unit }}</span>
-    </div>
+    <VInputField
+      type="number"
+      :name="name"
+      :placeholder="placeholder"
+      :step="step"
+      :value="value"
+      :unit="unit"
+      :required="required"
+      :floating-point="floatingPoint"
+      @input="$emit('input', $event)"
+      @validate="$emit('validate', $event)"
+    />
   </label>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
+import VInputField from '@/components/VInputField.vue'
 
 export default Vue.extend({
+  components: {
+    VInputField
+  },
   props: {
     value: {
       type: String,
@@ -44,6 +48,14 @@ export default Vue.extend({
     step: {
       type: Number,
       default: 0
+    },
+    required: {
+      type: Boolean,
+      default: false
+    },
+    floatingPoint: {
+      type: Boolean,
+      default: false
     }
   }
 })
@@ -55,32 +67,8 @@ export default Vue.extend({
   justify-content: space-between;
   align-items: center;
 }
-.inputFieldOuter {
-  flex: 1 1 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-}
-.inputField {
-  flex: 1 1 auto;
-  width: 0;
-  font-size: 20px;
-  padding: 16px;
-  border-radius: 6px;
-  border: 1px solid $gray-2;
-  &:focus {
-    outline-color: $primary;
-  }
-  &:invalid:not(:focus) {
-    border: 2px solid $error;
-  }
-}
 .labelText {
-  flex: 0 0 48%;
+  flex: 0 0 35%;
   font-size: 20px;
-}
-.unit {
-  font-size: 20px;
-  padding-left: 8px;
 }
 </style>
