@@ -10,7 +10,7 @@
         :placeholder="placeholder"
         :step="step"
         :value="value"
-        @input="$emit('input', $event.target.value)"
+        @input="$emit('input', $event)"
       />
       <small class="message">{{ errorMessage }}</small>
     </div>

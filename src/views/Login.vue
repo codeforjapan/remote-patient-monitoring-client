@@ -2,29 +2,21 @@
   <div>
     <h1 class="title">ログイン</h1>
     <form name="form" @submit.prevent="handleLogin">
-      <VeeInputTextField
+      <InputTextField
         label="ユーザ名"
         name="username"
         value="inputLoginId"
         v-model="user.username"
         rules="required"
       />
-      <div class="form-group"></div>
-      <div class="form-group">
-        <validation-provider name="パスワード" rules="required">
-          <div slot-scope="ProviderProps">
-            <label for="password">パスワード</label>
-            <input
-              v-model="user.password"
-              type="password"
-              class="form-control"
-              name="password"
-              autocomplete="current-password"
-            />
-            <p class="error">{{ ProviderProps.errors[0] }}</p>
-          </div>
-        </validation-provider>
-      </div>
+      <InputTextField
+        label="パスワード"
+        rules="required"
+        name="password"
+        v-model="user.password"
+        type="password"
+        autocomplete="current-password"
+      />
       <div class="form-group">
         <button class="btn btn-primary btn-block" :disabled="loading">
           <span
@@ -56,12 +48,12 @@
 import { Component, Vue } from 'vue-property-decorator'
 import { namespace } from 'vuex-class'
 import { AuthUser } from '../modules/auth.module'
-import VeeInputTextField from '@/components/VeeInputTextField.vue'
+import InputTextField from '@/components/InputTextField.vue'
 const Auth = namespace('Auth')
 
 @Component({
   components: {
-    VeeInputTextField
+    InputTextField
   }
 })
 export default class Login extends Vue {
