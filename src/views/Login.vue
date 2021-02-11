@@ -1,19 +1,51 @@
 <template>
   <div>
     <h1 class="title">ログイン</h1>
-    <InputTextField
-      label="ログインID"
-      name="loginId"
-      :value="inputLoginId"
-      @input="inputLoginId = $event"
-    />
-    <InputTextField
-      label="パスワード"
-      type="password"
-      name="password"
-      :value="inputPassword"
-      @input="inputPassword = $event"
-    />
+    <form name="form" @submit.prevent="handleLogin">
+      <div class="form-group">
+        <validation-provider name="ユーザ名" rules="required">
+          <div slot-scope="ProviderProps">
+            <label for="username">ユーザ名</label>
+            <input
+              v-model="user.username"
+              type="text"
+              class="form-control"
+              name="username"
+            />
+            <p class="error">{{ ProviderProps.errors[0] }}</p>
+          </div>
+        </validation-provider>
+      </div>
+      <div class="form-group">
+        <validation-provider name="パスワード" rules="required">
+          <div slot-scope="ProviderProps">
+            <label for="password">パスワード</label>
+            <input
+              v-model="user.password"
+              type="password"
+              class="form-control"
+              name="password"
+              autocomplete="current-password"
+            />
+            <p class="error">{{ ProviderProps.errors[0] }}</p>
+          </div>
+        </validation-provider>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-primary btn-block" :disabled="loading">
+          <span
+            v-show="loading"
+            class="spinner-border spinner-border-sm"
+          ></span>
+          <span>ログイン</span>
+        </button>
+      </div>
+      <div class="form-group">
+        <div v-if="message" class="alert alert-danger" role="alert">
+          {{ message }}
+        </div>
+      </div>
+    </form>
     <div class="right">
       <router-link to="/terms">
         パスワードを忘れた場合
@@ -24,42 +56,51 @@
         利用規約を読む
       </router-link>
     </div>
-    <div class="margin">
-      <VCheckbox name="agree" v-model="agree">
-        利用規約に同意する
-      </VCheckbox>
-    </div>
-    <ActionButton size="L" theme="primary" @click="handleLogin">
-      ログイン
-    </ActionButton>
   </div>
 </template>
-
 <script lang="ts">
-import Vue from 'vue'
-import ActionButton from '@/components/ActionButton.vue'
-import InputTextField from '@/components/InputTextField.vue'
-import VCheckbox from '@/components/VCheckbox.vue'
+import { Component, Vue } from 'vue-property-decorator'
+import { namespace } from 'vuex-class'
+import { AuthUser } from '../modules/auth.module'
+const Auth = namespace('Auth')
 
-export default Vue.extend({
-  components: {
-    ActionButton,
-    InputTextField,
-    VCheckbox
-  },
-  data() {
-    return {
-      inputLoginId: '',
-      inputPassword: '',
-      agree: false
-    }
-  },
-  methods: {
-    handleLogin() {
-      this.$router.push({ name: 'Record' })
+@Component
+export default class Login extends Vue {
+  private user = { username: '', password: '' }
+  private loading = false
+  private message = ''
+
+  @Auth.Getter
+  private isLoggedIn!: boolean
+
+  @Auth.Action
+  private login!: (data: {
+    username: string
+    password: string
+  }) => Promise<AuthUser>
+
+  created() {
+    if (this.isLoggedIn) {
+      this.$router.push('/record')
     }
   }
-})
+
+  handleLogin() {
+    this.loading = true
+    if (this.user.username && this.user.password) {
+      this.login(this.user).then(
+        data => {
+          console.log(data)
+          this.$router.push('/record')
+        },
+        error => {
+          this.loading = false
+          this.message = error
+        }
+      )
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>
