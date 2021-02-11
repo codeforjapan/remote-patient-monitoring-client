@@ -2,20 +2,14 @@
   <div>
     <h1 class="title">ログイン</h1>
     <form name="form" @submit.prevent="handleLogin">
-      <div class="form-group">
-        <validation-provider name="ユーザ名" rules="required">
-          <div slot-scope="ProviderProps">
-            <label for="username">ユーザ名</label>
-            <input
-              v-model="user.username"
-              type="text"
-              class="form-control"
-              name="username"
-            />
-            <p class="error">{{ ProviderProps.errors[0] }}</p>
-          </div>
-        </validation-provider>
-      </div>
+      <VeeInputTextField
+        label="ユーザ名"
+        name="username"
+        value="inputLoginId"
+        v-model="user.username"
+        rules="required"
+      />
+      <div class="form-group"></div>
       <div class="form-group">
         <validation-provider name="パスワード" rules="required">
           <div slot-scope="ProviderProps">
@@ -62,9 +56,14 @@
 import { Component, Vue } from 'vue-property-decorator'
 import { namespace } from 'vuex-class'
 import { AuthUser } from '../modules/auth.module'
+import VeeInputTextField from '@/components/VeeInputTextField.vue'
 const Auth = namespace('Auth')
 
-@Component
+@Component({
+  components: {
+    VeeInputTextField
+  }
+})
 export default class Login extends Vue {
   private user = { username: '', password: '' }
   private loading = false
@@ -81,7 +80,7 @@ export default class Login extends Vue {
 
   created() {
     if (this.isLoggedIn) {
-      this.$router.push('/record')
+      //this.$router.push('/record')
     }
   }
 
