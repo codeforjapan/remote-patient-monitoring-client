@@ -12,6 +12,7 @@ class UserService {
   }
 
   getStatuses() {
+    console.log(API_URL + `patients/${this.getUserId()}/statuses`)
     return axios.get(API_URL + `patients/${this.getUserId()}/statuses`, {
       headers: authHeader()
     })
@@ -23,7 +24,9 @@ class UserService {
       return null
     }
     const authHeader = (JSON.parse(user) as AuthUser).idToken
-    const payload = btoa(authHeader.split('.')[1])
+    console.log(authHeader)
+    console.log(authHeader.split('.')[1])
+    const payload = atob(authHeader.split('.')[1])
     console.log(payload)
     return JSON.parse(payload)['cognito:username']
   }

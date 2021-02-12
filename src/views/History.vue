@@ -7,6 +7,7 @@
       <ActionButton size="S" theme="outline" :is-inline="true" to="/record">
         体調を記録する
       </ActionButton>
+      <span class="error">{{ error }}</span>
     </div>
     <header class="header">
       <h1 class="headerTitle">体調記録</h1>
@@ -24,6 +25,7 @@ import ActionButton from '@/components/ActionButton.vue'
 import ListOrGraphSwitch from '@/components/ListOrGraphSwitch.vue'
 import HistoryTable from '@/components/HistoryTable.vue'
 import FooterButtons from '@/components/FooterButtons.vue'
+import UserService from '@/services/UserService'
 
 @Component({
   components: {
@@ -36,62 +38,19 @@ import FooterButtons from '@/components/FooterButtons.vue'
 })
 export default class History extends Vue {
   displayMode = 'list'
-  statuses = [
-    {
-      statusId: 'string',
-      patientId: 'string',
-      centerId: 'string',
-      created: '2021-01-11T13:06:25.212Z',
-      SpO2: 98,
-      bodyTemperature: 37.0,
-      pulse: 81,
-      symptom: {
-        symptomId: 'string',
-        cough: true,
-        phlegm: true,
-        suffocation: true,
-        headache: true,
-        soreThroat: true,
-        remarks: '昨日の20時ごろから咳が止まらない。'
+  statuses = []
+  error = ''
+  mounted() {
+    UserService.getStatuses().then(
+      response => {
+        console.log(response)
+        this.statuses = response.data
+      },
+      error => {
+        this.error = error.toString()
       }
-    },
-    {
-      statusId: 'string',
-      patientId: 'string',
-      centerId: 'string',
-      created: '2021-01-12T13:06:25.212Z',
-      SpO2: 98,
-      bodyTemperature: 37.6,
-      pulse: 81,
-      symptom: {
-        symptomId: 'string',
-        cough: true,
-        phlegm: true,
-        suffocation: true,
-        headache: true,
-        soreThroat: true,
-        remarks: '昨日の20時ごろから咳が止まらない。'
-      }
-    },
-    {
-      statusId: 'string',
-      patientId: 'string',
-      centerId: 'string',
-      created: '2021-01-13T13:06:25.212Z',
-      SpO2: 98,
-      bodyTemperature: 37.3,
-      pulse: 81,
-      symptom: {
-        symptomId: 'string',
-        cough: true,
-        phlegm: true,
-        suffocation: true,
-        headache: true,
-        soreThroat: true,
-        remarks: '昨日の20時ごろから咳が止まらない。'
-      }
-    }
-  ]
+    )
+  }
 }
 </script>
 

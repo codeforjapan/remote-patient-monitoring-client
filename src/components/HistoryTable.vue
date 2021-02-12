@@ -12,9 +12,9 @@
     <tbody>
       <tr v-for="(item, index) in reverseItems" :key="index" class="historyRow">
         <td class="historyCell date alignLeft">{{ getDate(item.created) }}</td>
-        <td class="historyCell">{{ item.bodyTemperature.toFixed(1) }}</td>
-        <td class="historyCell">{{ item.SpO2 }}</td>
-        <td class="historyCell">{{ item.pulse }}</td>
+        <td class="historyCell">{{ item.body_temperature.toFixed(1) }}</td>
+        <td class="historyCell">{{ item.SpO2.toFixed(1) }}</td>
+        <td class="historyCell">{{ item.pulse.toFixed(1) }}</td>
         <td class="historyCell">
           <ActionButton
             size="S"
