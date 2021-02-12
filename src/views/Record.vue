@@ -1,12 +1,7 @@
 <template>
   <div>
     <div class="headerButtonContainer">
-      <ActionButton
-        size="S"
-        theme="text"
-        :is-inline="true"
-        @click.prevent="logout"
-      >
+      <ActionButton size="S" theme="text" :is-inline="true" @click="logout">
         ログアウト
       </ActionButton>
       <ActionButton size="S" theme="outline" :is-inline="true" to="/history">
@@ -97,6 +92,9 @@ import InputTextField from '@/components/InputTextField.vue'
 import InputNumberField from '@/components/InputNumberField.vue'
 import ToggleSwitch from '@/components/ToggleSwitch.vue'
 import FooterButtons from '@/components/FooterButtons.vue'
+import { namespace } from 'vuex-class'
+
+const Auth = namespace('Auth')
 
 type SymptomItem = {
   name: string
@@ -112,6 +110,8 @@ type SymptomItem = {
   }
 })
 export default class Record extends Vue {
+  @Auth.Action
+  private signOut!: () => void
   symptomItems: SymptomItem[] = [
     {
       name: 'cough',
@@ -156,6 +156,10 @@ export default class Record extends Vue {
     } else {
       this.selectedItems = this.selectedItems.filter((v: string) => v !== value)
     }
+  }
+  logout(): void {
+    this.signOut()
+    this.$router.push('/login')
   }
 }
 </script>
