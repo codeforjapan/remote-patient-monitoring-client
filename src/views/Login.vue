@@ -17,31 +17,27 @@
         type="password"
         autocomplete="current-password"
       />
-      <div class="form-group">
-        <button class="btn btn-primary btn-block" :disabled="loading">
-          <span
-            v-show="loading"
-            class="spinner-border spinner-border-sm"
-          ></span>
-          <span>ログイン</span>
-        </button>
+      <div class="right">
+        <router-link to="/terms">
+          パスワードを忘れた場合
+        </router-link>
+      </div>
+      <div class="margin">
+        <router-link to="/terms">
+          利用規約を読む
+        </router-link>
       </div>
       <div class="form-group">
         <div v-if="message" class="alert alert-danger" role="alert">
           {{ message }}
         </div>
       </div>
+      <div class="form-group">
+        <ActionButton size="L" theme="primary" @click="handleLogin">
+          ログイン
+        </ActionButton>
+      </div>
     </form>
-    <div class="right">
-      <router-link to="/terms">
-        パスワードを忘れた場合
-      </router-link>
-    </div>
-    <div class="margin">
-      <router-link to="/terms">
-        利用規約を読む
-      </router-link>
-    </div>
   </div>
 </template>
 <script lang="ts">
@@ -49,11 +45,13 @@ import { Component, Vue } from 'vue-property-decorator'
 import { namespace } from 'vuex-class'
 import { AuthUser } from '../modules/auth.module'
 import InputTextField from '@/components/InputTextField.vue'
+import ActionButton from '@/components/ActionButton.vue'
 const Auth = namespace('Auth')
 
 @Component({
   components: {
-    InputTextField
+    InputTextField,
+    ActionButton
   }
 })
 export default class Login extends Vue {

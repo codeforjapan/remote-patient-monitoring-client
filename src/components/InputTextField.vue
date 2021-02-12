@@ -9,6 +9,7 @@
           :placeholder="placeholder"
           :value="value"
           font-size="S"
+          :autocomplete="autocomplete"
           @input="$emit('input', $event.target.value)"
         />
         <span class="error">{{ ProviderProps.errors[0] }}</span>
@@ -46,6 +47,9 @@ export default class VeeInputTextField extends Vue {
 
   @Prop({ type: String, default: '' })
   placeholder: string | undefined
+
+  @Prop({ type: String, default: 'on' })
+  autocomplete: string | undefined
 }
 </script>
 

@@ -10,6 +10,7 @@
         :placeholder="placeholder"
         :step="step"
         :value="value"
+        :autocomplete="autocomplete"
         @input="$emit('input', $event)"
       />
       <small class="message">{{ errorMessage }}</small>
@@ -63,6 +64,10 @@ export default Vue.extend({
     fontSize: {
       type: String,
       default: 'M'
+    },
+    autocomplete: {
+      type: String,
+      default: 'on'
     },
     unit: {
       type: String,
