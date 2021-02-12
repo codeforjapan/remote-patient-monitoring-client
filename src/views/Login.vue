@@ -43,7 +43,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import { namespace } from 'vuex-class'
-import { AuthUser } from '../modules/auth.module'
+import { AuthUser } from '@/store/modules/auth.module'
 import InputTextField from '@/components/InputTextField.vue'
 import ActionButton from '@/components/ActionButton.vue'
 const Auth = namespace('Auth')
