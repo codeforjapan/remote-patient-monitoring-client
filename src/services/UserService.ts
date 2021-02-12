@@ -11,6 +11,12 @@ class UserService {
     })
   }
 
+  getStatuses() {
+    return axios.get(API_URL + `patients/${this.getUserId()}/statuses`, {
+      headers: authHeader()
+    })
+  }
+
   getUserId() {
     const user = localStorage.getItem('user')
     if (!user) {

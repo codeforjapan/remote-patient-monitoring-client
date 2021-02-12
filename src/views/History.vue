@@ -18,83 +18,81 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import { Component, Vue } from 'vue-property-decorator'
 import AngleLeftIcon from '@/assets/images/icon-angle-left.svg'
 import ActionButton from '@/components/ActionButton.vue'
 import ListOrGraphSwitch from '@/components/ListOrGraphSwitch.vue'
 import HistoryTable from '@/components/HistoryTable.vue'
 import FooterButtons from '@/components/FooterButtons.vue'
 
-export default Vue.extend({
+@Component({
   components: {
     AngleLeftIcon,
     ActionButton,
     ListOrGraphSwitch,
     HistoryTable,
     FooterButtons
-  },
-  data() {
-    return {
-      displayMode: 'list',
-      statuses: [
-        {
-          statusId: 'string',
-          patientId: 'string',
-          centerId: 'string',
-          created: '2021-01-11T13:06:25.212Z',
-          SpO2: 98,
-          body_temperature: 37.0,
-          pulse: 81,
-          symptom: {
-            symptomId: 'string',
-            cough: true,
-            phlegm: true,
-            suffocation: true,
-            headache: true,
-            sore_throat: true,
-            remarks: '昨日の20時ごろから咳が止まらない。'
-          }
-        },
-        {
-          statusId: 'string',
-          patientId: 'string',
-          centerId: 'string',
-          created: '2021-01-12T13:06:25.212Z',
-          SpO2: 98,
-          body_temperature: 37.6,
-          pulse: 81,
-          symptom: {
-            symptomId: 'string',
-            cough: true,
-            phlegm: true,
-            suffocation: true,
-            headache: true,
-            sore_throat: true,
-            remarks: '昨日の20時ごろから咳が止まらない。'
-          }
-        },
-        {
-          statusId: 'string',
-          patientId: 'string',
-          centerId: 'string',
-          created: '2021-01-13T13:06:25.212Z',
-          SpO2: 98,
-          body_temperature: 37.3,
-          pulse: 81,
-          symptom: {
-            symptomId: 'string',
-            cough: true,
-            phlegm: true,
-            suffocation: true,
-            headache: true,
-            sore_throat: true,
-            remarks: '昨日の20時ごろから咳が止まらない。'
-          }
-        }
-      ]
-    }
   }
 })
+export default class History extends Vue {
+  displayMode = 'list'
+  statuses = [
+    {
+      statusId: 'string',
+      patientId: 'string',
+      centerId: 'string',
+      created: '2021-01-11T13:06:25.212Z',
+      SpO2: 98,
+      bodyTemperature: 37.0,
+      pulse: 81,
+      symptom: {
+        symptomId: 'string',
+        cough: true,
+        phlegm: true,
+        suffocation: true,
+        headache: true,
+        soreThroat: true,
+        remarks: '昨日の20時ごろから咳が止まらない。'
+      }
+    },
+    {
+      statusId: 'string',
+      patientId: 'string',
+      centerId: 'string',
+      created: '2021-01-12T13:06:25.212Z',
+      SpO2: 98,
+      bodyTemperature: 37.6,
+      pulse: 81,
+      symptom: {
+        symptomId: 'string',
+        cough: true,
+        phlegm: true,
+        suffocation: true,
+        headache: true,
+        soreThroat: true,
+        remarks: '昨日の20時ごろから咳が止まらない。'
+      }
+    },
+    {
+      statusId: 'string',
+      patientId: 'string',
+      centerId: 'string',
+      created: '2021-01-13T13:06:25.212Z',
+      SpO2: 98,
+      bodyTemperature: 37.3,
+      pulse: 81,
+      symptom: {
+        symptomId: 'string',
+        cough: true,
+        phlegm: true,
+        suffocation: true,
+        headache: true,
+        soreThroat: true,
+        remarks: '昨日の20時ごろから咳が止まらない。'
+      }
+    }
+  ]
+}
 </script>
 
 <style lang="scss" scoped>
