@@ -39,7 +39,7 @@ const guardedRoutes: Array<RouteConfig> = [
 guardedRoutes.forEach((routeObject, index) => {
   Object.assign(guardedRoutes[index], {
     meta: {
-      requiresAuth: false // 認証のAPIと繋げたあとにtrueにする
+      requiresAuth: true // 認証のAPIと繋げたあとにtrueにする
     }
   })
 })

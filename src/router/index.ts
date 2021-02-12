@@ -14,8 +14,9 @@ router.addRoutes(guardedRoutes)
 router.addRoutes(nonGuardedRoutes)
 
 router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.requiresAuth)) {
-    next({ name: 'login' })
+  const loggedIn = localStorage.getItem('user')
+  if (to.matched.some(record => record.meta.requiresAuth) && !loggedIn) {
+    next('/login')
   } else {
     next()
   }
