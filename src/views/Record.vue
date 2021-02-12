@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="headerButtonContainer">
-      <ActionButton size="S" theme="text" :is-inline="true">
+      <ActionButton size="S" theme="text" :is-inline="true" @click="logout">
         ログアウト
       </ActionButton>
       <ActionButton size="S" theme="outline" :is-inline="true" to="/history">
@@ -86,90 +86,82 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import { Component, Vue } from 'vue-property-decorator'
 import ActionButton from '@/components/ActionButton.vue'
 import InputTextField from '@/components/InputTextField.vue'
 import InputNumberField from '@/components/InputNumberField.vue'
 import ToggleSwitch from '@/components/ToggleSwitch.vue'
 import FooterButtons from '@/components/FooterButtons.vue'
+import { namespace } from 'vuex-class'
+
+const Auth = namespace('Auth')
 
 type SymptomItem = {
   name: string
   label: string
 }
-
-export default Vue.extend({
+@Component({
   components: {
     ActionButton,
     InputTextField,
     InputNumberField,
     ToggleSwitch,
     FooterButtons
-  },
-  data(): {
-    symptomItems: SymptomItem[]
-    inputTemperature: string
-    inputSpo2: string
-    inputPulse: string
-    inputMemo: string
-    selectedItems: string[]
-    validations: { [key: string]: boolean }
-  } {
-    return {
-      symptomItems: [
-        {
-          name: 'cough',
-          label: 'せき'
-        },
-        {
-          name: 'phlegm',
-          label: 'たん'
-        },
-        {
-          name: 'suffocation',
-          label: '息苦しさ'
-        },
-        {
-          name: 'headache',
-          label: '頭痛'
-        },
-        {
-          name: 'sore_throat',
-          label: 'のどの痛み'
-        }
-      ],
-      inputTemperature: '',
-      inputSpo2: '',
-      inputPulse: '',
-      inputMemo: '',
-      selectedItems: [],
-      validations: {
-        inputTemperature: false,
-        inputSpo2: false,
-        inputPulse: false
-      }
-    }
-  },
-  computed: {
-    isSubmittable(): boolean {
-      return Object.keys(this.validations).every(key => this.validations[key])
-    },
-    btnTheme(): string {
-      return this.isSubmittable ? 'primary' : 'disable'
-    }
-  },
-  methods: {
-    itemSelectControl(checked: boolean, value: string) {
-      if (!this.selectedItems.includes(value)) {
-        this.selectedItems.push(value)
-      } else {
-        this.selectedItems = this.selectedItems.filter(
-          (v: string) => v !== value
-        )
-      }
-    }
   }
 })
+export default class Record extends Vue {
+  @Auth.Action
+  private signOut!: () => void
+  symptomItems: SymptomItem[] = [
+    {
+      name: 'cough',
+      label: 'せき'
+    },
+    {
+      name: 'phlegm',
+      label: 'たん'
+    },
+    {
+      name: 'suffocation',
+      label: '息苦しさ'
+    },
+    {
+      name: 'headache',
+      label: '頭痛'
+    },
+    {
+      name: 'sore_throat',
+      label: 'のどの痛み'
+    }
+  ]
+  inputTemperature = ''
+  inputSpo2 = ''
+  inputPulse = ''
+  inputMemo = ''
+  selectedItems: string[] = []
+  validations: { [key: string]: boolean } = {
+    inputTemperature: false,
+    inputSpo2: false,
+    inputPulse: false
+  }
+  get isSubmittable(): boolean {
+    return Object.keys(this.validations).every(key => this.validations[key])
+  }
+  get btnTheme(): string {
+    return this.isSubmittable ? 'primary' : 'disable'
+  }
+  itemSelectControl(checked: boolean, value: string) {
+    if (!this.selectedItems.includes(value)) {
+      this.selectedItems.push(value)
+    } else {
+      this.selectedItems = this.selectedItems.filter((v: string) => v !== value)
+    }
+  }
+  logout(): void {
+    this.signOut()
+    this.$router.push('/login')
+  }
+}
 </script>
 
 <style lang="scss" scoped>

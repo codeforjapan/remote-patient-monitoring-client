@@ -1,31 +1,26 @@
 <template>
   <validation-provider :name="name" :rules="rules">
     <div slot-scope="ProviderProps">
-      <label class="inputFieldContainer">
+      <label for="username" class="inputFieldContainer">
         <span class="labelText">{{ label }}</span>
-        <VInputField
+        <input
+          :v-model="username"
           :type="type"
+          class="form-control"
           :name="name"
           :placeholder="placeholder"
           :value="value"
           font-size="S"
-          :autocomplete="autocomplete"
-          @input="$emit('input', $event.target.value)"
         />
-        <span class="error">{{ ProviderProps.errors[0] }}</span>
+        <p class="error">{{ ProviderProps.errors[0] }}</p>
       </label>
     </div>
   </validation-provider>
 </template>
 
 <script lang="ts">
-import VInputField from '@/components/VInputField.vue'
 import { Component, Prop, Vue } from 'vue-property-decorator'
-@Component({
-  components: {
-    VInputField
-  }
-})
+@Component
 export default class VeeInputTextField extends Vue {
   @Prop({ type: String, default: '' })
   username: string | undefined
@@ -47,9 +42,6 @@ export default class VeeInputTextField extends Vue {
 
   @Prop({ type: String, default: '' })
   placeholder: string | undefined
-
-  @Prop({ type: String, default: 'on' })
-  autocomplete: string | undefined
 }
 </script>
 

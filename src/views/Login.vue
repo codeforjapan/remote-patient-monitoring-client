@@ -1,65 +1,95 @@
 <template>
   <div>
     <h1 class="title">ログイン</h1>
-    <InputTextField
-      label="ログインID"
-      name="loginId"
-      :value="inputLoginId"
-      @input="inputLoginId = $event"
-    />
-    <InputTextField
-      label="パスワード"
-      type="password"
-      name="password"
-      :value="inputPassword"
-      @input="inputPassword = $event"
-    />
-    <div class="right">
-      <router-link to="/terms">
-        パスワードを忘れた場合
-      </router-link>
-    </div>
-    <div class="margin">
-      <router-link to="/terms">
-        利用規約を読む
-      </router-link>
-    </div>
-    <div class="margin">
-      <VCheckbox name="agree" v-model="agree">
-        利用規約に同意する
-      </VCheckbox>
-    </div>
-    <ActionButton size="L" theme="primary" @click="handleLogin">
-      ログイン
-    </ActionButton>
+    <form name="form" @submit.prevent="handleLogin">
+      <InputTextField
+        label="ユーザ名"
+        name="username"
+        value="inputLoginId"
+        v-model="user.username"
+        rules="required"
+      />
+      <InputTextField
+        label="パスワード"
+        rules="required"
+        name="password"
+        v-model="user.password"
+        type="password"
+        autocomplete="current-password"
+      />
+      <div class="right">
+        <router-link to="/terms">
+          パスワードを忘れた場合
+        </router-link>
+      </div>
+      <div class="margin">
+        <router-link to="/terms">
+          利用規約を読む
+        </router-link>
+      </div>
+      <div class="form-group">
+        <div v-if="message" class="alert alert-danger" role="alert">
+          {{ message }}
+        </div>
+      </div>
+      <div class="form-group">
+        <ActionButton size="L" theme="primary" @click="handleLogin">
+          ログイン
+        </ActionButton>
+      </div>
+    </form>
   </div>
 </template>
-
 <script lang="ts">
-import Vue from 'vue'
-import ActionButton from '@/components/ActionButton.vue'
+import { Component, Vue } from 'vue-property-decorator'
+import { namespace } from 'vuex-class'
+import { AuthUser } from '@/store/modules/auth.module'
 import InputTextField from '@/components/InputTextField.vue'
-import VCheckbox from '@/components/VCheckbox.vue'
+import ActionButton from '@/components/ActionButton.vue'
+const Auth = namespace('Auth')
 
-export default Vue.extend({
+@Component({
   components: {
-    ActionButton,
     InputTextField,
-    VCheckbox
-  },
-  data() {
-    return {
-      inputLoginId: '',
-      inputPassword: '',
-      agree: false
-    }
-  },
-  methods: {
-    handleLogin() {
-      this.$router.push({ name: 'Record' })
-    }
+    ActionButton
   }
 })
+export default class Login extends Vue {
+  private user = { username: '', password: '' }
+  private loading = false
+  private message = ''
+
+  @Auth.Getter
+  private isLoggedIn!: boolean
+
+  @Auth.Action
+  private login!: (data: {
+    username: string
+    password: string
+  }) => Promise<AuthUser>
+
+  created() {
+    if (this.isLoggedIn) {
+      //this.$router.push('/record')
+    }
+  }
+
+  handleLogin() {
+    this.loading = true
+    if (this.user.username && this.user.password) {
+      this.login(this.user).then(
+        data => {
+          console.log(data)
+          this.$router.push('/record')
+        },
+        error => {
+          this.loading = false
+          this.message = error
+        }
+      )
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>
