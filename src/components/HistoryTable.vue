@@ -16,14 +16,14 @@
         <td class="historyCell">{{ item.SpO2.toFixed(1) }}</td>
         <td class="historyCell">{{ item.pulse.toFixed(1) }}</td>
         <td class="historyCell">
-          <ActionButton
+          <GoDetailButton
             size="S"
             theme="text"
             :is-inline="true"
-            :to="`/detail/${item.statusId}`"
+            :to="`{name:'Detail' params:{ statusId: ${item.statusId}}`"
           >
             <AngleRightIcon />
-          </ActionButton>
+          </GoDetailButton>
         </td>
       </tr>
     </tbody>
@@ -35,12 +35,12 @@ import Vue from 'vue'
 import dayjs from 'dayjs'
 import { Status } from '@/@types/component-interfaces/status'
 import AngleRightIcon from '@/assets/images/icon-angle-right.svg'
-import ActionButton from '@/components/ActionButton.vue'
+import GoDetailButton from '@/components/GoDetailButton.vue'
 
 export default Vue.extend({
   components: {
     AngleRightIcon,
-    ActionButton
+    GoDetailButton
   },
   props: {
     items: {

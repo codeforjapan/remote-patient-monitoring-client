@@ -12,7 +12,6 @@ class UserService {
   }
 
   getStatuses() {
-    console.log(API_URL + `patients/${this.getUserId()}/statuses`)
     return axios.get(API_URL + `patients/${this.getUserId()}/statuses`, {
       headers: authHeader()
     })

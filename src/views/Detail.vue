@@ -1,5 +1,6 @@
 <template>
   <div>
+    <span class="error">{{ error }}</span>
     <div class="headerButtonContainer">
       <ActionButton size="S" theme="text" :is-inline="true" to="/history">
         <AngleLeftIcon />
@@ -16,52 +17,33 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import { Component, Prop, Vue } from 'vue-property-decorator'
 import dayjs from 'dayjs'
 import AngleLeftIcon from '@/assets/images/icon-angle-left.svg'
 import ActionButton from '@/components/ActionButton.vue'
 import StatusInfo from '@/components/StatusInfo.vue'
 import DeleteRecord from '@/components/DeleteRecord.vue'
 import FooterButtons from '@/components/FooterButtons.vue'
+import { Status } from '@/@types/component-interfaces/status'
 
-export default Vue.extend({
+@Component({
   components: {
     AngleLeftIcon,
     ActionButton,
     StatusInfo,
     DeleteRecord,
     FooterButtons
-  },
-  data() {
-    return {
-      status: {
-        statusId: 'string',
-        patientId: 'string',
-        centerId: 'string',
-        created: '2021-01-11T13:06:25.212Z',
-        SpO2: 98,
-        body_temperature: 37.0,
-        pulse: 81,
-        symptom: {
-          symptomId: 'string',
-          cough: true,
-          phlegm: true,
-          suffocation: true,
-          headache: true,
-          sore_throat: true,
-          remarks: '昨日の20時ごろから咳が止まらない。'
-        }
-      }
-    }
-  },
-  computed: {
-    date: {
-      get(): string {
-        return dayjs(this.status.created).format('YYYY/MM/DD HH:mm')
-      }
-    }
   }
 })
+export default class Detail extends Vue {
+  error = ''
+  @Prop()
+  status!: Status
+
+  get date() {
+    return dayjs(this.status.created).format('YYYY/MM/DD HH:mm')
+  }
+}
 </script>
 
 <style lang="scss" scoped>
