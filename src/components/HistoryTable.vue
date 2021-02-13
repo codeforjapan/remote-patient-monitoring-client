@@ -20,7 +20,7 @@
             size="S"
             theme="text"
             :is-inline="true"
-            @click="showDetail(index)"
+            :to="`/detail/${item.statusId}`"
           >
             <AngleRightIcon />
           </ActionButton>

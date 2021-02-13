@@ -4,8 +4,11 @@ import { Status } from '@/@types/component-interfaces/status'
 
 @Module({ namespaced: true })
 class Statuses extends VuexModule {
-  public statuses: Status[] | null = null
+  private statuses: Status[] | undefined = undefined
 
+  public get getStatuses(): Status[] | undefined {
+    return this.statuses
+  }
   @Mutation
   public loadSuccess(statuses: Status[]): void {
     this.statuses = statuses
@@ -13,7 +16,7 @@ class Statuses extends VuexModule {
 
   @Mutation
   public loadFailure(): void {
-    this.statuses = null
+    this.statuses = undefined
   }
 
   @Action({ rawError: true })

@@ -47,7 +47,10 @@ export default class History extends Vue {
   @Statuses.Action
   private load!: () => Promise<Status[]>
 
-  mounted() {
+  @Statuses.Getter
+  private getStatuses!: Status[]
+
+  created() {
     this.load().then(statuses => {
       this.statuses = statuses
     })

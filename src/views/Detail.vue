@@ -25,6 +25,9 @@ import StatusInfo from '@/components/StatusInfo.vue'
 import DeleteRecord from '@/components/DeleteRecord.vue'
 import FooterButtons from '@/components/FooterButtons.vue'
 import { Status } from '@/@types/component-interfaces/status'
+import { namespace } from 'vuex-class'
+
+const Statuses = namespace('Statuses')
 
 @Component({
   components: {
@@ -38,10 +41,24 @@ import { Status } from '@/@types/component-interfaces/status'
 export default class Detail extends Vue {
   error = ''
   @Prop()
-  status!: Status
+  statusId!: string
+
+  @Statuses.Getter
+  private getStatuses!: Status[]
 
   get date() {
-    return dayjs(this.status.created).format('YYYY/MM/DD HH:mm')
+    if (this.status) {
+      return dayjs(this.status.created).format('YYYY/MM/DD HH:mm')
+    } else {
+      return ''
+    }
+  }
+  get status() {
+    if (this.getStatuses) {
+      return this.getStatuses.find(status => status.statusId === this.statusId)
+    } else {
+      return undefined
+    }
   }
 }
 </script>

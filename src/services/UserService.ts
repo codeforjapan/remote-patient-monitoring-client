@@ -23,7 +23,6 @@ class UserService {
         headers: authHeader()
       })
       .then(response => {
-        console.log(response)
         return response.data
       })
   }
@@ -34,10 +33,7 @@ class UserService {
       return null
     }
     const authHeader = (JSON.parse(user) as AuthUser).idToken
-    console.log(authHeader)
-    console.log(authHeader.split('.')[1])
     const payload = atob(authHeader.split('.')[1])
-    console.log(payload)
     return JSON.parse(payload)['cognito:username']
   }
 }
