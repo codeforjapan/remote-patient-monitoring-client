@@ -10,20 +10,20 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="(item, index) in reverseItems" :key="index" class="historyRow">
+      <tr v-for="(item, index) in this.items" :key="index" class="historyRow">
         <td class="historyCell date alignLeft">{{ getDate(item.created) }}</td>
         <td class="historyCell">{{ item.body_temperature.toFixed(1) }}</td>
         <td class="historyCell">{{ item.SpO2.toFixed(1) }}</td>
         <td class="historyCell">{{ item.pulse.toFixed(1) }}</td>
         <td class="historyCell">
-          <GoDetailButton
+          <ActionButton
             size="S"
             theme="text"
             :is-inline="true"
-            :to="`{name:'Detail' params:{ statusId: ${item.statusId}}`"
+            @click="showDetail(index)"
           >
             <AngleRightIcon />
-          </GoDetailButton>
+          </ActionButton>
         </td>
       </tr>
     </tbody>
@@ -33,14 +33,14 @@
 <script lang="ts">
 import Vue from 'vue'
 import dayjs from 'dayjs'
+import ActionButton from '@/components/ActionButton.vue'
 import { Status } from '@/@types/component-interfaces/status'
 import AngleRightIcon from '@/assets/images/icon-angle-right.svg'
-import GoDetailButton from '@/components/GoDetailButton.vue'
 
 export default Vue.extend({
   components: {
     AngleRightIcon,
-    GoDetailButton
+    ActionButton
   },
   props: {
     items: {
@@ -48,14 +48,17 @@ export default Vue.extend({
       default: []
     }
   },
-  computed: {
-    reverseItems(): Status[] {
-      return this.items.slice().reverse()
-    }
-  },
   methods: {
     getDate(date: string): string {
       return dayjs(date).format('MM/DD HH:mm')
+    },
+    showDetail(index: number) {
+      this.$router.push({
+        name: 'Detail',
+        params: {
+          id: this.items[index].statusId
+        }
+      })
     }
   }
 })

@@ -1,20 +1,31 @@
 import { AuthUser } from '../store/modules/auth.module'
 import axios from 'axios'
 import authHeader from './auth-header'
+import Status from '@/store/modules/statuses.module'
 
 const API_URL = 'https://monitoring.stopcovid19.jp/stg/api/patient/'
 
 class UserService {
   getUserInfo() {
-    return axios.get(API_URL + `patients/${this.getUserId()}`, {
-      headers: authHeader()
-    })
+    return axios
+      .get(API_URL + `patients/${this.getUserId()}`, {
+        headers: authHeader()
+      })
+      .then(response => {
+        console.log(response)
+        return response.data
+      })
   }
 
-  getStatuses() {
-    return axios.get(API_URL + `patients/${this.getUserId()}/statuses`, {
-      headers: authHeader()
-    })
+  getStatuses(): Promise<any> {
+    return axios
+      .get(API_URL + `patients/${this.getUserId()}/statuses`, {
+        headers: authHeader()
+      })
+      .then(response => {
+        console.log(response)
+        return response.data
+      })
   }
 
   getUserId() {

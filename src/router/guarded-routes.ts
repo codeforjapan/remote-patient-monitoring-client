@@ -23,7 +23,6 @@ const guardedRoutes: Array<RouteConfig> = [
   {
     path: '/detail/:statusId',
     name: 'Detail',
-    props: true,
     component: Detail
   }
   // {
