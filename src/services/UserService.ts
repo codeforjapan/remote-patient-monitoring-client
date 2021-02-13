@@ -1,21 +1,30 @@
 import { AuthUser } from '../store/modules/auth.module'
 import axios from 'axios'
 import authHeader from './auth-header'
+import Status from '@/store/modules/statuses.module'
 
 const API_URL = 'https://monitoring.stopcovid19.jp/stg/api/patient/'
 
 class UserService {
   getUserInfo() {
-    return axios.get(API_URL + `patients/${this.getUserId()}`, {
-      headers: authHeader()
-    })
+    return axios
+      .get(API_URL + `patients/${this.getUserId()}`, {
+        headers: authHeader()
+      })
+      .then(response => {
+        console.log(response)
+        return response.data
+      })
   }
 
-  getStatuses() {
-    console.log(API_URL + `patients/${this.getUserId()}/statuses`)
-    return axios.get(API_URL + `patients/${this.getUserId()}/statuses`, {
-      headers: authHeader()
-    })
+  getStatuses(): Promise<any> {
+    return axios
+      .get(API_URL + `patients/${this.getUserId()}/statuses`, {
+        headers: authHeader()
+      })
+      .then(response => {
+        return response.data
+      })
   }
 
   getUserId() {
@@ -24,10 +33,7 @@ class UserService {
       return null
     }
     const authHeader = (JSON.parse(user) as AuthUser).idToken
-    console.log(authHeader)
-    console.log(authHeader.split('.')[1])
     const payload = atob(authHeader.split('.')[1])
-    console.log(payload)
     return JSON.parse(payload)['cognito:username']
   }
 }

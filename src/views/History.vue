@@ -20,12 +20,15 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
+import { namespace } from 'vuex-class'
 import AngleLeftIcon from '@/assets/images/icon-angle-left.svg'
 import ActionButton from '@/components/ActionButton.vue'
 import ListOrGraphSwitch from '@/components/ListOrGraphSwitch.vue'
 import HistoryTable from '@/components/HistoryTable.vue'
 import FooterButtons from '@/components/FooterButtons.vue'
-import UserService from '@/services/UserService'
+import { Status } from '@/@types/component-interfaces/status'
+
+const Statuses = namespace('Statuses')
 
 @Component({
   components: {
@@ -38,18 +41,19 @@ import UserService from '@/services/UserService'
 })
 export default class History extends Vue {
   displayMode = 'list'
-  statuses = []
+  statuses: Status[] = []
   error = ''
-  mounted() {
-    UserService.getStatuses().then(
-      response => {
-        console.log(response)
-        this.statuses = response.data
-      },
-      error => {
-        this.error = error.toString()
-      }
-    )
+
+  @Statuses.Action
+  private load!: () => Promise<Status[]>
+
+  @Statuses.Getter
+  private getStatuses!: Status[]
+
+  created() {
+    this.load().then(statuses => {
+      this.statuses = statuses
+    })
   }
 }
 </script>
