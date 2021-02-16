@@ -5,6 +5,7 @@ module.exports = {
   },
   extends: [
     'plugin:vue/essential',
+    'plugin:prettier/recommended',
     'eslint:recommended',
     '@vue/typescript/recommended',
     '@vue/prettier',
@@ -16,7 +17,6 @@ module.exports = {
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    camelcase: 'off',
-    '@typescript-eslint/camelcase': ['warn']
+    '@typescript-eslint/camelcase': ['error', { properties: 'never' }]
   }
 }
