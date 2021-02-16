@@ -106,8 +106,8 @@ type SymptomItem = {
     InputTextField,
     InputNumberField,
     ToggleSwitch,
-    FooterButtons
-  }
+    FooterButtons,
+  },
 })
 export default class Record extends Vue {
   @Auth.Action
@@ -115,24 +115,24 @@ export default class Record extends Vue {
   symptomItems: SymptomItem[] = [
     {
       name: 'cough',
-      label: 'せき'
+      label: 'せき',
     },
     {
       name: 'phlegm',
-      label: 'たん'
+      label: 'たん',
     },
     {
       name: 'suffocation',
-      label: '息苦しさ'
+      label: '息苦しさ',
     },
     {
       name: 'headache',
-      label: '頭痛'
+      label: '頭痛',
     },
     {
       name: 'sore_throat',
-      label: 'のどの痛み'
-    }
+      label: 'のどの痛み',
+    },
   ]
   inputTemperature = ''
   inputSpo2 = ''
@@ -142,7 +142,7 @@ export default class Record extends Vue {
   validations: { [key: string]: boolean } = {
     inputTemperature: false,
     inputSpo2: false,
-    inputPulse: false
+    inputPulse: false,
   }
   get isSubmittable(): boolean {
     return Object.keys(this.validations).every(key => this.validations[key])

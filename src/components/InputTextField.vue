@@ -23,8 +23,8 @@ import VInputField from '@/components/VInputField.vue'
 import { Component, Prop, Vue } from 'vue-property-decorator'
 @Component({
   components: {
-    VInputField
-  }
+    VInputField,
+  },
 })
 export default class VeeInputTextField extends Vue {
   @Prop({ type: String, default: '' })

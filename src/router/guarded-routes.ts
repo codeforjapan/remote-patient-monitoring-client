@@ -8,24 +8,24 @@ const guardedRoutes: Array<RouteConfig> = [
   {
     path: '/record',
     name: 'Record',
-    component: Record
+    component: Record,
   },
   {
     path: '/registered',
     name: 'Registered',
-    component: Registered
+    component: Registered,
   },
   {
     path: '/history',
     name: 'History',
-    component: History
+    component: History,
   },
   {
     path: '/detail/:statusId',
     name: 'Detail',
     props: true,
-    component: Detail
-  }
+    component: Detail,
+  },
   // {
   //   path: '/about',
   //   name: 'About',
@@ -40,8 +40,8 @@ const guardedRoutes: Array<RouteConfig> = [
 guardedRoutes.forEach((routeObject, index) => {
   Object.assign(guardedRoutes[index], {
     meta: {
-      requiresAuth: true // 認証のAPIと繋げたあとにtrueにする
-    }
+      requiresAuth: true, // 認証のAPIと繋げたあとにtrueにする
+    },
   })
 })
 

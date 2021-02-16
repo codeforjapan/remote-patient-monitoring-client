@@ -21,26 +21,26 @@ import Vue from 'vue'
 export default Vue.extend({
   model: {
     prop: 'checked',
-    event: 'input'
+    event: 'input',
   },
   props: {
     name: {
       type: String,
-      required: true
+      required: true,
     },
     label: {
       type: String,
-      default: ''
+      default: '',
     },
     checked: {
       type: Boolean,
-      default: false
+      default: false,
     },
     value: {
       type: String,
-      default: ''
-    }
-  }
+      default: '',
+    },
+  },
 })
 </script>
 

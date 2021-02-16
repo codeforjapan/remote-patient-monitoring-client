@@ -36,8 +36,8 @@ const Statuses = namespace('Statuses')
     ActionButton,
     ListOrGraphSwitch,
     HistoryTable,
-    FooterButtons
-  }
+    FooterButtons,
+  },
 })
 export default class History extends Vue {
   displayMode = 'list'
