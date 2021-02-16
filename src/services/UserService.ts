@@ -16,6 +16,7 @@ class UserService {
       })
   }
 
+  // eslint-disable-next-line
   getStatuses(): Promise<any> {
     return axios
       .get(API_URL + `patients/${this.getUserId()}/statuses`, {
