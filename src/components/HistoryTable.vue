@@ -40,13 +40,13 @@ import AngleRightIcon from '@/assets/images/icon-angle-right.svg'
 export default Vue.extend({
   components: {
     AngleRightIcon,
-    ActionButton
+    ActionButton,
   },
   props: {
     items: {
       type: Array as () => Status[],
-      default: []
-    }
+      default: [],
+    },
   },
   methods: {
     getDate(date: string): string {
@@ -56,11 +56,11 @@ export default Vue.extend({
       this.$router.push({
         name: 'Detail',
         params: {
-          id: this.items[index].statusId
-        }
+          id: this.items[index].statusId,
+        },
       })
-    }
-  }
+    },
+  },
 })
 </script>
 

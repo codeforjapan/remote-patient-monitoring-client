@@ -11,14 +11,14 @@ export default Vue.extend({
   props: {
     isError: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   computed: {
     messageType() {
       return this.isError ? 'Error' : 'Normal'
-    }
-  }
+    },
+  },
 })
 </script>
 

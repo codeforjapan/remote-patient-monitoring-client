@@ -26,17 +26,17 @@ import ChartAreaIcon from '@/assets/images/icon-chart-area.svg'
 export default Vue.extend({
   model: {
     prop: 'checked',
-    event: 'input'
+    event: 'input',
   },
   components: {
     ListIcon,
-    ChartAreaIcon
+    ChartAreaIcon,
   },
   props: {
     checked: {
       type: String,
-      default: ''
-    }
+      default: '',
+    },
   },
   data() {
     return {
@@ -45,17 +45,17 @@ export default Vue.extend({
           id: 'radioList',
           value: 'list',
           text: 'リスト',
-          icon: ListIcon
+          icon: ListIcon,
         },
         {
           id: 'radioGraph',
           value: 'graph',
           text: 'グラフ',
-          icon: ChartAreaIcon
-        }
-      ]
+          icon: ChartAreaIcon,
+        },
+      ],
     }
-  }
+  },
 })
 </script>
 

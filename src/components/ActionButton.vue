@@ -24,7 +24,7 @@ export default class ActionButton extends Vue {
   fontSizeMap: Map<SizeType, FontSizeType> = new Map([
     ['L', '24px'],
     ['M', '16px'],
-    ['S', '12px']
+    ['S', '12px'],
   ])
 
   @Prop({ default: false })

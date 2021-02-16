@@ -47,7 +47,7 @@ class User extends VuexModule {
           error.message ||
           error.toString()
         return Promise.reject(message)
-      }
+      },
     )
   }
 

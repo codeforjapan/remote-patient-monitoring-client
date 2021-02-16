@@ -55,11 +55,11 @@ export default Vue.extend({
           suffocation: false,
           headache: false,
           sore_throat: false,
-          remarks: ''
-        }
-      })
-    }
-  }
+          remarks: '',
+        },
+      }),
+    },
+  },
 })
 </script>
 

@@ -2,9 +2,9 @@ module.exports = {
   css: {
     loaderOptions: {
       scss: {
-        prependData: `@import "~@/assets/variables.scss";`
-      }
-    }
+        prependData: `@import "~@/assets/variables.scss";`,
+      },
+    },
   },
   chainWebpack: config => {
     const svgRule = config.module.rule('svg')
@@ -15,5 +15,5 @@ module.exports = {
       .end()
       .use('vue-svg-loader')
       .loader('vue-svg-loader')
-  }
+  },
 }

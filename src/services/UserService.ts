@@ -8,7 +8,7 @@ class UserService {
   getUserInfo() {
     return axios
       .get(API_URL + `patients/${this.getUserId()}`, {
-        headers: authHeader()
+        headers: authHeader(),
       })
       .then(response => {
         console.log(response)
@@ -20,7 +20,7 @@ class UserService {
   getStatuses(): Promise<any> {
     return axios
       .get(API_URL + `patients/${this.getUserId()}/statuses`, {
-        headers: authHeader()
+        headers: authHeader(),
       })
       .then(response => {
         return response.data

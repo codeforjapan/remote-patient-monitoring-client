@@ -13,8 +13,8 @@ import ActionButton from '@/components/ActionButton.vue'
 
 export default Vue.extend({
   components: {
-    ActionButton
-  }
+    ActionButton,
+  },
 })
 </script>
 

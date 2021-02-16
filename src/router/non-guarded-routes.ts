@@ -6,13 +6,13 @@ const nonGuardedRoutes: Array<RouteConfig> = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
   },
   {
     path: '/login',
     name: 'Login',
-    component: Login
-  }
+    component: Login,
+  },
 ]
 
 export default nonGuardedRoutes

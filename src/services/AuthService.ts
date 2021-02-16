@@ -8,7 +8,7 @@ class AuthService {
     return axios
       .post(API_URL + 'login', {
         username,
-        password
+        password,
       })
       .then(response => {
         if (response.data.idToken) {
