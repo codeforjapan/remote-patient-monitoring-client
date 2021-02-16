@@ -9,78 +9,82 @@
       </ActionButton>
     </div>
     <h1>体調を記録する</h1>
-    <span class="date">2020/12/26 09:14</span>
-    <ul class="conditionList">
-      <li class="conditionItem">
-        <InputNumberField
-          name="temperature"
-          label="体温"
-          unit="℃"
-          required
-          floating-point
-          :step="0.1"
-          :value="inputTemperature"
-          @validate="validations.inputTemperature = $event"
-          @input="inputTemperature = $event"
-        />
-      </li>
-      <li class="conditionItem">
-        <InputNumberField
-          name="spo2"
-          label="酸素飽和度(SpO2)"
-          unit="％"
-          required
-          :value="inputSpo2"
-          @validate="validations.inputSpo2 = $event"
-          @input="inputSpo2 = $event"
-        />
-      </li>
-      <li class="conditionItem">
-        <InputNumberField
-          name="pulse"
-          label="脈拍"
-          unit="bpm"
-          required
-          :value="inputPulse"
-          @validate="validations.inputPulse = $event"
-          @input="inputPulse = $event"
-        />
-      </li>
-    </ul>
-    <section class="symptomsSection">
-      <h3>該当の症状はありますか？</h3>
-      <ul class="symptomsList">
-        <li
-          v-for="(item, index) in symptomItems"
-          :key="index"
-          class="symptomsItem"
-        >
-          <ToggleSwitch
-            :name="item.name"
-            :label="item.label"
-            :value="item.name"
-            @input="itemSelectControl"
+    <form name="form" @submit.prevent="handleLogin">
+      <span class="date">{{ date }}</span>
+      <ul class="conditionList">
+        <li class="conditionItem">
+          <InputNumberField
+            name="temperature"
+            label="体温"
+            unit="℃"
+            required
+            floating-point
+            :step="0.1"
+            value="inputTemperature"
+            @validate="validations.inputTemperature = $event"
+            @input="inputTemperature = $event"
+            rules="required"
+          />
+        </li>
+        <li class="conditionItem">
+          <InputNumberField
+            name="spo2"
+            label="酸素飽和度(SpO2)"
+            unit="％"
+            required
+            value="inputSpo2"
+            @validate="validations.inputSpo2 = $event"
+            @input="inputSpo2 = $event"
+            rules="required"
+          />
+        </li>
+        <li class="conditionItem">
+          <InputNumberField
+            name="pulse"
+            label="脈拍"
+            unit="bpm"
+            required
+            value="inputPulse"
+            @validate="validations.inputPulse = $event"
+            @input="inputPulse = $event"
           />
         </li>
       </ul>
-      <InputTextField
-        label="上記以外の体調の変化"
-        name="memo"
-        placeholder="例：昨日の20時ごろから咳が止まらない"
-        :value="inputMemo"
-        @input="inputMemo = $event"
-      />
-    </section>
-    <div class="buttonContainer">
-      <ActionButton
-        size="L"
-        :theme="btnTheme"
-        type="submit"
-        :is-submittable="isSubmittable"
-      >
-        記録する
-      </ActionButton>
-    </div>
+      <section class="symptomsSection">
+        <h3>該当の症状はありますか？</h3>
+        <ul class="symptomsList">
+          <li
+            v-for="(item, index) in symptomItems"
+            :key="index"
+            class="symptomsItem"
+          >
+            <ToggleSwitch
+              :name="item.name"
+              :label="item.label"
+              :value="item.name"
+              @input="itemSelectControl"
+            />
+          </li>
+        </ul>
+        <InputTextField
+          label="上記以外の体調の変化"
+          name="memo"
+          placeholder="例：昨日の20時ごろから咳が止まらない"
+          :value="inputMemo"
+          @input="inputMemo = $event"
+        />
+      </section>
+      <div class="buttonContainer">
+        <ActionButton
+          size="L"
+          :theme="btnTheme"
+          type="submit"
+          :is-submittable="isSubmittable"
+        >
+          記録する
+        </ActionButton>
+      </div>
+    </form>
     <FooterButtons />
   </div>
 </template>
@@ -92,7 +96,9 @@ import InputTextField from '@/components/InputTextField.vue'
 import InputNumberField from '@/components/InputNumberField.vue'
 import ToggleSwitch from '@/components/ToggleSwitch.vue'
 import FooterButtons from '@/components/FooterButtons.vue'
+import { ConsumeStatus } from '@/@types/component-interfaces/status'
 import { namespace } from 'vuex-class'
+import dayjs from 'dayjs'
 
 const Auth = namespace('Auth')
 
@@ -110,8 +116,12 @@ type SymptomItem = {
   }
 })
 export default class Record extends Vue {
+  private status: ConsumeStatus = {
+    body_temperature: null
+  }
   @Auth.Action
   private signOut!: () => void
+  private mydate = new Date()
   symptomItems: SymptomItem[] = [
     {
       name: 'cough',
@@ -144,7 +154,13 @@ export default class Record extends Vue {
     inputSpo2: false,
     inputPulse: false
   }
+  get date(): string {
+    return dayjs(this.mydate).format('YYYY/MM/DD HH:mm')
+  }
   get isSubmittable(): boolean {
+    console.log(
+      Object.keys(this.validations).every(key => this.validations[key])
+    )
     return Object.keys(this.validations).every(key => this.validations[key])
   }
   get btnTheme(): string {

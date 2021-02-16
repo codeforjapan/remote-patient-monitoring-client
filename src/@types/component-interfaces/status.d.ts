@@ -16,3 +16,16 @@ export interface Status {
     remarks: string
   }
 }
+export interface ConsumeStatus {
+  SpO2: number
+  body_temperature: number
+  pulse: number
+  symptom: {
+    cough: boolean
+    phlegm: boolean
+    suffocation: boolean
+    headache: boolean
+    sore_throat: true
+    remarks: string
+  }
+}

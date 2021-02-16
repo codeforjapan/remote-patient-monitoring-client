@@ -6,25 +6,22 @@ import Status from '@/store/modules/statuses.module'
 const API_URL = 'https://monitoring.stopcovid19.jp/stg/api/patient/'
 
 class UserService {
-  getUserInfo() {
-    return axios
-      .get(API_URL + `patients/${this.getUserId()}`, {
-        headers: authHeader()
-      })
-      .then(response => {
-        console.log(response)
-        return response.data
-      })
+  async getUserInfo() {
+    const response = await axios.get(API_URL + `patients/${this.getUserId()}`, {
+      headers: authHeader()
+    })
+    console.log(response)
+    return response.data
   }
 
-  getStatuses(): Promise<any> {
-    return axios
-      .get(API_URL + `patients/${this.getUserId()}/statuses`, {
+  async getStatuses(): Promise<Status[]> {
+    const response = await axios.get(
+      API_URL + `patients/${this.getUserId()}/statuses`,
+      {
         headers: authHeader()
-      })
-      .then(response => {
-        return response.data
-      })
+      }
+    )
+    return response.data
   }
 
   getUserId() {
@@ -35,6 +32,17 @@ class UserService {
     const authHeader = (JSON.parse(user) as AuthUser).idToken
     const payload = atob(authHeader.split('.')[1])
     return JSON.parse(payload)['cognito:username']
+  }
+
+  async putStatus(status: Status) {
+    const response = await axios.post(
+      API_URL + `patients/${this.getUserId()}/statuses`,
+      status,
+      {
+        headers: authHeader()
+      }
+    )
+    return response.data
   }
 }
 
