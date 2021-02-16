@@ -35,44 +35,44 @@ export default Vue.extend({
   props: {
     value: {
       type: String,
-      default: ''
+      default: '',
     },
     type: {
       type: String,
-      default: 'text'
+      default: 'text',
     },
     name: {
       type: String,
-      default: ''
+      default: '',
     },
     placeholder: {
       type: String,
-      default: ''
+      default: '',
     },
     step: {
       type: Number,
-      default: 0
+      default: 0,
     },
     required: {
       type: Boolean,
-      default: false
+      default: false,
     },
     floatingPoint: {
       type: Boolean,
-      default: false
+      default: false,
     },
     fontSize: {
       type: String,
-      default: 'M'
+      default: 'M',
     },
     autocomplete: {
       type: String,
-      default: 'on'
+      default: 'on',
     },
     unit: {
       type: String,
-      default: ''
-    }
+      default: '',
+    },
   },
   watch: {
     rules() {
@@ -80,7 +80,7 @@ export default Vue.extend({
     },
     value() {
       this.$emit('validate', !this.hasErrors)
-    }
+    },
   },
   data(): {
     showError: boolean
@@ -90,8 +90,8 @@ export default Vue.extend({
       showError: false,
       fontSizeMap: new Map([
         ['M', '20px'],
-        ['S', '16px']
-      ])
+        ['S', '16px'],
+      ]),
     }
   },
   computed: {
@@ -99,12 +99,12 @@ export default Vue.extend({
       return {
         required: {
           isValid: this.ruleRequired,
-          message: '必須項目です' // TODO: メッセージを確定させる
+          message: '必須項目です', // TODO: メッセージを確定させる
         },
         floatingPoint: {
           isValid: this.ruleFloatingPoint,
-          message: '小数点まで入力してください' // TODO: メッセージを確定させる
-        }
+          message: '小数点まで入力してください', // TODO: メッセージを確定させる
+        },
       }
     },
     ruleRequired(): boolean {
@@ -123,10 +123,10 @@ export default Vue.extend({
     },
     hasErrors(): boolean {
       return Object.keys(this.rules).some(
-        (key: string) => !this.rules[key].isValid
+        (key: string) => !this.rules[key].isValid,
       )
-    }
-  }
+    },
+  },
 })
 </script>
 

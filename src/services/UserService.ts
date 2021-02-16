@@ -1,14 +1,14 @@
 import { AuthUser } from '../store/modules/auth.module'
 import axios from 'axios'
 import authHeader from './auth-header'
-import Status from '@/store/modules/statuses.module'
+import { Status } from '@/@types/component-interfaces/status'
 
 const API_URL = 'https://monitoring.stopcovid19.jp/stg/api/patient/'
 
 class UserService {
   async getUserInfo() {
     const response = await axios.get(API_URL + `patients/${this.getUserId()}`, {
-      headers: authHeader()
+      headers: authHeader(),
     })
     console.log(response)
     return response.data
@@ -18,8 +18,8 @@ class UserService {
     const response = await axios.get(
       API_URL + `patients/${this.getUserId()}/statuses`,
       {
-        headers: authHeader()
-      }
+        headers: authHeader(),
+      },
     )
     return response.data
   }
@@ -39,8 +39,8 @@ class UserService {
       API_URL + `patients/${this.getUserId()}/statuses`,
       status,
       {
-        headers: authHeader()
-      }
+        headers: authHeader(),
+      },
     )
     return response.data
   }

@@ -35,7 +35,7 @@ class Statuses extends VuexModule {
           error.message ||
           error.toString()
         return Promise.reject(message)
-      }
+      },
     )
   }
 }

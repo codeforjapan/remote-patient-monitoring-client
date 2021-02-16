@@ -35,8 +35,8 @@ const Statuses = namespace('Statuses')
     ActionButton,
     StatusInfo,
     DeleteRecord,
-    FooterButtons
-  }
+    FooterButtons,
+  },
 })
 export default class Detail extends Vue {
   error = ''

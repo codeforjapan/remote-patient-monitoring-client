@@ -13,11 +13,11 @@ Vue.component('ValidationProvider', ValidationProvider)
 Vue.config.productionTip = false
 extend('required', {
   ...required,
-  message: 'This field is required'
+  message: 'This field is required',
 })
 new Vue({
   router,
   store,
   computed: mapState(['user', 'statuses']),
-  render: h => h(App)
+  render: h => h(App),
 }).$mount('#app')

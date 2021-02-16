@@ -51,8 +51,8 @@ const Auth = namespace('Auth')
 @Component({
   components: {
     InputTextField,
-    ActionButton
-  }
+    ActionButton,
+  },
 })
 export default class Login extends Vue {
   private user = { username: '', password: '' }
@@ -85,7 +85,7 @@ export default class Login extends Vue {
         error => {
           this.loading = false
           this.message = error
-        }
+        },
       )
     }
   }

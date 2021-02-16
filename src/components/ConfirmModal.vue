@@ -36,13 +36,13 @@ import ActionButton from '@/components/ActionButton.vue'
 
 export default Vue.extend({
   components: {
-    ActionButton
+    ActionButton,
   },
   props: {
     isOpen: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   methods: {
     handlePositiveButtonClick() {
@@ -52,8 +52,8 @@ export default Vue.extend({
     handleNegativeButtonClick() {
       this.$emit('click')
       this.$emit('click-negative')
-    }
-  }
+    },
+  },
 })
 </script>
 

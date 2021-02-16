@@ -22,26 +22,26 @@ import ConfirmModal from '@/components/ConfirmModal.vue'
 
 export default Vue.extend({
   components: {
-    ConfirmModal
+    ConfirmModal,
   },
   props: {
     statusId: {
       type: String,
-      default: ''
-    }
+      default: '',
+    },
   },
   data(): {
     isOpenConfirm: boolean
   } {
     return {
-      isOpenConfirm: false
+      isOpenConfirm: false,
     }
   },
   methods: {
     deleteStatus(statusId: string): void {
       console.log(statusId)
-    }
-  }
+    },
+  },
 })
 </script>
 

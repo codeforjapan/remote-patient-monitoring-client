@@ -41,7 +41,7 @@ interface PhoneItem {
 export default Vue.extend({
   components: {
     PhoneIcon,
-    ConfirmModal
+    ConfirmModal,
   },
   data(): {
     phoneItems: PhoneItem[]
@@ -54,17 +54,17 @@ export default Vue.extend({
         {
           destination: 'healthCenter',
           telNumber: '00-0000-0000',
-          text: '担当保健所に電話しますか？'
+          text: '担当保健所に電話しますか？',
         },
         {
           destination: 'emergency',
           telNumber: '119',
-          text: '119番に電話します。よろしいですか？'
-        }
+          text: '119番に電話します。よろしいですか？',
+        },
       ],
       confirmText: '',
       number: '',
-      isOpenConfirm: false
+      isOpenConfirm: false,
     }
   },
   methods: {
@@ -78,8 +78,8 @@ export default Vue.extend({
     },
     openTel(number: string): void {
       window.open(`tel:${number}`, '_self')
-    }
-  }
+    },
+  },
 })
 </script>
 

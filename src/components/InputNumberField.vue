@@ -22,42 +22,42 @@ import VInputField from '@/components/VInputField.vue'
 
 export default Vue.extend({
   components: {
-    VInputField
+    VInputField,
   },
   props: {
     value: {
       type: String,
-      default: ''
+      default: '',
     },
     label: {
       type: String,
-      default: ''
+      default: '',
     },
     name: {
       type: String,
-      default: ''
+      default: '',
     },
     placeholder: {
       type: String,
-      default: ''
+      default: '',
     },
     unit: {
       type: String,
-      default: ''
+      default: '',
     },
     step: {
       type: Number,
-      default: 0
+      default: 0,
     },
     required: {
       type: Boolean,
-      default: false
+      default: false,
     },
     floatingPoint: {
       type: Boolean,
-      default: false
-    }
-  }
+      default: false,
+    },
+  },
 })
 </script>
 

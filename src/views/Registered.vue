@@ -39,7 +39,7 @@ export default Vue.extend({
     StatusInfo,
     DeleteRecord,
     FooterButtons,
-    Message
+    Message,
   },
   data() {
     return {
@@ -58,21 +58,21 @@ export default Vue.extend({
           suffocation: true,
           headache: true,
           sore_throat: true,
-          remarks: '昨日の20時ごろから咳が止まらない。'
-        }
-      }
+          remarks: '昨日の20時ごろから咳が止まらない。',
+        },
+      },
     }
   },
   computed: {
     date: {
       get(): string {
         return dayjs(this.status.created).format('YYYY/MM/DD HH:mm')
-      }
+      },
     },
     isError() {
       return false // TODO: statusIdによって切り替える
-    }
-  }
+    },
+  },
 })
 </script>
 
