@@ -1,7 +1,6 @@
 import { AuthUser } from '../store/modules/auth.module'
 import axios from 'axios'
 import authHeader from './auth-header'
-import Status from '@/store/modules/statuses.module'
 
 const API_URL = 'https://monitoring.stopcovid19.jp/stg/api/patient/'
 
