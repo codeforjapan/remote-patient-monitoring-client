@@ -1,6 +1,6 @@
 <template>
   <div>
-    <span class="error">{{ error }}</span>
+    <div v-if="error" class="error">{{ error }}</div>
     <div class="headerButtonContainer">
       <ActionButton size="S" theme="text" :is-inline="true" to="/history">
         <AngleLeftIcon />
@@ -9,9 +9,12 @@
         体調を記録する
       </ActionButton>
     </div>
+    <div v-if="showmessage" class="message">{{ showmessage }}</div>
     <h1>{{ date }}</h1>
-    <StatusInfo :status="status" />
-    <DeleteRecord :status-id="status.statusId" />
+    <template v-if="status">
+      <StatusInfo :status="status" />
+      <DeleteRecord :status-id="status.statusId" />
+    </template>
     <FooterButtons />
   </div>
 </template>
@@ -43,9 +46,18 @@ export default class Detail extends Vue {
   @Prop()
   statusId!: string
 
+  @Prop()
+  message?: string
+
   @Statuses.Getter
   private getStatuses!: Status[]
 
+  @Statuses.Action
+  private load!: () => Promise<Status[]>
+
+  get showmessage() {
+    return this.message
+  }
   get date() {
     if (this.status) {
       return dayjs(this.status.created).format('YYYY/MM/DD HH:mm')
@@ -54,9 +66,12 @@ export default class Detail extends Vue {
     }
   }
   get status() {
-    if (this.getStatuses) {
+    if (this.getStatuses.length > 0) {
       return this.getStatuses.find(status => status.statusId === this.statusId)
     } else {
+      this.load().then(statuses => {
+        return statuses.find(status => status.statusId === this.statusId)
+      })
       return undefined
     }
   }
@@ -68,5 +83,12 @@ export default class Detail extends Vue {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+.message {
+  padding: 10px;
+  margin-top: 8px;
+  /* Color Universal/Base Green */
+  background: #77d9a8;
+  border-radius: 10px;
 }
 </style>
