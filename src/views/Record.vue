@@ -188,6 +188,7 @@ export default class Record extends Vue {
             name: 'Detail',
             params: {
               statusId: data.statusId,
+              message: '体調記録を登録しました',
             },
           })
         },

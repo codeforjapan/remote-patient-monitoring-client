@@ -47,12 +47,10 @@ class Statuses extends VuexModule {
   create(status: ConsumeStatus): Promise<Status> {
     return UserService.postStatus(status).then(
       status => {
-        console.log(status)
         this.context.commit('pushStatus', status)
         return Promise.resolve(status)
       },
       error => {
-        console.log(error)
         const message =
           (error.response &&
             error.response.data &&
