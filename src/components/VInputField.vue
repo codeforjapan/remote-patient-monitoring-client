@@ -113,7 +113,7 @@ export default Vue.extend({
     },
     ruleFloatingPoint(): boolean {
       if (!this.floatingPoint) return true
-      return Number(this.value) % 1 !== 0
+      return this.value.match(/\d+\.\d/) != null
     },
     errorMessage(): string {
       if (!this.showError) return ''

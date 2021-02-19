@@ -28,9 +28,6 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
 })
 export default class VeeInputTextField extends Vue {
   @Prop({ type: String, default: '' })
-  username: string | undefined
-
-  @Prop({ type: String, default: '' })
   rules: string | undefined
 
   @Prop({ type: String, default: 'text' })

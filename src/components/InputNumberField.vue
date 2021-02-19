@@ -1,64 +1,58 @@
 <template>
-  <label class="inputFieldContainer">
-    <span class="labelText">{{ label }}</span>
-    <VInputField
-      type="number"
-      :name="name"
-      :placeholder="placeholder"
-      :step="step"
-      :value="value"
-      :unit="unit"
-      :required="required"
-      :floating-point="floatingPoint"
-      @input="$emit('input', $event)"
-      @validate="$emit('validate', $event)"
-    />
-  </label>
+  <validation-provider :name="name" :rules="rules">
+    <label class="inputFieldContainer">
+      <span class="labelText">{{ label }}</span>
+      <VInputField
+        type="number"
+        :name="name"
+        :placeholder="placeholder"
+        :step="step"
+        :value="value"
+        :unit="unit"
+        :required="required"
+        :floating-point="floatingPoint"
+        @input="$emit('input', $event.target.value)"
+      />
+    </label>
+  </validation-provider>
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
 import VInputField from '@/components/VInputField.vue'
-
-export default Vue.extend({
+import { Component, Prop, Vue } from 'vue-property-decorator'
+@Component({
   components: {
     VInputField,
   },
-  props: {
-    value: {
-      type: String,
-      default: '',
-    },
-    label: {
-      type: String,
-      default: '',
-    },
-    name: {
-      type: String,
-      default: '',
-    },
-    placeholder: {
-      type: String,
-      default: '',
-    },
-    unit: {
-      type: String,
-      default: '',
-    },
-    step: {
-      type: Number,
-      default: 0,
-    },
-    required: {
-      type: Boolean,
-      default: false,
-    },
-    floatingPoint: {
-      type: Boolean,
-      default: false,
-    },
-  },
 })
+export default class InputNumberField extends Vue {
+  @Prop({ type: String, default: '' })
+  rules: string | undefined
+
+  @Prop({ type: String, default: 0 })
+  value: string | undefined
+
+  @Prop({ type: String, default: '' })
+  label: string | undefined
+
+  @Prop({ type: String, default: '' })
+  name: string | undefined
+
+  @Prop({ type: String, default: '' })
+  placeholder: string | undefined
+
+  @Prop({ type: String, default: '' })
+  unit: string | undefined
+
+  @Prop({ type: Number, default: 0 })
+  step: number | undefined
+
+  @Prop({ type: Boolean, default: false })
+  required: boolean | undefined
+
+  @Prop({ type: Boolean, default: false })
+  floatingPoint: boolean | undefined
+}
 </script>
 
 <style lang="scss" scoped>

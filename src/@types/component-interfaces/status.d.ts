@@ -16,6 +16,7 @@ export interface Status {
     remarks: string
   }
 }
+// eslint-disable-next-line @typescript-eslint/class-name-casing
 export interface ConsumeStatus {
   SpO2: number
   body_temperature: number
@@ -25,7 +26,7 @@ export interface ConsumeStatus {
     phlegm: boolean
     suffocation: boolean
     headache: boolean
-    sore_throat: true
+    sore_throat: boolean
     remarks: string
   }
 }

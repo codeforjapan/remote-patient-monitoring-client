@@ -20,9 +20,7 @@
             required
             floating-point
             :step="0.1"
-            value="inputTemperature"
-            @validate="validations.inputTemperature = $event"
-            @input="inputTemperature = $event"
+            v-model="inputTemperature"
             rules="required"
           />
         </li>
@@ -32,9 +30,7 @@
             label="酸素飽和度(SpO2)"
             unit="％"
             required
-            value="inputSpo2"
-            @validate="validations.inputSpo2 = $event"
-            @input="inputSpo2 = $event"
+            v-model="inputSpO2"
             rules="required"
           />
         </li>
@@ -44,9 +40,9 @@
             label="脈拍"
             unit="bpm"
             required
+            v-model="inputPulse"
             value="inputPulse"
-            @validate="validations.inputPulse = $event"
-            @input="inputPulse = $event"
+            rules="required"
           />
         </li>
       </ul>
@@ -70,17 +66,11 @@
           label="上記以外の体調の変化"
           name="memo"
           placeholder="例：昨日の20時ごろから咳が止まらない"
-          :value="inputMemo"
-          @input="inputMemo = $event"
+          v-model="status.symptom.remarks"
         />
       </section>
       <div class="buttonContainer">
-        <ActionButton
-          size="L"
-          :theme="btnTheme"
-          type="submit"
-          :is-submittable="isSubmittable"
-        >
+        <ActionButton size="L" :theme="btnTheme" type="submit">
           記録する
         </ActionButton>
       </div>
@@ -116,9 +106,6 @@ type SymptomItem = {
   },
 })
 export default class Record extends Vue {
-  private status: ConsumeStatus = {
-    body_temperature: null,
-  }
   @Auth.Action
   private signOut!: () => void
   private mydate = new Date()
@@ -144,34 +131,43 @@ export default class Record extends Vue {
       label: 'のどの痛み',
     },
   ]
-  inputTemperature = ''
-  inputSpo2 = ''
-  inputPulse = ''
-  inputMemo = ''
+  inputSpO2 = '98'
+  inputPulse = '80'
+  inputTemperature = '36.5'
   selectedItems: string[] = []
-  validations: { [key: string]: boolean } = {
-    inputTemperature: false,
-    inputSpo2: false,
-    inputPulse: false,
-  }
-  get date(): string {
-    return dayjs(this.mydate).format('YYYY/MM/DD HH:mm')
+  get status(): ConsumeStatus {
+    return {
+      SpO2: +this.inputSpO2,
+      body_temperature: +this.inputTemperature,
+      pulse: +this.inputPulse,
+      symptom: {
+        cough: false,
+        phlegm: false,
+        suffocation: false,
+        headache: false,
+        sore_throat: false,
+        remarks: '',
+      },
+    }
   }
   get isSubmittable(): boolean {
-    console.log(
-      Object.keys(this.validations).every(key => this.validations[key]),
+    console.log(this.status)
+    return (
+      this.status.body_temperature > 0 &&
+      this.status.SpO2 > 0 &&
+      this.status.pulse > 0
     )
-    return Object.keys(this.validations).every(key => this.validations[key])
   }
   get btnTheme(): string {
     return this.isSubmittable ? 'primary' : 'disable'
   }
+  get date(): string {
+    return dayjs(this.mydate).format('YYYY/MM/DD HH:mm')
+  }
   itemSelectControl(checked: boolean, value: string) {
-    if (!this.selectedItems.includes(value)) {
-      this.selectedItems.push(value)
-    } else {
-      this.selectedItems = this.selectedItems.filter((v: string) => v !== value)
-    }
+    this.status.symptom[
+      value as 'cough' | 'phlegm' | 'suffocation' | 'headache' | 'sore_throat'
+    ] = checked
   }
   logout(): void {
     this.signOut()

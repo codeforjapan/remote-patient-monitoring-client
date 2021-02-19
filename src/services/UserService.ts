@@ -1,7 +1,7 @@
 import { AuthUser } from '../store/modules/auth.module'
 import axios from 'axios'
 import authHeader from './auth-header'
-import { Status } from '@/@types/component-interfaces/status'
+import { Status, ConsumeStatus } from '@/@types/component-interfaces/status'
 
 const API_URL = 'https://monitoring.stopcovid19.jp/stg/api/patient/'
 
@@ -34,7 +34,7 @@ class UserService {
     return JSON.parse(payload)['cognito:username']
   }
 
-  async putStatus(status: Status) {
+  async putStatus(status: ConsumeStatus) {
     const response = await axios.post(
       API_URL + `patients/${this.getUserId()}/statuses`,
       status,
