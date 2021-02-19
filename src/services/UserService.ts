@@ -10,7 +10,6 @@ class UserService {
     const response = await axios.get(API_URL + `patients/${this.getUserId()}`, {
       headers: authHeader(),
     })
-    console.log(response)
     return response.data
   }
 
@@ -34,7 +33,7 @@ class UserService {
     return JSON.parse(payload)['cognito:username']
   }
 
-  async putStatus(status: ConsumeStatus) {
+  async postStatus(status: ConsumeStatus) {
     const response = await axios.post(
       API_URL + `patients/${this.getUserId()}/statuses`,
       status,

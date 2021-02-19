@@ -1,10 +1,10 @@
 import { VuexModule, Module, Mutation, Action } from 'vuex-module-decorators'
 import UserService from '@/services/UserService'
-import { Status } from '@/@types/component-interfaces/status'
+import { ConsumeStatus, Status } from '@/@types/component-interfaces/status'
 
 @Module({ namespaced: true })
 class Statuses extends VuexModule {
-  private statuses: Status[] | undefined = undefined
+  private statuses: Status[] = []
 
   public get getStatuses(): Status[] | undefined {
     return this.statuses
@@ -15,8 +15,13 @@ class Statuses extends VuexModule {
   }
 
   @Mutation
+  public pushStatus(status: Status): void {
+    this.statuses.push(status)
+  }
+
+  @Mutation
   public loadFailure(): void {
-    this.statuses = undefined
+    this.statuses = []
   }
 
   @Action({ rawError: true })
@@ -28,6 +33,26 @@ class Statuses extends VuexModule {
       },
       error => {
         this.context.commit('loginFailure')
+        const message =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString()
+        return Promise.reject(message)
+      },
+    )
+  }
+  @Action({ rawError: true })
+  create(status: ConsumeStatus): Promise<Status> {
+    return UserService.postStatus(status).then(
+      status => {
+        console.log(status)
+        this.context.commit('pushStatus', status)
+        return Promise.resolve(status)
+      },
+      error => {
+        console.log(error)
         const message =
           (error.response &&
             error.response.data &&

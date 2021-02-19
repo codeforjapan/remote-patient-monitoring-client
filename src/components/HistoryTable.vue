@@ -52,14 +52,6 @@ export default Vue.extend({
     getDate(date: string): string {
       return dayjs(date).format('MM/DD HH:mm')
     },
-    showDetail(index: number) {
-      this.$router.push({
-        name: 'Detail',
-        params: {
-          id: this.items[index].statusId,
-        },
-      })
-    },
   },
 })
 </script>

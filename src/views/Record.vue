@@ -9,7 +9,7 @@
       </ActionButton>
     </div>
     <h1>体調を記録する</h1>
-    <form name="form" @submit.prevent="handleLogin">
+    <form name="form">
       <span class="date">{{ date }}</span>
       <ul class="conditionList">
         <li class="conditionItem">
@@ -69,8 +69,11 @@
           v-model="status.symptom.remarks"
         />
       </section>
+      <div v-if="message" class="alert alert-danger" role="alert">
+        {{ message }}
+      </div>
       <div class="buttonContainer">
-        <ActionButton size="L" :theme="btnTheme" type="submit">
+        <ActionButton size="L" :theme="btnTheme" @click="submitRecord">
           記録する
         </ActionButton>
       </div>
@@ -86,10 +89,11 @@ import InputTextField from '@/components/InputTextField.vue'
 import InputNumberField from '@/components/InputNumberField.vue'
 import ToggleSwitch from '@/components/ToggleSwitch.vue'
 import FooterButtons from '@/components/FooterButtons.vue'
-import { ConsumeStatus } from '@/@types/component-interfaces/status'
+import { ConsumeStatus, Status } from '@/@types/component-interfaces/status'
 import { namespace } from 'vuex-class'
 import dayjs from 'dayjs'
 
+const Statuses = namespace('Statuses')
 const Auth = namespace('Auth')
 
 type SymptomItem = {
@@ -109,6 +113,8 @@ export default class Record extends Vue {
   @Auth.Action
   private signOut!: () => void
   private mydate = new Date()
+  private loading = false
+  private message = ''
   symptomItems: SymptomItem[] = [
     {
       name: 'cough',
@@ -168,6 +174,29 @@ export default class Record extends Vue {
     this.status.symptom[
       value as 'cough' | 'phlegm' | 'suffocation' | 'headache' | 'sore_throat'
     ] = checked
+  }
+  @Statuses.Action
+  private create!: (status: ConsumeStatus) => Promise<Status>
+
+  submitRecord() {
+    console.log('click')
+    if (this.isSubmittable) {
+      this.loading = true
+      this.create(this.status).then(
+        data => {
+          this.$router.push({
+            name: 'Detail',
+            params: {
+              statusId: data.statusId,
+            },
+          })
+        },
+        error => {
+          this.loading = false
+          this.message = error
+        },
+      )
+    }
   }
   logout(): void {
     this.signOut()
