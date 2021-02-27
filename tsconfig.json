@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "ES2019",
-    "module": "commonjs",
+    "target": "esnext",
+    "module": "esnext",
     "strict": true,
     "jsx": "preserve",
     "importHelpers": true,
@@ -25,8 +25,7 @@
       "esnext",
       "dom",
       "dom.iterable",
-      "scripthost",
-      "ES2019"
+      "scripthost"
     ]
   },
   "include": [

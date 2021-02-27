@@ -13,6 +13,12 @@ const nonGuardedRoutes: Array<RouteConfig> = [
     name: 'Login',
     component: Login,
   },
+  {
+    path: '/login/:k',
+    name: 'Login',
+    props: true,
+    component: Login,
+  },
 ]
 
 export default nonGuardedRoutes

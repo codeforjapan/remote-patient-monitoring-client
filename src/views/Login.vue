@@ -2,6 +2,9 @@
   <div>
     <h1 class="title">ログイン</h1>
     <form name="form" @submit.prevent="handleLogin">
+      <div v-if="message" class="alert alert-danger" role="alert">
+        {{ message }}
+      </div>
       <InputTextField
         label="ユーザ名"
         name="username"
@@ -28,11 +31,6 @@
         </router-link>
       </div>
       <div class="form-group">
-        <div v-if="message" class="alert alert-danger" role="alert">
-          {{ message }}
-        </div>
-      </div>
-      <div class="form-group">
         <ActionButton size="L" theme="primary" @click="handleLogin">
           ログイン
         </ActionButton>
@@ -41,7 +39,7 @@
   </div>
 </template>
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue } from 'vue-property-decorator'
 import { namespace } from 'vuex-class'
 import { AuthUser } from '@/store/modules/auth.module'
 import InputTextField from '@/components/InputTextField.vue'
@@ -59,6 +57,9 @@ export default class Login extends Vue {
   private loading = false
   private message = ''
 
+  @Prop()
+  k?: string
+
   @Auth.Getter
   private isLoggedIn!: boolean
 
@@ -72,6 +73,14 @@ export default class Login extends Vue {
     if (this.isLoggedIn) {
       //this.$router.push('/record')
     }
+    // キーがある場合、ユーザ名/パスワードが base64 エンコーディングされている
+    if (this.k) {
+      console.log(this.k)
+      const decoded = atob(this.k)
+      this.user.username = decoded.split('/')[0]
+      this.user.password = decoded.split('/')[1]
+      this.handleLogin()
+    }
   }
 
   handleLogin() {
@@ -84,7 +93,7 @@ export default class Login extends Vue {
         },
         error => {
           this.loading = false
-          this.message = error
+          this.message = `ログインできませんでした。${error}`
         },
       )
     }
@@ -101,5 +110,15 @@ export default class Login extends Vue {
 }
 .right {
   text-align: right;
+}
+.alert-danger {
+  left: 4.27%;
+  right: 4.27%;
+  top: 20.07%;
+  bottom: 73.22%;
+  padding: 20px;
+
+  background: #c9e3ff;
+  border-radius: 10px;
 }
 </style>
