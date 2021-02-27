@@ -43,6 +43,16 @@ class UserService {
     )
     return response.data
   }
+
+  async deleteStatus(patientId: string, statusId: string) {
+    const response = await axios.delete(
+      API_URL + `patients/${patientId}/statuses/${statusId}`,
+      {
+        headers: authHeader(),
+      },
+    )
+    return response.data
+  }
 }
 
 export default new UserService()

@@ -20,6 +20,13 @@ class Statuses extends VuexModule {
   }
 
   @Mutation
+  public removeStatus(statusId: string): void {
+    this.statuses.splice(
+      this.statuses.findIndex(item => item.statusId === statusId),
+      1,
+    )
+  }
+  @Mutation
   public loadFailure(): void {
     this.statuses = []
   }
@@ -49,6 +56,27 @@ class Statuses extends VuexModule {
       status => {
         this.context.commit('pushStatus', status)
         return Promise.resolve(status)
+      },
+      error => {
+        const message =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString()
+        return Promise.reject(message)
+      },
+    )
+  }
+  @Action({ rawError: true })
+  delete(item: {
+    patientId: string
+    statusId: string
+  }): Promise<boolean | string> {
+    return UserService.deleteStatus(item.patientId, item.statusId).then(
+      () => {
+        this.context.commit('removeStatus', item.statusId)
+        return Promise.resolve(true)
       },
       error => {
         const message =
