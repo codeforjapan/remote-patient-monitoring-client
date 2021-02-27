@@ -13,7 +13,7 @@
     <h1>{{ date }}</h1>
     <template v-if="status">
       <StatusInfo :status="status" />
-      <DeleteRecord :status-id="status.statusId" />
+      <DeleteRecord :patientId="status.patientId" :statusId="statusId" />
     </template>
     <FooterButtons />
   </div>
