@@ -21,14 +21,10 @@
         autocomplete="current-password"
       />
       <div class="right">
-        <router-link to="/terms">
-          パスワードを忘れた場合
-        </router-link>
+        <router-link to="/terms"> パスワードを忘れた場合 </router-link>
       </div>
       <div class="margin">
-        <router-link to="/terms">
-          利用規約を読む
-        </router-link>
+        <router-link to="/terms"> 利用規約を読む </router-link>
       </div>
       <div class="form-group">
         <ActionButton size="L" theme="primary" @click="handleLogin">
@@ -87,11 +83,11 @@ export default class Login extends Vue {
     this.loading = true
     if (this.user.username && this.user.password) {
       this.login(this.user).then(
-        data => {
+        (data) => {
           console.log(data)
           this.$router.push('/record')
         },
-        error => {
+        (error) => {
           this.loading = false
           this.message = `ログインできませんでした。${error}`
         },

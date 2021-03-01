@@ -67,10 +67,12 @@ export default class Detail extends Vue {
   }
   get status(): Status {
     if (this.getStatuses.length > 0) {
-      return this.getStatuses.find(status => status.statusId === this.statusId)
+      return this.getStatuses.find(
+        (status) => status.statusId === this.statusId,
+      )
     } else {
-      this.load().then(statuses => {
-        return statuses.find(status => status.statusId === this.statusId)
+      this.load().then((statuses) => {
+        return statuses.find((status) => status.statusId === this.statusId)
       })
       return undefined
     }

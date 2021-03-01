@@ -183,7 +183,7 @@ export default class Record extends Vue {
     if (this.isSubmittable) {
       this.loading = true
       this.create(this.status).then(
-        data => {
+        (data) => {
           this.$router.push({
             name: 'Detail',
             params: {
@@ -192,7 +192,7 @@ export default class Record extends Vue {
             },
           })
         },
-        error => {
+        (error) => {
           this.loading = false
           this.message = error
         },

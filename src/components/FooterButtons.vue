@@ -69,7 +69,7 @@ export default Vue.extend({
   },
   methods: {
     confirmToTel(destination: string): void {
-      const selectedItem: PhoneItem[] = this.phoneItems.filter(v => {
+      const selectedItem: PhoneItem[] = this.phoneItems.filter((v) => {
         if (v.destination === destination) return true
       })
       this.confirmText = selectedItem[0].text

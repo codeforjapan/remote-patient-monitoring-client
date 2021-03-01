@@ -22,7 +22,7 @@ class Statuses extends VuexModule {
   @Mutation
   public removeStatus(statusId: string): void {
     this.statuses.splice(
-      this.statuses.findIndex(item => item.statusId === statusId),
+      this.statuses.findIndex((item) => item.statusId === statusId),
       1,
     )
   }
@@ -34,11 +34,11 @@ class Statuses extends VuexModule {
   @Action({ rawError: true })
   load(): Promise<Status[]> {
     return UserService.getStatuses().then(
-      stasuses => {
+      (stasuses) => {
         this.context.commit('loadSuccess', stasuses)
         return Promise.resolve(stasuses)
       },
-      error => {
+      (error) => {
         this.context.commit('loginFailure')
         const message =
           (error.response &&
@@ -53,11 +53,11 @@ class Statuses extends VuexModule {
   @Action({ rawError: true })
   create(status: ConsumeStatus): Promise<Status> {
     return UserService.postStatus(status).then(
-      status => {
+      (status) => {
         this.context.commit('pushStatus', status)
         return Promise.resolve(status)
       },
-      error => {
+      (error) => {
         const message =
           (error.response &&
             error.response.data &&
@@ -78,7 +78,7 @@ class Statuses extends VuexModule {
         this.context.commit('removeStatus', item.statusId)
         return Promise.resolve(true)
       },
-      error => {
+      (error) => {
         const message =
           (error.response &&
             error.response.data &&
