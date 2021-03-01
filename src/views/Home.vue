@@ -1,9 +1,7 @@
 <template>
   <div>
     <h1 class="title">仮）遠隔モニタリングシステム</h1>
-    <ActionButton size="L" theme="primary" to="/login">
-      ログイン
-    </ActionButton>
+    <ActionButton size="L" theme="primary" to="/login"> ログイン </ActionButton>
   </div>
 </template>
 

@@ -117,7 +117,9 @@ export default Vue.extend({
     },
     errorMessage(): string {
       if (!this.showError) return ''
-      const key = Object.keys(this.rules).find(key => !this.rules[key].isValid)
+      const key = Object.keys(this.rules).find(
+        (key) => !this.rules[key].isValid,
+      )
       if (!key) return ''
       return this.rules[key].message
     },

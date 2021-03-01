@@ -34,11 +34,11 @@ class User extends VuexModule {
   @Action({ rawError: true })
   login(data: { username: string; password: string }): Promise<AuthUser> {
     return AuthService.login(data.username, data.password).then(
-      user => {
+      (user) => {
         this.context.commit('loginSuccess', user)
         return Promise.resolve(user)
       },
-      error => {
+      (error) => {
         this.context.commit('loginFailure')
         const message =
           (error.response &&

@@ -170,7 +170,7 @@ export default class Record extends Vue {
   get date(): string {
     return dayjs(this.mydate).format('YYYY/MM/DD HH:mm')
   }
-  itemSelectControl(checked: boolean, value: string) {
+  itemSelectControl(checked: boolean, value: string): void {
     this.status.symptom[
       value as 'cough' | 'phlegm' | 'suffocation' | 'headache' | 'sore_throat'
     ] = checked
@@ -178,12 +178,12 @@ export default class Record extends Vue {
   @Statuses.Action
   private create!: (status: ConsumeStatus) => Promise<Status>
 
-  submitRecord() {
+  submitRecord(): void {
     console.log('click')
     if (this.isSubmittable) {
       this.loading = true
       this.create(this.status).then(
-        data => {
+        (data) => {
           this.$router.push({
             name: 'Detail',
             params: {
@@ -192,7 +192,7 @@ export default class Record extends Vue {
             },
           })
         },
-        error => {
+        (error) => {
           this.loading = false
           this.message = error
         },

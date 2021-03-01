@@ -13,9 +13,7 @@
       症状の悪化がみられます。<br />
       必ず保健所に電話してください。
     </Message>
-    <Message v-else>
-      体調記録を登録しました。
-    </Message>
+    <Message v-else> 体調記録を登録しました。 </Message>
     <StatusInfo :status="status" />
     <DeleteRecord :status-id="status.statusId" />
     <FooterButtons />

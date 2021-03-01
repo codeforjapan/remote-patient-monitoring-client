@@ -19,5 +19,5 @@ new Vue({
   router,
   store,
   computed: mapState(['user', 'statuses']),
-  render: h => h(App),
+  render: (h) => h(App),
 }).$mount('#app')

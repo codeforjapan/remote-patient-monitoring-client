@@ -50,8 +50,8 @@ export default class History extends Vue {
   @Statuses.Getter
   private getStatuses!: Status[]
 
-  created() {
-    this.load().then(statuses => {
+  created(): void {
+    this.load().then((statuses) => {
       this.statuses = statuses
     })
   }

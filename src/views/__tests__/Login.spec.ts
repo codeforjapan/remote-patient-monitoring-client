@@ -9,6 +9,7 @@ localVue.use(Vuex)
 localVue.use(VueRouter)
 
 describe('Login.vue', () => {
+  // eslint-disable-next-line
   let store: any
   let Auth
 

@@ -49,7 +49,7 @@ export default class DeleteRecord extends Vue {
 
   deleteStatus(): void {
     this.delete({ patientId: this.patientId, statusId: this.statusId }).then(
-      result => {
+      (result) => {
         if (result === true) {
           this.$router.push('/history')
         } else {
