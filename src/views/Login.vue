@@ -69,7 +69,7 @@ export default class Login extends Vue {
     password: string
   }) => Promise<AuthUser>
 
-  created() {
+  created(): void {
     if (this.isLoggedIn) {
       //this.$router.push('/record')
     }
@@ -83,7 +83,7 @@ export default class Login extends Vue {
     }
   }
 
-  handleLogin() {
+  handleLogin(): void {
     this.loading = true
     if (this.user.username && this.user.password) {
       this.login(this.user).then(

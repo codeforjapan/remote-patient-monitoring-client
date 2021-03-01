@@ -55,17 +55,17 @@ export default class Detail extends Vue {
   @Statuses.Action
   private load!: () => Promise<Status[]>
 
-  get showmessage() {
+  get showmessage(): string {
     return this.message
   }
-  get date() {
+  get date(): string {
     if (this.status) {
       return dayjs(this.status.created).format('YYYY/MM/DD HH:mm')
     } else {
       return ''
     }
   }
-  get status() {
+  get status(): Status {
     if (this.getStatuses.length > 0) {
       return this.getStatuses.find(status => status.statusId === this.statusId)
     } else {

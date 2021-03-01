@@ -45,7 +45,7 @@ export default class ActionButton extends Vue {
   @Prop({ default: 'button' })
   type!: string
 
-  get tag() {
+  get tag(): string {
     return this.to ? 'router-link' : 'button'
   }
 
