@@ -6,6 +6,7 @@
         :class="{ 'inputField-error': showError }"
         :style="{ fontSize: fontSizeMap.get(fontSize) }"
         :type="type"
+        :pattern="type === 'number' ? '\d*' : null"
         :name="name"
         :placeholder="placeholder"
         :step="step"
