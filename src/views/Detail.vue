@@ -55,7 +55,7 @@ export default class Detail extends Vue {
   @Statuses.Action
   private load!: () => Promise<Status[]>
 
-  get showmessage(): string {
+  get showmessage(): string | undefined {
     return this.message
   }
   get date(): string {
@@ -65,7 +65,7 @@ export default class Detail extends Vue {
       return ''
     }
   }
-  get status(): Status {
+  get status(): Status | undefined {
     if (this.getStatuses.length > 0) {
       return this.getStatuses.find(
         (status) => status.statusId === this.statusId,
