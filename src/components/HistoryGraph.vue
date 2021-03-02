@@ -34,7 +34,7 @@ export default class HistoryGraph extends Vue {
         horizontalAlign: 'left',
         inverseOrder: true,
       },
-      colors: ['#4CD964', '#855CF8', '#E24242'],
+      colors: ['#FF8000', '#03AF7A', '#05A'],
       stroke: {
         curve: 'straight',
         width: 2,
@@ -51,11 +51,30 @@ export default class HistoryGraph extends Vue {
       },
       yaxis: [
         {
+          seriesName: '脈拍',
+          decimalsInFloat: 0,
+          labels: {
+            style: {
+              colors: ['#FF8000'],
+            },
+          },
+          min: 30,
+          max: 150,
+          crosshairs: {
+            show: true,
+            position: 'back',
+          },
+          tooltip: {
+            enabled: true,
+          },
+          float: true,
+        },
+        {
           seriesName: '体温',
           decimalsInFloat: 1,
           labels: {
             style: {
-              colors: ['#4CD964'],
+              colors: ['#03AF7A'],
             },
           },
           min: 34,
@@ -74,30 +93,11 @@ export default class HistoryGraph extends Vue {
           decimalsInFloat: 0,
           labels: {
             style: {
-              colors: ['#855CF8'],
+              colors: ['#05A'],
             },
           },
           min: 90,
           max: 100,
-          crosshairs: {
-            show: true,
-            position: 'back',
-          },
-          tooltip: {
-            enabled: true,
-          },
-          float: true,
-        },
-        {
-          seriesName: '脈拍',
-          decimalsInFloat: 0,
-          labels: {
-            style: {
-              colors: ['#E24242'],
-            },
-          },
-          min: 30,
-          max: 150,
           crosshairs: {
             show: true,
             position: 'back',
@@ -134,9 +134,9 @@ export default class HistoryGraph extends Vue {
 
     console.log(this.items, bodyTemperatures)
     return [
+      { name: '脈拍', data: pulses },
       { name: '体温', data: bodyTemperatures },
       { name: 'SpO2', data: spO2s },
-      { name: '脈拍', data: pulses },
     ]
   }
 }
