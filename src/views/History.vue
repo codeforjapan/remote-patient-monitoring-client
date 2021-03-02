@@ -13,7 +13,8 @@
       <h1 class="headerTitle">体調記録</h1>
       <ListOrGraphSwitch v-model="displayMode" />
     </header>
-    <HistoryTable :items="statuses" />
+    <HistoryTable :items="statuses" v-if="displayMode == 'list'" />
+    <HistoryGraph :items="statuses" v-if="displayMode == 'graph'" />
     <FooterButtons />
   </div>
 </template>
@@ -27,6 +28,7 @@ import ListOrGraphSwitch from '@/components/ListOrGraphSwitch.vue'
 import HistoryTable from '@/components/HistoryTable.vue'
 import FooterButtons from '@/components/FooterButtons.vue'
 import { Status } from '@/@types/component-interfaces/status'
+import HistoryGraph from '@/components/HistoryGraph.vue'
 
 const Statuses = namespace('Statuses')
 
@@ -37,6 +39,7 @@ const Statuses = namespace('Statuses')
     ListOrGraphSwitch,
     HistoryTable,
     FooterButtons,
+    HistoryGraph,
   },
 })
 export default class History extends Vue {
