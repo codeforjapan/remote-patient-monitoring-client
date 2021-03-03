@@ -27,6 +27,9 @@ export default class HistoryGraph extends Vue {
         zoom: {
           enabled: false,
         },
+        toolbar: {
+          show: false,
+        },
       },
       legend: {
         position: 'top',
