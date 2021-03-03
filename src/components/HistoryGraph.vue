@@ -41,7 +41,11 @@ export default class HistoryGraph extends Vue {
       xaxis: {
         type: 'datetime',
         title: { text: '日付' },
-        labels: { format: 'MM/dd HH:mm' },
+        labels: {
+          formatter: (val: string) => {
+            return dayjs(val).format('MM/DD HH:mm')
+          },
+        },
         tooltip: {
           formatter: (val: string) => {
             return dayjs(val).format('MM/DD HH:mm')
