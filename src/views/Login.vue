@@ -6,6 +6,7 @@
         {{ message }}
       </div>
       <InputTextField
+        id="username"
         label="ユーザ名"
         name="username"
         value="inputLoginId"
@@ -13,6 +14,7 @@
         rules="required"
       />
       <InputTextField
+        id="password"
         label="パスワード"
         rules="required"
         name="password"
