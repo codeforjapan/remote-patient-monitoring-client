@@ -9,6 +9,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
 import { Status } from '@/@types/component-interfaces/status'
 import dayjs from 'dayjs'
 import VueApexCharts from 'vue-apexcharts'
+import { ApexOptions } from 'apexcharts'
 
 @Component({
   components: {
@@ -19,9 +20,7 @@ export default class HistoryGraph extends Vue {
   @Prop({ type: Array as () => Status[], default: [] })
   items!: Status[]
 
-  get chartOptions(): any {
-    const createds = this.items.map((item) => dayjs(item.created).toDate())
-
+  get chartOptions(): ApexOptions {
     return {
       chart: {
         type: 'line',
@@ -44,7 +43,7 @@ export default class HistoryGraph extends Vue {
         title: { text: '日付' },
         labels: { format: 'MM/dd HH:mm' },
         tooltip: {
-          formatter: (val: any, opts: any) => {
+          formatter: (val: string) => {
             return dayjs(val).format('MM/DD HH:mm')
           },
         },
@@ -55,7 +54,7 @@ export default class HistoryGraph extends Vue {
           decimalsInFloat: 0,
           labels: {
             style: {
-              colors: ['#FF8000'],
+              colors: '#FF8000',
             },
           },
           min: 30,
@@ -67,14 +66,13 @@ export default class HistoryGraph extends Vue {
           tooltip: {
             enabled: true,
           },
-          float: true,
         },
         {
           seriesName: '体温',
           decimalsInFloat: 1,
           labels: {
             style: {
-              colors: ['#03AF7A'],
+              colors: '#03AF7A',
             },
           },
           min: 34,
@@ -86,14 +84,13 @@ export default class HistoryGraph extends Vue {
           tooltip: {
             enabled: true,
           },
-          float: true,
         },
         {
           seriesName: 'SpO2',
           decimalsInFloat: 0,
           labels: {
             style: {
-              colors: ['#05A'],
+              colors: '#05A',
             },
           },
           min: 90,
@@ -105,27 +102,26 @@ export default class HistoryGraph extends Vue {
           tooltip: {
             enabled: true,
           },
-          float: true,
         },
       ],
     }
   }
 
-  get series(): Array<any> {
-    const bodyTemperatures = this.items.map((item: any) => {
+  get series(): Array<{ name: string; data: { x: string; y: string }[] }> {
+    const bodyTemperatures = this.items.map((item) => {
       return {
         x: item.created,
         y: item.body_temperature.toFixed(1),
       }
     })
-    const spO2s = this.items.map((item: any) => {
+    const spO2s = this.items.map((item) => {
       return {
         x: item.created,
         y: item.SpO2.toFixed(1),
       }
     })
     //)
-    const pulses = this.items.map((item: any) => {
+    const pulses = this.items.map((item) => {
       return {
         x: item.created,
         y: item.pulse.toFixed(1),
