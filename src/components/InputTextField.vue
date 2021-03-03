@@ -1,9 +1,10 @@
 <template>
-  <validation-provider :name="name" :rules="rules">
+  <validation-provider :name="name" :rules="rules" tag="div">
     <div slot-scope="ProviderProps">
-      <label class="inputFieldContainer">
-        <span class="labelText">{{ label }}</span>
+      <div class="inputFieldContainer">
+        <label :for="id" class="labelText">{{ label }}</label>
         <VInputField
+          :id="id"
           :type="type"
           :name="name"
           :placeholder="placeholder"
@@ -12,8 +13,8 @@
           :autocomplete="autocomplete"
           @input="$emit('input', $event.target.value)"
         />
-        <span class="error">{{ ProviderProps.errors[0] }}</span>
-      </label>
+      </div>
+      <span class="error">{{ ProviderProps.errors[0] }}</span>
     </div>
   </validation-provider>
 </template>
@@ -27,6 +28,9 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
   },
 })
 export default class VeeInputTextField extends Vue {
+  @Prop({ type: String, default: '' })
+  id: string | undefined
+
   @Prop({ type: String, default: '' })
   rules: string | undefined
 

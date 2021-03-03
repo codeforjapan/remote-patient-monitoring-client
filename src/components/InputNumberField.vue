@@ -1,9 +1,10 @@
 <template>
-  <validation-provider :name="name" :rules="rules">
-    <label class="inputFieldContainer">
-      <span class="labelText">{{ label }}</span>
+  <validation-provider :name="name" :rules="rules" tag="div">
+    <div class="inputFieldContainer">
+      <label :for="id" class="labelText">{{ label }}</label>
       <VInputField
         type="number"
+        :id="id"
         :name="name"
         :placeholder="placeholder"
         :step="step"
@@ -13,7 +14,7 @@
         :floating-point="floatingPoint"
         @input="$emit('input', $event.target.value)"
       />
-    </label>
+    </div>
   </validation-provider>
 </template>
 
@@ -26,6 +27,9 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
   },
 })
 export default class InputNumberField extends Vue {
+  @Prop({ type: String, default: '' })
+  id: string | undefined
+
   @Prop({ type: String, default: '' })
   rules: string | undefined
 

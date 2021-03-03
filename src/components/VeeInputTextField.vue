@@ -1,7 +1,7 @@
 <template>
-  <validation-provider :name="name" :rules="rules">
+  <validation-provider :name="name" :rules="rules" tag="div">
     <div slot-scope="ProviderProps">
-      <label for="username" class="inputFieldContainer">
+      <label class="inputFieldContainer">
         <span class="labelText">{{ label }}</span>
         <input
           :v-model="username"
@@ -10,10 +10,9 @@
           :name="name"
           :placeholder="placeholder"
           :value="value"
-          font-size="S"
         />
-        <p class="error">{{ ProviderProps.errors[0] }}</p>
       </label>
+      <p class="error">{{ ProviderProps.errors[0] }}</p>
     </div>
   </validation-provider>
 </template>

@@ -14,9 +14,11 @@
       <ul class="conditionList">
         <li class="conditionItem">
           <InputNumberField
+            id="temperature"
             name="temperature"
             label="体温"
             unit="℃"
+            placeholder="36.5"
             required
             floating-point
             :step="0.1"
@@ -26,9 +28,11 @@
         </li>
         <li class="conditionItem">
           <InputNumberField
+            id="spo2"
             name="spo2"
             label="酸素飽和度(SpO2)"
             unit="％"
+            placeholder="98"
             required
             v-model="inputSpO2"
             rules="required"
@@ -36,9 +40,11 @@
         </li>
         <li class="conditionItem">
           <InputNumberField
+            id="pulse"
             name="pulse"
             label="脈拍"
             unit="bpm"
+            placeholder="80"
             required
             v-model="inputPulse"
             value="inputPulse"
@@ -63,6 +69,7 @@
           </li>
         </ul>
         <InputTextField
+          id="memo"
           label="上記以外の体調の変化"
           name="memo"
           placeholder="例：昨日の20時ごろから咳が止まらない"
@@ -112,7 +119,7 @@ type SymptomItem = {
 export default class Record extends Vue {
   @Auth.Action
   private signOut!: () => void
-  private mydate = new Date()
+  private myDate = new Date()
   private loading = false
   private message = ''
   symptomItems: SymptomItem[] = [
@@ -137,9 +144,9 @@ export default class Record extends Vue {
       label: 'のどの痛み',
     },
   ]
-  inputSpO2 = '98'
-  inputPulse = '80'
-  inputTemperature = '36.5'
+  inputSpO2 = ''
+  inputPulse = ''
+  inputTemperature = ''
   selectedItems: string[] = []
   get status(): ConsumeStatus {
     return {
@@ -168,7 +175,7 @@ export default class Record extends Vue {
     return this.isSubmittable ? 'primary' : 'disable'
   }
   get date(): string {
-    return dayjs(this.mydate).format('YYYY/MM/DD HH:mm')
+    return dayjs(this.myDate).format('YYYY/MM/DD HH:mm')
   }
   itemSelectControl(checked: boolean, value: string): void {
     this.status.symptom[

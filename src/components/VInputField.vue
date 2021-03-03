@@ -3,6 +3,7 @@
     <div class="inputFieldControl">
       <input
         class="inputField"
+        :id="id"
         :class="{ 'inputField-error': showError }"
         :style="{ fontSize: fontSizeMap.get(fontSize) }"
         :type="type"
@@ -34,6 +35,10 @@ type FontSizeType = string
 
 export default Vue.extend({
   props: {
+    id: {
+      type: String,
+      default: '',
+    },
     value: {
       type: String,
       default: '',
@@ -156,6 +161,9 @@ export default Vue.extend({
     &:focus {
       outline-color: $error;
     }
+  }
+  &::placeholder {
+    color: $gray-2;
   }
 }
 .labelText {
