@@ -34,9 +34,9 @@ class Statuses extends VuexModule {
   @Action({ rawError: true })
   load(): Promise<Status[]> {
     return UserService.getStatuses().then(
-      (stasuses) => {
-        this.context.commit('loadSuccess', stasuses)
-        return Promise.resolve(stasuses)
+      (statuses) => {
+        this.context.commit('loadSuccess', statuses)
+        return Promise.resolve(statuses)
       },
       (error) => {
         this.context.commit('loginFailure')
