@@ -3,8 +3,8 @@
     <div class="inputFieldContainer">
       <label :for="id" class="labelText">{{ label }}</label>
       <VInputField
-        type="number"
         :id="id"
+        type="number"
         :name="name"
         :placeholder="placeholder"
         :step="step"
