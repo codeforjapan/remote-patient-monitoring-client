@@ -2,8 +2,8 @@
   <div class="inputFieldOuter">
     <div class="inputFieldControl">
       <input
-        class="inputField"
         :id="id"
+        class="inputField"
         :class="{ 'inputField-error': showError }"
         :style="{ fontSize: fontSizeMap.get(fontSize) }"
         :type="type"
@@ -15,7 +15,7 @@
         :autocomplete="autocomplete"
         @input="$emit('input', $event)"
       />
-      <small class="message">{{ errorMessage }}</small>
+      <span class="message">{{ errorMessage }}</span>
     </div>
     <span v-if="unit" class="unit">{{ unit }}</span>
   </div>
