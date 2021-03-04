@@ -27,7 +27,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
     VInputField,
   },
 })
-export default class VeeInputTextField extends Vue {
+export default class InputTextField extends Vue {
   @Prop({ type: String, default: '' })
   id: string | undefined
 
