@@ -43,7 +43,7 @@ class Statuses extends VuexModule {
         const message =
           (error.response &&
             error.response.data &&
-            error.response.data.message) ||
+            error.response.data.errorMessage) ||
           error.message ||
           error.toString()
         return Promise.reject(message)
@@ -61,7 +61,7 @@ class Statuses extends VuexModule {
         const message =
           (error.response &&
             error.response.data &&
-            error.response.data.message) ||
+            error.response.data.errorMessage) ||
           error.message ||
           error.toString()
         return Promise.reject(message)
@@ -82,7 +82,7 @@ class Statuses extends VuexModule {
         const message =
           (error.response &&
             error.response.data &&
-            error.response.data.message) ||
+            error.response.data.errorMessage) ||
           error.message ||
           error.toString()
         return Promise.reject(message)

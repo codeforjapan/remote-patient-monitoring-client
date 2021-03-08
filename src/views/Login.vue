@@ -22,17 +22,14 @@
         type="password"
         autocomplete="current-password"
       />
-      <div class="right">
-        <router-link to="/terms"> パスワードを忘れた場合 </router-link>
-      </div>
-      <div class="margin">
-        <router-link to="/terms"> 利用規約を読む </router-link>
-      </div>
-      <div class="form-group">
-        <ActionButton size="L" theme="primary" @click="handleLogin">
-          ログイン
-        </ActionButton>
-      </div>
+      <ActionButton
+        size="L"
+        :theme="btnTheme"
+        :is-submittable="isSubmittable"
+        @click="handleLogin"
+      >
+        ログイン
+      </ActionButton>
     </form>
   </div>
 </template>
@@ -52,7 +49,6 @@ const Auth = namespace('Auth')
 })
 export default class Login extends Vue {
   private user = { username: '', password: '' }
-  private loading = false
   private message = ''
 
   @Prop()
@@ -61,6 +57,9 @@ export default class Login extends Vue {
   @Auth.Getter
   private isLoggedIn!: boolean
 
+  @Auth.Getter
+  private isPolicyAccepted!: boolean
+
   @Auth.Action
   private login!: (data: {
     username: string
@@ -68,8 +67,8 @@ export default class Login extends Vue {
   }) => Promise<AuthUser>
 
   created(): void {
-    if (this.isLoggedIn) {
-      //this.$router.push('/record')
+    if (this.isLoggedIn && this.isPolicyAccepted) {
+      this.$router.push('/record')
     }
     // キーがある場合、ユーザ名/パスワードが base64 エンコーディングされている
     if (this.k) {
@@ -81,16 +80,25 @@ export default class Login extends Vue {
     }
   }
 
+  get isSubmittable(): boolean {
+    return this.user.username !== '' && this.user.password !== ''
+  }
+
+  get btnTheme(): string {
+    return this.isSubmittable ? 'primary' : 'disable'
+  }
+
   handleLogin(): void {
-    this.loading = true
     if (this.user.username && this.user.password) {
       this.login(this.user).then(
         (data) => {
-          console.log(data)
-          this.$router.push('/record')
+          if (data.policy_accepted) {
+            this.$router.push('/record')
+          } else {
+            this.$router.push('/terms')
+          }
         },
         (error) => {
-          this.loading = false
           this.message = `ログインできませんでした。${error}`
         },
       )
