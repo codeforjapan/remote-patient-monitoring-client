@@ -33,6 +33,17 @@ class UserService {
     return JSON.parse(payload)['cognito:username']
   }
 
+  async postAcceptPolicy() {
+    const response = await axios.post(
+      API_URL + `patients/${this.getUserId()}/accept_policy`,
+      {},
+      {
+        headers: authHeader(),
+      },
+    )
+    return response.data
+  }
+
   async postStatus(status: ConsumeStatus) {
     const response = await axios.post(
       API_URL + `patients/${this.getUserId()}/statuses`,

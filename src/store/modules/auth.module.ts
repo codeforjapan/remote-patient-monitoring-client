@@ -1,9 +1,12 @@
 import { VuexModule, Module, Mutation, Action } from 'vuex-module-decorators'
 import AuthService from '@/services/AuthService'
+import UserService from '@/services/UserService'
 
 export interface AuthUser {
   username: string
   idToken: string
+  refreshToken: string
+  policy_accepted: string
 }
 
 const storedUser = localStorage.getItem('user')
@@ -12,6 +15,14 @@ const storedUser = localStorage.getItem('user')
 class User extends VuexModule {
   public status = storedUser ? { loggedIn: true } : { loggedIn: false }
   public user: AuthUser | null = storedUser ? JSON.parse(storedUser) : null
+
+  get isLoggedIn(): boolean {
+    return this.status.loggedIn
+  }
+
+  get isPolicyAccepted(): boolean {
+    return this.user?.policy_accepted !== undefined
+  }
 
   @Mutation
   public loginSuccess(user: AuthUser): void {
@@ -43,7 +54,7 @@ class User extends VuexModule {
         const message =
           (error.response &&
             error.response.data &&
-            error.response.data.message) ||
+            error.response.data.errorMessage) ||
           error.message ||
           error.toString()
         return Promise.reject(message)
@@ -57,8 +68,22 @@ class User extends VuexModule {
     this.context.commit('logout')
   }
 
-  get isLoggedIn(): boolean {
-    return this.status.loggedIn
+  @Action({ rawError: true })
+  acceptPolicy(): Promise<AuthUser> {
+    return UserService.postAcceptPolicy().then(
+      (user) => {
+        return Promise.resolve(user)
+      },
+      (error) => {
+        const message =
+          (error.response &&
+            error.response.data &&
+            error.response.data.errorMessage) ||
+          error.message ||
+          error.toString()
+        return Promise.reject(message)
+      },
+    )
   }
 }
 
