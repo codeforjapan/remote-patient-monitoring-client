@@ -164,7 +164,6 @@ export default class Record extends Vue {
     }
   }
   get isSubmittable(): boolean {
-    console.log(this.status)
     return (
       this.status.body_temperature > 0 &&
       this.status.SpO2 > 0 &&
