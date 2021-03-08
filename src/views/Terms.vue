@@ -72,9 +72,6 @@ export default class Login extends Vue {
 .margin {
   margin: 30px 0;
 }
-.right {
-  text-align: right;
-}
 .alert-danger {
   left: 4.27%;
   right: 4.27%;
