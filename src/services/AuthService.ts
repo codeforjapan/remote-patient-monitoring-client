@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { AuthUser } from '../store/modules/auth.module'
+import { AuthUser } from '@/store/modules/auth.module'
 
 class AuthService {
   login(username: string, password: string): Promise<AuthUser> {
@@ -8,7 +8,7 @@ class AuthService {
         username,
         password,
       })
-      .then(response => {
+      .then((response) => {
         if (response.data.idToken) {
           localStorage.setItem('user', JSON.stringify(response.data))
         }
@@ -20,12 +20,12 @@ class AuthService {
   refreshToken(refreshToken: string): Promise<AuthUser> {
     console.log(refreshToken)
     return axios
-      .post(API_URL + 'login', {
-        refreshToken
+      .post('login', {
+        refreshToken,
       })
-      .then(response => {
+      .then((response) => {
         if (response.data.idToken) {
-          const user =  JSON.parse(localStorage.getItem('user')!)
+          const user = JSON.parse(localStorage.getItem('user')!)
           user.idToken = response.data.idToken
           localStorage.setItem('user', JSON.stringify(user))
         }
