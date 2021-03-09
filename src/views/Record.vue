@@ -10,7 +10,6 @@
     </div>
     <h1>体調を記録する</h1>
     <form name="form">
-      <span class="date">{{ date }}</span>
       <ul class="conditionList">
         <li class="conditionItem">
           <InputNumberField
@@ -148,6 +147,7 @@ export default class Record extends Vue {
   inputPulse = ''
   inputTemperature = ''
   selectedItems: string[] = []
+
   get status(): ConsumeStatus {
     return {
       SpO2: +this.inputSpO2,
@@ -163,6 +163,7 @@ export default class Record extends Vue {
       },
     }
   }
+
   get isSubmittable(): boolean {
     return (
       this.status.body_temperature > 0 &&
@@ -170,17 +171,17 @@ export default class Record extends Vue {
       this.status.pulse > 0
     )
   }
+
   get btnTheme(): string {
     return this.isSubmittable ? 'primary' : 'disable'
   }
-  get date(): string {
-    return dayjs(this.myDate).format('YYYY/MM/DD HH:mm')
-  }
+
   itemSelectControl(checked: boolean, value: string): void {
     this.status.symptom[
       value as 'cough' | 'phlegm' | 'suffocation' | 'headache' | 'sore_throat'
     ] = checked
   }
+
   @Statuses.Action
   private create!: (status: ConsumeStatus) => Promise<Status>
 
@@ -204,6 +205,7 @@ export default class Record extends Vue {
       )
     }
   }
+
   logout(): void {
     this.signOut()
     this.$router.push('/login')
@@ -216,10 +218,6 @@ export default class Record extends Vue {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-.date {
-  font-size: 20px;
-  font-weight: bold;
 }
 .conditionList,
 .symptomsSection {
