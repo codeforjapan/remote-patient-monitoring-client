@@ -3,7 +3,7 @@ import axios from 'axios'
 import authHeader from './auth-header'
 import { Status, ConsumeStatus } from '@/@types/component-interfaces/status'
 
-const API_URL = 'https://monitoring.stopcovid19.jp/stg/api/patient/'
+const API_URL = process.env.VUE_APP_API_URL
 
 class UserService {
   async getUserInfo() {
