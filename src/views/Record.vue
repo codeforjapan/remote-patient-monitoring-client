@@ -185,7 +185,6 @@ export default class Record extends Vue {
   private create!: (status: ConsumeStatus) => Promise<Status>
 
   submitRecord(): void {
-    console.log('click')
     if (this.isSubmittable) {
       this.loading = true
       this.create(this.status).then(
