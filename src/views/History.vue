@@ -7,14 +7,13 @@
       <ActionButton size="S" theme="outline" :is-inline="true" to="/record">
         体調を記録する
       </ActionButton>
-      <span class="error">{{ error }}</span>
     </div>
     <header class="header">
       <h1 class="headerTitle">体調記録</h1>
       <ListOrGraphSwitch v-model="displayMode" />
     </header>
-    <HistoryTable :items="statuses" v-if="displayMode == 'list'" />
-    <HistoryGraph :items="statuses" v-if="displayMode == 'graph'" />
+    <HistoryTable :items="statuses" v-if="displayMode === 'list'" />
+    <HistoryGraph :items="statuses" v-if="displayMode === 'graph'" />
     <FooterButtons />
   </div>
 </template>
@@ -45,7 +44,6 @@ const Statuses = namespace('Statuses')
 export default class History extends Vue {
   displayMode = 'list'
   statuses: Status[] = []
-  error = ''
 
   @Statuses.Action
   private load!: () => Promise<Status[]>

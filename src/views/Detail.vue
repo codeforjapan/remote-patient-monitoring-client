@@ -10,7 +10,7 @@
       </ActionButton>
     </div>
     <div v-if="showmessage" class="message">{{ showmessage }}</div>
-    <h1>{{ date }}</h1>
+    <h1 class="title">{{ date }}</h1>
     <template v-if="status">
       <StatusInfo :status="status" />
       <DeleteRecord :patientId="status.patientId" :statusId="statusId" />
@@ -85,6 +85,9 @@ export default class Detail extends Vue {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+.title {
+  font-size: 22px;
 }
 .message {
   padding: 10px;

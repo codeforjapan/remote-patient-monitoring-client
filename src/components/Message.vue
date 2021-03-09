@@ -33,6 +33,6 @@ export default Vue.extend({
 }
 .typeError {
   background-color: $alert-error;
-  font-weight: bold;
+  font-weight: 600;
 }
 </style>
