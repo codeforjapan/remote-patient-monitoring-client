@@ -13,7 +13,7 @@ const router = new VueRouter({
 router.addRoutes(guardedRoutes)
 router.addRoutes(nonGuardedRoutes)
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   const loggedIn = localStorage.getItem('user')
   if (to.matched.some((record) => record.meta.requiresAuth) && !loggedIn) {
     next('/login')
