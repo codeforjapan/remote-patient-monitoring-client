@@ -86,7 +86,7 @@ export default class Login extends Vue {
   background: #c9e3ff;
   border-radius: 10px;
 }
-.termsContainer{
+.termsContainer {
   margin: 30px 16px;
   padding: 16px;
   background: $white;
@@ -95,7 +95,7 @@ export default class Login extends Vue {
 .margin {
   margin: 30px 0;
 }
-.linkBtn{
+.linkBtn {
   margin-bottom: 16px;
 }
 </style>
