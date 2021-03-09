@@ -10,11 +10,27 @@ class AuthService {
         username,
         password,
       })
-      .then((response) => {
+      .then(response => {
         if (response.data.idToken) {
           localStorage.setItem('user', JSON.stringify(response.data))
         }
 
+        return response.data
+      })
+  }
+
+  refreshToken(refreshToken: string): Promise<AuthUser> {
+    console.log(refreshToken)
+    return axios
+      .post(API_URL + 'login', {
+        refreshToken
+      })
+      .then(response => {
+        if (response.data.idToken) {
+          const user =  JSON.parse(localStorage.getItem('user')!)
+          user.idToken = response.data.idToken
+          localStorage.setItem('user', JSON.stringify(user))
+        }
         return response.data
       })
   }

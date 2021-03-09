@@ -17,7 +17,17 @@ class User extends VuexModule {
   public user: AuthUser | null = storedUser ? JSON.parse(storedUser) : null
 
   get isLoggedIn(): boolean {
-    return this.status.loggedIn
+    if (!this.status.loggedIn) {
+      return false
+    }else{
+      return !this.isExpired
+    }
+  }
+
+  get isExpired(): boolean {
+    if (!this.user) return false
+    const payload: any = JSON.parse(atob(this.user!.idToken.split('.')[1]!))
+    return new Date().getSeconds() < payload.exp
   }
 
   get isPolicyAccepted(): boolean {
@@ -45,11 +55,31 @@ class User extends VuexModule {
   @Action({ rawError: true })
   login(data: { username: string; password: string }): Promise<AuthUser> {
     return AuthService.login(data.username, data.password).then(
-      (user) => {
+      user => {
         this.context.commit('loginSuccess', user)
         return Promise.resolve(user)
       },
-      (error) => {
+      error => {
+        this.context.commit('loginFailure')
+        const message =
+          (error.response &&
+            error.response.data &&
+            error.response.data.errorMessage) ||
+          error.message ||
+          error.toString()
+        return Promise.reject(message)
+      },
+    )
+  }
+
+  @Action({ rawError: true })
+  refreshToken(): Promise<AuthUser> {
+    return AuthService.refreshToken(this.user!.refreshToken).then(
+      user => {
+        this.context.commit('loginSuccess', user)
+        return Promise.resolve(user)
+      },
+      error => {
         this.context.commit('loginFailure')
         const message =
           (error.response &&
@@ -71,10 +101,10 @@ class User extends VuexModule {
   @Action({ rawError: true })
   acceptPolicy(): Promise<AuthUser> {
     return UserService.postAcceptPolicy().then(
-      (user) => {
+      user => {
         return Promise.resolve(user)
       },
-      (error) => {
+      error => {
         const message =
           (error.response &&
             error.response.data &&
