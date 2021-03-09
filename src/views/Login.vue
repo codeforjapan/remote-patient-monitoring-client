@@ -74,15 +74,15 @@ export default class Login extends Vue {
 
   created(): void {
     if (this.isLoggedIn && this.isPolicyAccepted) {
-      this.$router.push('/record')
-    }
-    // ログインしているがセッション切れ
-    if (!this.isLoggedIn && this.isExpired) {
-      // refreshToken を使って再認証
-      // @TODO policy_accepted の処理が必要
-      this.refreshToken().then((data) => {
+      // ログインしているがセッション切れ
+      if (this.isExpired) {
+        // refreshToken を使って再認証
+        this.refreshToken().then(() => {
+          this.$router.push('/record')
+        })
+      } else {
         this.$router.push('/record')
-      })
+      }
     }
     // キーがある場合、ユーザ名/パスワードが base64 エンコーディングされている
     // @TODO SMSによるIdToken認証ができたら消す
