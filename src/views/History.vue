@@ -12,8 +12,8 @@
       <h1 class="headerTitle">体調記録</h1>
       <ListOrGraphSwitch v-model="displayMode" />
     </header>
-    <HistoryTable :items="statuses" v-if="displayMode == 'list'" />
-    <HistoryGraph :items="statuses" v-if="displayMode == 'graph'" />
+    <HistoryTable :items="statuses" v-if="displayMode === 'list'" />
+    <HistoryGraph :items="statuses" v-if="displayMode === 'graph'" />
     <FooterButtons />
   </div>
 </template>
