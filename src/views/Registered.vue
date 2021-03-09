@@ -8,7 +8,7 @@
         体調を記録する
       </ActionButton>
     </div>
-    <h1>{{ date }}</h1>
+    <h1 class="title">{{ date }}</h1>
     <Message v-if="isError" is-error>
       症状の悪化がみられます。<br />
       必ず保健所に電話してください。
@@ -79,5 +79,8 @@ export default Vue.extend({
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+.title {
+  font-size: 22px;
 }
 </style>
