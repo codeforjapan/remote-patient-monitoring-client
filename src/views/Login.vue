@@ -77,11 +77,10 @@ export default class Login extends Vue {
       // ログインしているがセッション切れ
       if (this.isExpired) {
         // refreshToken を使って再認証
-          this.refreshToken().then(data =>{
-            this.$router.push('/record')
-          }
-        )
-      }else{
+        this.refreshToken().then(() => {
+          this.$router.push('/record')
+        })
+      } else {
         this.$router.push('/record')
       }
     }

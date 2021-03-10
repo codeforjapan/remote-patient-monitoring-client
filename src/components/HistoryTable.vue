@@ -76,7 +76,7 @@ export default Vue.extend({
     font-weight: normal;
   }
   &.date {
-    font-weight: bold;
+    font-weight: 600;
   }
   &.alignLeft {
     text-align: left;

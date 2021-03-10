@@ -4,19 +4,27 @@
     <div v-if="message" class="alert alert-danger" role="alert">
       {{ message }}
     </div>
-    <div class="margin">
-      <VCheckbox v-model="isCheckedPolicy" name="policy">
-        利用規約に同意する
-      </VCheckbox>
+
+    <div class="termsContainer">
+      <p>
+        利用規約文<br /><br />
+        テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。
+      </p>
+      <div class="margin">
+        <VCheckbox v-model="isCheckedPolicy" name="policy">
+          利用規約に同意する
+        </VCheckbox>
+      </div>
+      <ActionButton
+        size="L"
+        class="linkBtn"
+        :theme="btnTheme"
+        :is-submittable="isSubmittable"
+        @click="handleLogin"
+      >
+        体調記録へ
+      </ActionButton>
     </div>
-    <ActionButton
-      size="L"
-      :theme="btnTheme"
-      :is-submittable="isSubmittable"
-      @click="handleLogin"
-    >
-      ログイン
-    </ActionButton>
   </div>
 </template>
 <script lang="ts">
@@ -69,17 +77,25 @@ export default class Login extends Vue {
 .title {
   text-align: center;
 }
-.margin {
-  margin: 30px 0;
-}
 .alert-danger {
   left: 4.27%;
   right: 4.27%;
   top: 20.07%;
   bottom: 73.22%;
   padding: 20px;
-
   background: #c9e3ff;
   border-radius: 10px;
+}
+.termsContainer {
+  margin: 30px 16px;
+  padding: 16px;
+  background: $white;
+  border-radius: 4px;
+}
+.margin {
+  margin: 30px 0;
+}
+.linkBtn {
+  margin-bottom: 16px;
 }
 </style>
