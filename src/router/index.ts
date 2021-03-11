@@ -17,23 +17,26 @@ router.addRoutes(nonGuardedRoutes)
 
 router.beforeEach(async (to, from, next) => {
   const loggedIn = localStorage.getItem('user')
-  if (to.matched.some((record) => record.meta.requiresAuth) && !loggedIn) {
-    next('/login')
-  } else {
-    if (localStorage.getItem('user')){
-      if (store.getters['Auth/isExpired']){
-        store.dispatch('Auth/refreshToken').then(user => {
-          next()
-        }
-        ).catch(err => {
-          console.log(err)
-          next('/login')
-        })
-      }
-      next()
-    }else{
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    if (!loggedIn) {
       next('/login')
+    } else {
+      if (store.getters['Auth/isExpired']) {
+        store
+          .dispatch('Auth/refreshToken')
+          .then(() => {
+            next()
+          })
+          .catch((err) => {
+            console.log(err)
+            next('/login')
+          })
+      } else {
+        next()
+      }
     }
+  } else {
+    next()
   }
 })
 

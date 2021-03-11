@@ -25,8 +25,11 @@ class User extends VuexModule {
   }
 
   get isExpired(): boolean {
-    if (!this.user) return false
-    const payload: any = JSON.parse(atob(this.user!.idToken.split('.')[1]!))
+    if (!this.user) return true // ユーザ情報が無い場合も expired したこととする
+    if (!this.user?.idToken) return true // ユーザ情報が無い場合も expired したこととする
+    const idToken: string = this.user?.idToken
+    const bpayload = idToken.split('.')[1]
+    const payload = JSON.parse(atob(bpayload))
     return new Date().getSeconds() > payload.exp
   }
 
