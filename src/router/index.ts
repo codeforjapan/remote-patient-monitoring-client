@@ -3,7 +3,6 @@ import VueRouter from 'vue-router'
 import guardedRoutes from '@/router/guarded-routes'
 import nonGuardedRoutes from '@/router/non-guarded-routes'
 import store from '../store/index'
-import authStore from '../store/modules/auth.module'
 
 Vue.use(VueRouter)
 

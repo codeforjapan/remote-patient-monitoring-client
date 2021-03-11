@@ -77,7 +77,8 @@ class User extends VuexModule {
 
   @Action({ rawError: true })
   refreshToken(): Promise<AuthUser> {
-    return AuthService.refreshToken(this.user!.refreshToken).then(
+    const token: string = this.user?.refreshToken || ''
+    return AuthService.refreshToken(token).then(
       (user) => {
         this.context.commit('loginSuccess', user)
         return Promise.resolve(user)
