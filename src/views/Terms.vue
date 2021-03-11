@@ -33,7 +33,7 @@ import { namespace } from 'vuex-class'
 import { AuthUser } from '@/store/modules/auth.module'
 import ActionButton from '@/components/ActionButton.vue'
 import VCheckbox from '@/components/VCheckbox.vue'
-const PatientInfo = namespace('PatientInfo')
+const Auth = namespace('Auth')
 
 @Component({
   components: {
@@ -45,7 +45,7 @@ export default class Login extends Vue {
   private message = ''
   private isCheckedPolicy = false
 
-  @PatientInfo.Action
+  @Auth.Action
   private acceptPolicy!: () => Promise<AuthUser>
 
   get isSubmittable(): boolean {
