@@ -97,7 +97,6 @@ import ToggleSwitch from '@/components/ToggleSwitch.vue'
 import FooterButtons from '@/components/FooterButtons.vue'
 import { ConsumeStatus, Status } from '@/@types/component-interfaces/status'
 import { namespace } from 'vuex-class'
-import dayjs from 'dayjs'
 
 const Statuses = namespace('Statuses')
 const Auth = namespace('Auth')

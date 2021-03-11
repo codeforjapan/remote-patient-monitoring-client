@@ -12,7 +12,7 @@ export interface AuthUser {
 const storedUser = localStorage.getItem('user')
 
 @Module({ namespaced: true })
-class User extends VuexModule {
+class Auth extends VuexModule {
   public status = storedUser ? { loggedIn: true } : { loggedIn: false }
   public user: AuthUser | null = storedUser ? JSON.parse(storedUser) : null
 
@@ -25,8 +25,11 @@ class User extends VuexModule {
   }
 
   get isExpired(): boolean {
-    if (!this.user) return false
-    const payload: any = JSON.parse(atob(this.user!.idToken.split('.')[1]!))
+    if (!this.user) return true // ユーザ情報が無い場合も expired したこととする
+    if (!this.user?.idToken) return true // ユーザ情報が無い場合も expired したこととする
+    const idToken: string = this.user?.idToken
+    const bpayload = idToken.split('.')[1]
+    const payload = JSON.parse(atob(bpayload))
     return new Date().getSeconds() > payload.exp
   }
 
@@ -74,7 +77,8 @@ class User extends VuexModule {
 
   @Action({ rawError: true })
   refreshToken(): Promise<AuthUser> {
-    return AuthService.refreshToken(this.user!.refreshToken).then(
+    const token: string = this.user?.refreshToken || ''
+    return AuthService.refreshToken(token).then(
       (user) => {
         this.context.commit('loginSuccess', user)
         return Promise.resolve(user)
@@ -117,4 +121,4 @@ class User extends VuexModule {
   }
 }
 
-export default User
+export default Auth

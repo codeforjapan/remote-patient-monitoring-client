@@ -25,7 +25,9 @@ class AuthService {
       })
       .then((response) => {
         if (response.data.idToken) {
-          const user = JSON.parse(localStorage.getItem('user')!)
+          const useritem = localStorage.getItem('user')
+          if (!useritem) throw new Error('usre item was not found')
+          const user = JSON.parse(useritem)
           user.idToken = response.data.idToken
           localStorage.setItem('user', JSON.stringify(user))
         }
