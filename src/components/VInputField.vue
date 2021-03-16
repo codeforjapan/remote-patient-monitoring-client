@@ -67,6 +67,10 @@ export default Vue.extend({
       type: Boolean,
       default: false,
     },
+    isNumber: {
+      type: Boolean,
+      default: false,
+    },
     fontSize: {
       type: String,
       default: 'M',
@@ -111,6 +115,10 @@ export default Vue.extend({
           isValid: this.ruleFloatingPoint,
           message: '小数点まで入力してください', // TODO: メッセージを確定させる
         },
+        isNumber: {
+          isValid: this.ruleIsNumber,
+          message: '負数でない整数を入力してください', // TODO: メッセージを確定させる
+        },
       }
     },
     ruleRequired(): boolean {
@@ -120,6 +128,10 @@ export default Vue.extend({
     ruleFloatingPoint(): boolean {
       if (!this.floatingPoint) return true
       return this.value.match(/\d+\.\d/) != null
+    },
+    ruleIsNumber(): boolean {
+      if (!this.isNumber) return true
+      return this.value.match(/^\d+$/) != null
     },
     errorMessage(): string {
       if (!this.showError) return ''
