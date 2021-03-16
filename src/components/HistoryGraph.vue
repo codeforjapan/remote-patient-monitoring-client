@@ -1,6 +1,11 @@
 <template>
   <div class="history-graph">
-    <VueApexCharts type="line" :options="chartOptions" :series="series" />
+    <VueApexCharts
+      type="line"
+      height="350px"
+      :options="chartOptions"
+      :series="series"
+    />
   </div>
 </template>
 
@@ -48,8 +53,11 @@ export default class HistoryGraph extends Vue {
         type: 'datetime',
         title: { text: '日付' },
         labels: {
+          show: true,
+          rotate: -30,
+          rotateAlways: true,
           formatter: (val: string) => {
-            return dayjs(val).format('MM/DD')
+            return dayjs(val).format('M/D (ddd) HH:mm')
           },
         },
         tooltip: {
@@ -59,7 +67,7 @@ export default class HistoryGraph extends Vue {
       tooltip: {
         x: {
           formatter: (val) => {
-            return dayjs(val).format('MM/DD HH:mm')
+            return dayjs(val).format('M/D (ddd) HH:mm')
           },
         },
       },
