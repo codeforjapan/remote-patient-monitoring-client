@@ -30,6 +30,9 @@ export default class HistoryGraph extends Vue {
         toolbar: {
           show: false,
         },
+        animations: {
+          enabled: false,
+        },
       },
       legend: {
         position: 'top',
