@@ -12,6 +12,7 @@
         :unit="unit"
         :required="required"
         :floating-point="floatingPoint"
+        :is-number="isNumber"
         @input="$emit('input', $event.target.value)"
       />
     </div>
@@ -56,6 +57,9 @@ export default class InputNumberField extends Vue {
 
   @Prop({ type: Boolean, default: false })
   floatingPoint: boolean | undefined
+
+  @Prop({ type: Boolean, default: false })
+  isNumber: boolean | undefined
 }
 </script>
 
