@@ -20,7 +20,7 @@
         class="linkBtn"
         :theme="btnTheme"
         :is-submittable="isSubmittable"
-        @click="handleLogin"
+        @click="handlePolicy"
       >
         体調記録へ
       </ActionButton>
@@ -56,7 +56,7 @@ export default class Login extends Vue {
     return this.isSubmittable ? 'primary' : 'disable'
   }
 
-  handleLogin(): void {
+  handlePolicy(): void {
     if (this.isCheckedPolicy) {
       this.acceptPolicy().then(
         () => {
