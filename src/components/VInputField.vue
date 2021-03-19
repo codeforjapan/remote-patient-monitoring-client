@@ -76,6 +76,9 @@ export default Vue.extend({
       default: false,
     },
     pulse: {
+      type: Boolean,
+      default: false,
+    },
     isNumber: {
       type: Boolean,
       default: false,
@@ -164,6 +167,7 @@ export default Vue.extend({
       if (!this.pulse) return true
       if (this.value.match(/[^\d]/) != null) return false
       return parseInt(this.value) >= 50 && parseInt(this.value) <= 400
+    },
     ruleIsNumber(): boolean {
       if (!this.isNumber) return true
       return this.value.match(/^\d+$/) != null

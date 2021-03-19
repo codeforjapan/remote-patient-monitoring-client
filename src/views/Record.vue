@@ -36,7 +36,6 @@
             placeholder="98"
             required
             spo2
-            v-model="inputSpO2"
             is-number
             rules="required"
           />
@@ -51,7 +50,6 @@
             placeholder="80"
             required
             pulse
-            v-model="inputPulse"
             value="inputPulse"
             is-number
             rules="required"
