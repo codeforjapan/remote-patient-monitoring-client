@@ -5,31 +5,24 @@
       <div v-if="message" class="alert alert-danger" role="alert">
         {{ message }}
       </div>
-      <InputTextField
-        id="username"
-        label="ユーザ名"
-        name="username"
-        value="inputLoginId"
-        v-model="user.username"
-        rules="required"
-      />
-      <InputTextField
-        id="password"
-        label="パスワード"
-        rules="required"
-        name="password"
-        v-model="user.password"
-        type="password"
-        autocomplete="current-password"
-      />
-      <ActionButton
-        size="L"
-        :theme="btnTheme"
-        :is-submittable="isSubmittable"
-        @click="handleLogin"
-      >
-        ログイン
-      </ActionButton>
+      <div v-if="showForm">
+        <InputTextField
+          id="phone"
+          label="携帯電話番号"
+          name="phone"
+          value="inputPhone"
+          v-model="phone"
+          rules="required"
+        />
+        <ActionButton
+          size="L"
+          :theme="btnTheme"
+          :is-submittable="isSubmittable"
+          @click="handleLoginURL"
+        >
+          ログインURLを取得する
+        </ActionButton>
+      </div>
     </form>
   </div>
 </template>
@@ -48,8 +41,9 @@ const Auth = namespace('Auth')
   },
 })
 export default class Login extends Vue {
-  private user = { username: '', password: '' }
+  private phone = ''
   private message = ''
+  private showForm = false
 
   @Prop()
   k?: string
@@ -64,60 +58,81 @@ export default class Login extends Vue {
   private isExpired!: boolean
 
   @Auth.Action
-  private login!: (data: {
-    username: string
-    password: string
-  }) => Promise<AuthUser>
+  private login!: (loginKey: string) => Promise<AuthUser>
+
+  @Auth.Action
+  private sendLoginURL!: (
+    phone: string,
+  ) => Promise<{ success: boolean; loginKey: string | undefined }>
 
   @Auth.Action
   private refreshToken!: () => Promise<AuthUser>
 
   created(): void {
-    if (this.isLoggedIn && this.isPolicyAccepted) {
+    if (this.isLoggedIn) {
       // ログインしているがセッション切れ
       if (this.isExpired) {
         // refreshToken を使って再認証
         this.refreshToken().then(() => {
-          this.$router.push('/record')
+          if (this.isPolicyAccepted) {
+            this.$router.push('/terms')
+          } else {
+            this.$router.push('/record')
+          }
         })
       } else {
         this.$router.push('/record')
       }
     }
-    // キーがある場合、ユーザ名/パスワードが base64 エンコーディングされている
-    // @TODO SMSによるIdToken認証ができたら消す
+    // キーがある場合、ログイン用のTokenがついている
     if (this.k) {
       console.log(this.k)
-      const decoded = atob(this.k)
-      this.user.username = decoded.split('/')[0]
-      this.user.password = decoded.split('/')[1]
-      this.handleLogin()
+      this.handleLogin(this.k)
+    } else {
+      this.showForm = true
     }
   }
 
   get isSubmittable(): boolean {
-    return this.user.username !== '' && this.user.password !== ''
+    return this.phone != ''
   }
 
   get btnTheme(): string {
     return this.isSubmittable ? 'primary' : 'disable'
   }
 
-  handleLogin(): void {
-    if (this.user.username && this.user.password) {
-      this.login(this.user).then(
-        (data) => {
-          if (data.policy_accepted) {
-            this.$router.push('/record')
-          } else {
-            this.$router.push('/terms')
-          }
-        },
-        (error) => {
-          this.message = `ログインできませんでした。${error}`
-        },
-      )
-    }
+  handleLogin(loginKey: string): void {
+    this.login(loginKey).then(
+      (data) => {
+        if (data.policy_accepted) {
+          this.$router.push('/record')
+        } else {
+          this.$router.push('/terms')
+        }
+      },
+      (error) => {
+        this.message = `ログインできませんでした。${error}`
+        this.showForm = true
+      },
+    )
+  }
+  handleLoginURL(): void {
+    this.sendLoginURL(this.phone)
+      .then((ret) => {
+        if (ret.success) {
+          console.log(ret.loginKey)
+          this.message = `入力された電話番号にURLを送りました。ご確認ください。`
+          this.showForm = false
+        } else {
+          this.message =
+            '入力された電話番号はシステムに登録されていません。保健所にご確認ください。'
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+        this.message =
+          '入力された電話番号はシステムに登録されていません。保健所にご確認ください。'
+      })
   }
 }
 </script>

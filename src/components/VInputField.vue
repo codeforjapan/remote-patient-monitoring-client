@@ -63,10 +63,19 @@ export default Vue.extend({
       type: Boolean,
       default: false,
     },
+    spo2: {
+      type: Boolean,
+      default: false,
+    },
     floatingPoint: {
       type: Boolean,
       default: false,
     },
+    temperature: {
+      type: Boolean,
+      default: false,
+    },
+    pulse: {
     isNumber: {
       type: Boolean,
       default: false,
@@ -109,11 +118,23 @@ export default Vue.extend({
       return {
         required: {
           isValid: this.ruleRequired,
-          message: '必須項目です', // TODO: メッセージを確定させる
+          message: '必須項目です',
         },
         floatingPoint: {
           isValid: this.ruleFloatingPoint,
-          message: '小数点まで入力してください', // TODO: メッセージを確定させる
+          message: '小数点まで入力してください',
+        },
+        spo2: {
+          isValid: this.ruleSpo2,
+          message: '50から100までの整数で入力してください',
+        },
+        temperature: {
+          isValid: this.ruleTemperature,
+          message: '33度から45度までで入力してください',
+        },
+        pulse: {
+          isValid: this.rulePulse,
+          message: '50から400までの整数で入力してください',
         },
         isNumber: {
           isValid: this.ruleIsNumber,
@@ -129,6 +150,20 @@ export default Vue.extend({
       if (!this.floatingPoint) return true
       return this.value.match(/\d+\.\d/) != null
     },
+    ruleSpo2(): boolean {
+      if (!this.spo2) return true
+      if (this.value.match(/[^\d]/) != null) return false
+      return parseInt(this.value) >= 50 && parseInt(this.value) <= 100
+    },
+    ruleTemperature(): boolean {
+      if (!this.temperature) return true
+      if (this.value.match(/[^\d.]/) != null) return false
+      return parseFloat(this.value) >= 33 && parseFloat(this.value) <= 45
+    },
+    rulePulse(): boolean {
+      if (!this.pulse) return true
+      if (this.value.match(/[^\d]/) != null) return false
+      return parseInt(this.value) >= 50 && parseInt(this.value) <= 400
     ruleIsNumber(): boolean {
       if (!this.isNumber) return true
       return this.value.match(/^\d+$/) != null

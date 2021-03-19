@@ -21,6 +21,7 @@
             placeholder="36.5"
             required
             floating-point
+            temperature
             :step="0.1"
             rules="required"
           />
@@ -34,6 +35,8 @@
             unit="％"
             placeholder="98"
             required
+            spo2
+            v-model="inputSpO2"
             is-number
             rules="required"
           />
@@ -47,6 +50,9 @@
             unit="bpm"
             placeholder="80"
             required
+            pulse
+            v-model="inputPulse"
+            value="inputPulse"
             is-number
             rules="required"
           />
