@@ -76,6 +76,7 @@ export default Vue.extend({
       default: false,
     },
     pulse: {
+    isNumber: {
       type: Boolean,
       default: false,
     },
@@ -135,6 +136,10 @@ export default Vue.extend({
           isValid: this.rulePulse,
           message: '50から400までの整数で入力してください',
         },
+        isNumber: {
+          isValid: this.ruleIsNumber,
+          message: '負数でない整数を入力してください', // TODO: メッセージを確定させる
+        },
       }
     },
     ruleRequired(): boolean {
@@ -159,6 +164,9 @@ export default Vue.extend({
       if (!this.pulse) return true
       if (this.value.match(/[^\d]/) != null) return false
       return parseInt(this.value) >= 50 && parseInt(this.value) <= 400
+    ruleIsNumber(): boolean {
+      if (!this.isNumber) return true
+      return this.value.match(/^\d+$/) != null
     },
     errorMessage(): string {
       if (!this.showError) return ''

@@ -13,6 +13,7 @@
       <ul class="conditionList">
         <li class="conditionItem">
           <InputNumberField
+            v-model="inputTemperature"
             id="temperature"
             name="temperature"
             label="体温"
@@ -22,12 +23,12 @@
             floating-point
             temperature
             :step="0.1"
-            v-model="inputTemperature"
             rules="required"
           />
         </li>
         <li class="conditionItem">
           <InputNumberField
+            v-model="inputSpO2"
             id="spo2"
             name="spo2"
             label="酸素飽和度(SpO2)"
@@ -36,11 +37,13 @@
             required
             spo2
             v-model="inputSpO2"
+            is-number
             rules="required"
           />
         </li>
         <li class="conditionItem">
           <InputNumberField
+            v-model="inputPulse"
             id="pulse"
             name="pulse"
             label="脈拍"
@@ -50,6 +53,7 @@
             pulse
             v-model="inputPulse"
             value="inputPulse"
+            is-number
             rules="required"
           />
         </li>
@@ -170,7 +174,9 @@ export default class Record extends Vue {
     return (
       this.status.body_temperature > 0 &&
       this.status.SpO2 > 0 &&
-      this.status.pulse > 0
+      Number.isInteger(this.status.SpO2) &&
+      this.status.pulse > 0 &&
+      Number.isInteger(this.status.pulse)
     )
   }
 

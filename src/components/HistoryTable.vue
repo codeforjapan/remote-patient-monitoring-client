@@ -13,8 +13,8 @@
       <tr v-for="(item, index) in this.items" :key="index" class="historyRow">
         <td class="historyCell date alignLeft">{{ getDate(item.created) }}</td>
         <td class="historyCell">{{ item.body_temperature.toFixed(1) }}</td>
-        <td class="historyCell">{{ item.SpO2.toFixed(1) }}</td>
-        <td class="historyCell">{{ item.pulse.toFixed(1) }}</td>
+        <td class="historyCell">{{ item.SpO2 }}</td>
+        <td class="historyCell">{{ item.pulse }}</td>
         <td class="historyCell">
           <ActionButton
             size="S"
@@ -50,7 +50,7 @@ export default Vue.extend({
   },
   methods: {
     getDate(date: string): string {
-      return dayjs(date).format('MM/DD HH:mm')
+      return dayjs(date).format('M/D (ddd) HH:mm')
     },
   },
 })

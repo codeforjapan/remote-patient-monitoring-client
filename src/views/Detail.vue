@@ -60,7 +60,7 @@ export default class Detail extends Vue {
   }
   get date(): string {
     if (this.status) {
-      return dayjs(this.status.created).format('YYYY/MM/DD HH:mm')
+      return dayjs(this.status.created).format('YYYY/M/D (ddd) HH:mm')
     } else {
       return ''
     }
