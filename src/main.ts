@@ -9,6 +9,10 @@ import axios from 'axios'
 import router from './router'
 import store from './store'
 import '@/assets/global.scss'
+import 'dayjs/locale/ja'
+import dayjs from 'dayjs'
+
+dayjs.locale('ja')
 
 axios.defaults.baseURL = process.env.VUE_APP_API_URL
 

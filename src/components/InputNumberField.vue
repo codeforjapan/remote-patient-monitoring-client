@@ -12,6 +12,10 @@
         :unit="unit"
         :required="required"
         :floating-point="floatingPoint"
+        :pulse="pulse"
+        :temperature="temperature"
+        :spo2="spo2"
+        :is-number="isNumber"
         @input="$emit('input', $event.target.value)"
       />
     </div>
@@ -56,6 +60,16 @@ export default class InputNumberField extends Vue {
 
   @Prop({ type: Boolean, default: false })
   floatingPoint: boolean | undefined
+
+  @Prop({ type: Boolean, default: false })
+  pulse: boolean | undefined
+
+  @Prop({ type: Boolean, default: false })
+  temperature: boolean | undefined
+
+  @Prop({ type: Boolean, default: false })
+  spo2: boolean | undefined
+  isNumber: boolean | undefined
 }
 </script>
 

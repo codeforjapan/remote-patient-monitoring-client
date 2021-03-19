@@ -30,7 +30,7 @@ class Auth extends VuexModule {
     const idToken: string = this.user?.idToken
     const bpayload = idToken.split('.')[1]
     const payload = JSON.parse(atob(bpayload))
-    return new Date().getSeconds() > payload.exp
+    return new Date() > new Date(payload.exp * 1000)
   }
 
   get isPolicyAccepted(): boolean {
@@ -56,8 +56,28 @@ class Auth extends VuexModule {
   }
 
   @Action({ rawError: true })
-  login(data: { username: string; password: string }): Promise<AuthUser> {
-    return AuthService.login(data.username, data.password).then(
+  login(loginKey: string): Promise<AuthUser> {
+    return AuthService.login(loginKey).then(
+      (user) => {
+        this.context.commit('loginSuccess', user)
+        return Promise.resolve(user)
+      },
+      (error) => {
+        this.context.commit('loginFailure')
+        const message =
+          (error.response &&
+            error.response.data &&
+            error.response.data.errorMessage) ||
+          error.message ||
+          error.toString()
+        return Promise.reject(message)
+      },
+    )
+  }
+
+  @Action({ rawError: true })
+  loginWithToken(token: string): Promise<AuthUser> {
+    return AuthService.loginWithToken(token).then(
       (user) => {
         this.context.commit('loginSuccess', user)
         return Promise.resolve(user)
