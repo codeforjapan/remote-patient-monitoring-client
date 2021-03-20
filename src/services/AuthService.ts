@@ -14,6 +14,19 @@ class AuthService {
     return response.data
   }
 
+  async loginWithID(username: string, password: string): Promise<AuthUser> {
+    const response = await axios.post('login', {
+      username: username,
+      password: password,
+    })
+    if (response.data.idToken) {
+      localStorage.setItem('user', JSON.stringify(response.data))
+    } else {
+      throw new Error('ログインに失敗しました。')
+    }
+    return response.data
+  }
+
   async sendLoginURL(
     phone: string,
   ): Promise<{ success: boolean; loginKey: string | undefined }> {

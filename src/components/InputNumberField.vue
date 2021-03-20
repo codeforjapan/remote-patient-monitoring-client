@@ -15,7 +15,6 @@
         :pulse="pulse"
         :temperature="temperature"
         :spo2="spo2"
-        :is-number="isNumber"
         @input="$emit('input', $event.target.value)"
       />
     </div>
