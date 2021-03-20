@@ -19,23 +19,32 @@ nonGuardedRoutes.map((route) => {
 })
 
 router.beforeEach(async (to, from, next) => {
-  const loggedIn = localStorage.getItem('user')
+  const user = localStorage.getItem('user')
   if (to.matched.some((record) => record.meta.requiresAuth)) {
-    if (!loggedIn) {
+    if (!user) {
       next('/login')
     } else {
       if (store.getters['Auth/isExpired']) {
         store
           .dispatch('Auth/refreshToken')
-          .then(() => {
-            next()
+          .then((user) => {
+            if (user.acceptPolicy) {
+              next()
+            } else {
+              next('/terms')
+            }
           })
           .catch((err) => {
             console.log(err)
             next('/login')
           })
       } else {
-        next()
+        console.log(to)
+        if (to.name == 'Terms' || JSON.parse(user).policy_accepted) {
+          next()
+        } else {
+          next('/terms')
+        }
       }
     }
   } else {
