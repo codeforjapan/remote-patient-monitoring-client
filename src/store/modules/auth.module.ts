@@ -159,8 +159,12 @@ class Auth extends VuexModule {
   @Action({ rawError: true })
   acceptPolicy(): Promise<AuthUser> {
     return UserService.postAcceptPolicy().then(
-      (user) => {
-        return Promise.resolve(user)
+      (result) => {
+        if (this.user) {
+          this.user.policy_accepted = result.policy_accepted
+          localStorage.setItem('user', JSON.stringify(this.user))
+        }
+        return Promise.resolve(result)
       },
       (error) => {
         const message =
