@@ -96,6 +96,18 @@ class Auth extends VuexModule {
       },
     )
   }
+  @Action({ rawError: true })
+  async sendLoginURL(
+    phone: string,
+  ): Promise<{ success: boolean; loginKey: string | undefined }> {
+    try {
+      const result = await AuthService.sendLoginURL(phone)
+      return result
+    } catch (err) {
+      console.log(err)
+      return { success: false, loginKey: undefined }
+    }
+  }
 
   @Action({ rawError: true })
   loginWithToken(token: string): Promise<AuthUser> {

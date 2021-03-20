@@ -32,6 +32,7 @@ class AuthService {
   ): Promise<{ success: boolean; loginKey: string | undefined }> {
     const response = await axios.post('getloginurl', {
       phone,
+      sendSMS: true,
     })
     if (response.data.phone) {
       return { success: true, loginKey: response.data.loginKey }
