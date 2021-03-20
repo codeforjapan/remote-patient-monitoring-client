@@ -44,7 +44,7 @@
         />
         <ActionButton
           size="L"
-          :theme="btnTheme"
+          :theme="btnThemeID"
           :is-submittable="isSubmittableID"
           @click="handleLoginWithID"
         >
@@ -141,6 +141,9 @@ export default class Login extends Vue {
 
   get btnTheme(): string {
     return this.isSubmittable ? 'primary' : 'disable'
+  }
+  get btnThemeID(): string {
+    return this.isSubmittableID ? 'primary' : 'disable'
   }
 
   handleLogin(loginKey: string): void {
