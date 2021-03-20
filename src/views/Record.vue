@@ -51,7 +51,6 @@
             required
             pulse
             value="inputPulse"
-            is-number
             rules="required"
           />
         </li>

@@ -11,8 +11,12 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
 })
 
-router.addRoutes(guardedRoutes)
-router.addRoutes(nonGuardedRoutes)
+guardedRoutes.map((route) => {
+  router.addRoute(route)
+})
+nonGuardedRoutes.map((route) => {
+  router.addRoute(route)
+})
 
 router.beforeEach(async (to, from, next) => {
   const loggedIn = localStorage.getItem('user')

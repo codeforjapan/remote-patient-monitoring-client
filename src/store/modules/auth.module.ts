@@ -76,6 +76,27 @@ class Auth extends VuexModule {
   }
 
   @Action({ rawError: true })
+  loginWithID(user: { username: string; password: string }): Promise<AuthUser> {
+    console.log(user.username)
+    console.log(user.password)
+    return AuthService.loginWithID(user.username, user.password).then(
+      (user) => {
+        this.context.commit('loginSuccess', user)
+        return Promise.resolve(user)
+      },
+      (error) => {
+        this.context.commit('loginFailure')
+        const message =
+          (error.response &&
+            error.response.data &&
+            error.response.data.errorMessage) ||
+          error.message ||
+          error.toString()
+        return Promise.reject(message)
+      },
+    )
+  }
+  @Action({ rawError: true })
   async sendLoginURL(
     phone: string,
   ): Promise<{ success: boolean; loginKey: string | undefined }> {

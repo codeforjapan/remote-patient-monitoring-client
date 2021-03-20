@@ -5,7 +5,7 @@
       <div v-if="message" class="alert alert-danger" role="alert">
         {{ message }}
       </div>
-      <div v-if="showForm">
+      <div v-if="isShowForm">
         <InputTextField
           id="phone"
           label="携帯電話番号"
@@ -22,6 +22,37 @@
         >
           ログインURLを取得する
         </ActionButton>
+        <div class="spanform">
+          <a @click="showUserForm">ユーザID/パスワードでログインする</a>
+        </div>
+      </div>
+      <div v-if="isShowUserForm">
+        <InputTextField
+          id="username"
+          label="ユーザID"
+          name="username"
+          v-model="user.username"
+          rules="required"
+        />
+        <InputTextField
+          id="password"
+          label="パスワード"
+          name="password"
+          v-model="user.password"
+          rules="required"
+          type="password"
+        />
+        <ActionButton
+          size="L"
+          :theme="btnThemeID"
+          :is-submittable="isSubmittableID"
+          @click="handleLoginWithID"
+        >
+          ログイン
+        </ActionButton>
+        <div class="spanform">
+          <a @click="showForm">ログインURLを取得する</a>
+        </div>
       </div>
     </form>
   </div>
@@ -43,7 +74,9 @@ const Auth = namespace('Auth')
 export default class Login extends Vue {
   private phone = ''
   private message = ''
-  private showForm = false
+  private isShowForm = false
+  private isShowUserForm = false
+  private user = { username: '', password: '' }
 
   @Prop()
   k?: string
@@ -59,6 +92,12 @@ export default class Login extends Vue {
 
   @Auth.Action
   private login!: (loginKey: string) => Promise<AuthUser>
+
+  @Auth.Action
+  private loginWithID!: (user: {
+    username: string
+    password: string
+  }) => Promise<AuthUser>
 
   @Auth.Action
   private sendLoginURL!: (
@@ -89,16 +128,22 @@ export default class Login extends Vue {
       console.log(this.k)
       this.handleLogin(this.k)
     } else {
-      this.showForm = true
+      this.isShowForm = true
     }
   }
 
   get isSubmittable(): boolean {
     return this.phone != ''
   }
+  get isSubmittableID(): boolean {
+    return this.user.username != '' && this.user.password != ''
+  }
 
   get btnTheme(): string {
     return this.isSubmittable ? 'primary' : 'disable'
+  }
+  get btnThemeID(): string {
+    return this.isSubmittableID ? 'primary' : 'disable'
   }
 
   handleLogin(loginKey: string): void {
@@ -112,17 +157,38 @@ export default class Login extends Vue {
       },
       (error) => {
         this.message = `ログインできませんでした。${error}`
-        this.showForm = true
+        this.isShowForm = true
       },
     )
   }
+  handleLoginWithID(): void {
+    if (this.user.username && this.user.password) {
+      console.log(this.user.password)
+      this.loginWithID({
+        username: this.user.username,
+        password: this.user.password,
+      }).then(
+        (data) => {
+          if (data.policy_accepted) {
+            this.$router.push('/record')
+          } else {
+            this.$router.push('/terms')
+          }
+        },
+        (error) => {
+          this.message = `ログインできませんでした。${error}`
+        },
+      )
+    }
+  }
   handleLoginURL(): void {
+    console.log(this.phone)
     this.sendLoginURL(this.phone)
       .then((ret) => {
         if (ret.success) {
           console.log(ret.loginKey)
           this.message = `入力された電話番号にURLを送りました。ご確認ください。`
-          this.showForm = false
+          this.isShowForm = false
         } else {
           this.message =
             '入力された電話番号はシステムに登録されていません。保健所にご確認ください。'
@@ -133,6 +199,14 @@ export default class Login extends Vue {
         this.message =
           '入力された電話番号はシステムに登録されていません。保健所にご確認ください。'
       })
+  }
+  showUserForm(): void {
+    this.isShowUserForm = true
+    this.isShowForm = false
+  }
+  showForm(): void {
+    this.isShowUserForm = false
+    this.isShowForm = true
   }
 }
 </script>
@@ -156,5 +230,10 @@ export default class Login extends Vue {
 
   background: #c9e3ff;
   border-radius: 10px;
+}
+.spanform {
+  margin-top: 30px;
+  text-align: right;
+  text-decoration: underline;
 }
 </style>
