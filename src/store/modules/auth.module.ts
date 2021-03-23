@@ -1,4 +1,4 @@
-import { VuexModule, Module, Mutation, Action } from 'vuex-module-decorators'
+import { Action, Module, Mutation, VuexModule } from 'vuex-module-decorators'
 import AuthService from '@/services/AuthService'
 import UserService from '@/services/UserService'
 
@@ -77,8 +77,6 @@ class Auth extends VuexModule {
 
   @Action({ rawError: true })
   loginWithID(user: { username: string; password: string }): Promise<AuthUser> {
-    console.log(user.username)
-    console.log(user.password)
     return AuthService.loginWithID(user.username, user.password).then(
       (user) => {
         this.context.commit('loginSuccess', user)
@@ -101,10 +99,9 @@ class Auth extends VuexModule {
     phone: string,
   ): Promise<{ success: boolean; loginKey: string | undefined }> {
     try {
-      const result = await AuthService.sendLoginURL(phone)
-      return result
+      return await AuthService.sendLoginURL(phone)
     } catch (err) {
-      console.log(err)
+      console.error(err)
       return { success: false, loginKey: undefined }
     }
   }

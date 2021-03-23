@@ -125,7 +125,6 @@ export default class Login extends Vue {
     }
     // キーがある場合、ログイン用のTokenがついている
     if (this.k) {
-      console.log(this.k)
       this.handleLogin(this.k)
     } else {
       this.isShowForm = true
@@ -163,7 +162,6 @@ export default class Login extends Vue {
   }
   handleLoginWithID(): void {
     if (this.user.username && this.user.password) {
-      console.log(this.user.password)
       this.loginWithID({
         username: this.user.username,
         password: this.user.password,
@@ -182,11 +180,9 @@ export default class Login extends Vue {
     }
   }
   handleLoginURL(): void {
-    console.log(this.phone)
     this.sendLoginURL(this.phone)
       .then((ret) => {
         if (ret.success) {
-          console.log(ret.loginKey)
           this.message = `入力された電話番号にURLを送りました。ご確認ください。`
           this.isShowForm = false
         } else {
@@ -195,7 +191,7 @@ export default class Login extends Vue {
         }
       })
       .catch((err) => {
-        console.log(err)
+        console.error(err)
         this.message =
           '入力された電話番号はシステムに登録されていません。保健所にご確認ください。'
       })
