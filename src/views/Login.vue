@@ -63,7 +63,9 @@ import { namespace } from 'vuex-class'
 import { AuthUser } from '@/store/modules/auth.module'
 import InputTextField from '@/components/InputTextField.vue'
 import ActionButton from '@/components/ActionButton.vue'
+import { Patient } from '@/@types/component-interfaces/patient'
 const Auth = namespace('Auth')
+const User = namespace('User')
 
 @Component({
   components: {
@@ -107,6 +109,9 @@ export default class Login extends Vue {
   @Auth.Action
   private refreshToken!: () => Promise<AuthUser>
 
+  @User.Action
+  private loadPatient!: () => Promise<Patient>
+
   created(): void {
     if (this.isLoggedIn) {
       // ログインしているがセッション切れ
@@ -148,11 +153,13 @@ export default class Login extends Vue {
   handleLogin(loginKey: string): void {
     this.login(loginKey).then(
       (data) => {
-        if (data.policy_accepted) {
-          this.$router.push('/record')
-        } else {
-          this.$router.push('/terms')
-        }
+        this.loadPatient().then(() => {
+          if (data.policy_accepted) {
+            this.$router.push('/record')
+          } else {
+            this.$router.push('/terms')
+          }
+        })
       },
       (error) => {
         this.message = `ログインできませんでした。${error}`
@@ -167,11 +174,13 @@ export default class Login extends Vue {
         password: this.user.password,
       }).then(
         (data) => {
-          if (data.policy_accepted) {
-            this.$router.push('/record')
-          } else {
-            this.$router.push('/terms')
-          }
+          this.loadPatient().then(() => {
+            if (data.policy_accepted) {
+              this.$router.push('/record')
+            } else {
+              this.$router.push('/terms')
+            }
+          })
         },
         (error) => {
           this.message = `ログインできませんでした。${error}`
