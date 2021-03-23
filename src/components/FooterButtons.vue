@@ -83,11 +83,9 @@ export default class FooterButtons extends Vue {
     })[0]
     if (this.getPatientInfo.emergencyPhone) {
       healthCenter.telNumber = this.getPatientInfo.emergencyPhone
-      this.isNullTelNumber = false
     } else {
       this.loadPatient().then((patient: Patient) => {
         healthCenter.telNumber = patient.emergencyPhone
-        this.isNullTelNumber = false
       })
     }
   }
