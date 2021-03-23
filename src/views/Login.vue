@@ -114,9 +114,9 @@ export default class Login extends Vue {
         // refreshToken を使って再認証
         this.refreshToken().then(() => {
           if (this.isPolicyAccepted) {
-            this.$router.push('/terms')
-          } else {
             this.$router.push('/record')
+          } else {
+            this.$router.push('/terms')
           }
         })
       } else {
