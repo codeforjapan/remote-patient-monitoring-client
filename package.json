@@ -54,7 +54,7 @@
     "node-sass": "4.14.1",
     "prettier": "2.2.1",
     "sass-loader": "8.0.2",
-    "sinon": "9.2.4",
+    "sinon": "10.0.0",
     "stylelint": "13.12.0",
     "stylelint-config-prettier": "8.0.2",
     "stylelint-config-standard": "21.0.0",
