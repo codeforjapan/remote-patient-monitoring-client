@@ -8,6 +8,7 @@
         :style="{ fontSize: fontSizeMap.get(fontSize) }"
         :type="type"
         :pattern="type === 'number' ? '\\d*' : null"
+        :inputmode="type === 'number' ? 'decimal' : 'text'"
         :name="name"
         :placeholder="placeholder"
         :step="step"
