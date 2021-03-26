@@ -6,8 +6,7 @@
     </div>
 
     <div class="termsContainer">
-      <p>
-<pre class="policytext">
+      <pre class="policytext">
 遠隔療養者モニタリングシステム利用規約
 
 この利用規約（以下「本規約」といいます。）では、遠隔療養者モニタリングシステム（以下「本システム」といいます。）を利用する方に同意していただく必要のある事柄を記載しています。利用者が本システムを利用する際には、本規約に同意したものとみなされ、本規約が適用されます。本規約に同意されない場合、本システムをご利用頂けませんので、ご利用の前に必ずお読みください。
@@ -59,8 +58,7 @@
 
 第７条（規約改訂）
 北海道は、本規約の内容を変更又は追加できるものとします。本規約を変更した場合、北海道が適当と判断する方法で利用者にその旨通知いたします。
-</pre>
-      </p>
+      </pre>
       <div class="margin">
         <VCheckbox v-model="isCheckedPolicy" name="policy">
           利用規約に同意する
@@ -95,7 +93,7 @@ const Auth = namespace('Auth')
     VCheckbox,
   },
 })
-export default class Login extends Vue {
+export default class Terms extends Vue {
   private message = ''
   private isCheckedPolicy = false
 
@@ -127,7 +125,7 @@ export default class Login extends Vue {
     }
   }
   logout(): void {
-    this.signOut();
+    this.signOut()
     this.$router.push('/')
   }
 }
@@ -164,10 +162,10 @@ export default class Login extends Vue {
   text-decoration: underline;
 }
 .policytext {
-  white-space: pre-wrap;       /* css-3 */
-  white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
-  white-space: -pre-wrap;      /* Opera 4-6 */
-  white-space: -o-pre-wrap;    /* Opera 7 */
-  word-wrap: break-word;  
+  white-space: pre-wrap; /* css-3 */
+  white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+  white-space: -pre-wrap; /* Opera 4-6 */
+  white-space: -o-pre-wrap; /* Opera 7 */
+  word-wrap: break-word;
 }
 </style>
