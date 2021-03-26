@@ -17,7 +17,7 @@
         </li>
         <li class="confirmItem">
           <ActionButton
-            theme="disable"
+            theme="outline"
             size="L"
             text="いいえ"
             @click="handleNegativeButtonClick"

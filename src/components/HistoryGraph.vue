@@ -151,7 +151,6 @@ export default class HistoryGraph extends Vue {
       }
     })
 
-    console.log(this.items, bodyTemperatures)
     return [
       { name: '脈拍', data: pulses },
       { name: '体温', data: bodyTemperatures },

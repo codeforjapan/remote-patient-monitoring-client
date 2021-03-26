@@ -63,7 +63,9 @@ import { namespace } from 'vuex-class'
 import { AuthUser } from '@/store/modules/auth.module'
 import InputTextField from '@/components/InputTextField.vue'
 import ActionButton from '@/components/ActionButton.vue'
+import { Patient } from '@/@types/component-interfaces/patient'
 const Auth = namespace('Auth')
+const User = namespace('User')
 
 @Component({
   components: {
@@ -107,6 +109,9 @@ export default class Login extends Vue {
   @Auth.Action
   private refreshToken!: () => Promise<AuthUser>
 
+  @User.Action
+  private loadPatient!: () => Promise<Patient>
+
   created(): void {
     if (this.isLoggedIn) {
       // ログインしているがセッション切れ
@@ -114,9 +119,9 @@ export default class Login extends Vue {
         // refreshToken を使って再認証
         this.refreshToken().then(() => {
           if (this.isPolicyAccepted) {
-            this.$router.push('/terms')
-          } else {
             this.$router.push('/record')
+          } else {
+            this.$router.push('/terms')
           }
         })
       } else {
@@ -125,7 +130,6 @@ export default class Login extends Vue {
     }
     // キーがある場合、ログイン用のTokenがついている
     if (this.k) {
-      console.log(this.k)
       this.handleLogin(this.k)
     } else {
       this.isShowForm = true
@@ -149,11 +153,13 @@ export default class Login extends Vue {
   handleLogin(loginKey: string): void {
     this.login(loginKey).then(
       (data) => {
-        if (data.policy_accepted) {
-          this.$router.push('/record')
-        } else {
-          this.$router.push('/terms')
-        }
+        this.loadPatient().then(() => {
+          if (data.policy_accepted) {
+            this.$router.push('/record')
+          } else {
+            this.$router.push('/terms')
+          }
+        })
       },
       (error) => {
         this.message = `ログインできませんでした。${error}`
@@ -163,17 +169,18 @@ export default class Login extends Vue {
   }
   handleLoginWithID(): void {
     if (this.user.username && this.user.password) {
-      console.log(this.user.password)
       this.loginWithID({
         username: this.user.username,
         password: this.user.password,
       }).then(
         (data) => {
-          if (data.policy_accepted) {
-            this.$router.push('/record')
-          } else {
-            this.$router.push('/terms')
-          }
+          this.loadPatient().then(() => {
+            if (data.policy_accepted) {
+              this.$router.push('/record')
+            } else {
+              this.$router.push('/terms')
+            }
+          })
         },
         (error) => {
           this.message = `ログインできませんでした。${error}`
@@ -182,11 +189,9 @@ export default class Login extends Vue {
     }
   }
   handleLoginURL(): void {
-    console.log(this.phone)
     this.sendLoginURL(this.phone)
       .then((ret) => {
         if (ret.success) {
-          console.log(ret.loginKey)
           this.message = `入力された電話番号にURLを送りました。ご確認ください。`
           this.isShowForm = false
         } else {
@@ -195,7 +200,7 @@ export default class Login extends Vue {
         }
       })
       .catch((err) => {
-        console.log(err)
+        console.error(err)
         this.message =
           '入力された電話番号はシステムに登録されていません。保健所にご確認ください。'
       })

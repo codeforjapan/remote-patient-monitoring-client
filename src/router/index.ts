@@ -35,11 +35,10 @@ router.beforeEach(async (to, from, next) => {
             }
           })
           .catch((err) => {
-            console.log(err)
+            console.error(err)
             next('/login')
           })
       } else {
-        console.log(to)
         if (to.name == 'Terms' || JSON.parse(user).policy_accepted) {
           next()
         } else {

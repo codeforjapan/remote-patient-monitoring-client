@@ -53,7 +53,6 @@ class AuthService {
   }
 
   async refreshToken(refreshToken: string): Promise<AuthUser> {
-    console.log(refreshToken)
     const response = await axios.post('login', {
       refreshToken,
     })
