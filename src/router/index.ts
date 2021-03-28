@@ -24,27 +24,29 @@ router.beforeEach(async (to, from, next) => {
     if (!user) {
       next('/login')
     } else {
-      if (store.getters['Auth/isExpired']) {
-        store
-          .dispatch('Auth/refreshToken')
-          .then((user) => {
-            if (user.acceptPolicy) {
-              next()
-            } else {
-              next('/terms')
-            }
-          })
-          .catch((err) => {
-            console.error(err)
-            next('/login')
-          })
-      } else {
-        if (to.name == 'Terms' || JSON.parse(user).policy_accepted) {
-          next()
+      store.dispatch('Auth/checkIsExpired').then((expired) => {
+        if (expired) {
+          store
+            .dispatch('Auth/refreshToken')
+            .then((user) => {
+              if (user.policy_accepted) {
+                next()
+              } else {
+                next('/terms')
+              }
+            })
+            .catch((err) => {
+              console.error(err)
+              next('/login')
+            })
         } else {
-          next('/terms')
+          if (to.name == 'Terms' || JSON.parse(user).policy_accepted) {
+            next()
+          } else {
+            next('/terms')
+          }
         }
-      }
+      })
     }
   } else {
     next()

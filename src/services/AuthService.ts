@@ -6,12 +6,10 @@ class AuthService {
     const response = await axios.post('initialize', {
       loginKey,
     })
-    if (response.data.idToken) {
-      localStorage.setItem('user', JSON.stringify(response.data))
-    } else {
+    if (!response.data.idToken) {
       throw new Error('ログインに失敗しました。')
     }
-    return response.data
+    return { ...response.data, isExpired: false }
   }
 
   async loginWithID(username: string, password: string): Promise<AuthUser> {
@@ -19,12 +17,10 @@ class AuthService {
       username: username,
       password: password,
     })
-    if (response.data.idToken) {
-      localStorage.setItem('user', JSON.stringify(response.data))
-    } else {
+    if (!response.data.idToken) {
       throw new Error('ログインに失敗しました。')
     }
-    return response.data
+    return { ...response.data, isExpired: false }
   }
 
   async sendLoginURL(
@@ -44,32 +40,21 @@ class AuthService {
   async loginWithToken(idToken: string): Promise<AuthUser> {
     const userid = this.getUserId(idToken)
     const response = await axios.get(`patients/${userid}`)
-    if (response.data.idToken) {
-      localStorage.setItem('user', JSON.stringify(response.data))
-    } else {
+    if (!response.data.idToken) {
       throw new Error('ログインに失敗しました。')
     }
-    return response.data
+    return { ...response.data, isExpired: false }
   }
 
-  async refreshToken(refreshToken: string): Promise<AuthUser> {
+  async refreshToken(refreshToken: string): Promise<string> {
     const response = await axios.post('login', {
       refreshToken,
     })
     if (response.data.idToken) {
-      const useritem = localStorage.getItem('user')
-      if (!useritem) throw new Error('usre item was not found')
-      const user = JSON.parse(useritem)
-      user.idToken = response.data.idToken
-      localStorage.setItem('user', JSON.stringify(user))
+      return response.data.idToken
     } else {
       throw new Error('ログインに失敗しました。')
     }
-    return response.data
-  }
-
-  logout() {
-    localStorage.removeItem('user')
   }
 
   getUserId(idToken: string): string {

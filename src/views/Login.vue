@@ -117,22 +117,28 @@ export default class Login extends Vue {
       // ログインしているがセッション切れ
       if (this.isExpired) {
         // refreshToken を使って再認証
-        this.refreshToken().then(() => {
-          if (this.isPolicyAccepted) {
-            this.$router.push('/record')
-          } else {
-            this.$router.push('/terms')
-          }
-        })
+        this.refreshToken()
+          .then(() => {
+            if (this.isPolicyAccepted) {
+              this.$router.push('/record')
+            } else {
+              this.$router.push('/terms')
+            }
+          })
+          .catch((err) => {
+            console.log(err)
+            this.$router.push('/login')
+          })
       } else {
         this.$router.push('/record')
       }
-    }
-    // キーがある場合、ログイン用のTokenがついている
-    if (this.k) {
-      this.handleLogin(this.k)
     } else {
-      this.isShowForm = true
+      // キーがある場合、ログイン用のTokenがついている
+      if (this.k) {
+        this.handleLogin(this.k)
+      } else {
+        this.isShowForm = true
+      }
     }
   }
 

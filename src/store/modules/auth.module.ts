@@ -7,6 +7,7 @@ export interface AuthUser {
   idToken: string
   refreshToken: string
   policy_accepted: string
+  isExpired: boolean
 }
 
 const storedUser = localStorage.getItem('user')
@@ -26,11 +27,7 @@ class Auth extends VuexModule {
 
   get isExpired(): boolean {
     if (!this.user) return true // ユーザ情報が無い場合も expired したこととする
-    if (!this.user?.idToken) return true // ユーザ情報が無い場合も expired したこととする
-    const idToken: string = this.user?.idToken
-    const bpayload = idToken.split('.')[1]
-    const payload = JSON.parse(atob(bpayload))
-    return new Date() > new Date(payload.exp * 1000)
+    return this.user.isExpired
   }
 
   get isPolicyAccepted(): boolean {
@@ -40,19 +37,37 @@ class Auth extends VuexModule {
   @Mutation
   public loginSuccess(user: AuthUser): void {
     this.status.loggedIn = true
+    localStorage.setItem('user', JSON.stringify(user))
     this.user = user
+  }
+  @Mutation
+  public updateIdToken(idToken: string): void {
+    if (this.user) {
+      this.user.idToken = idToken
+      localStorage.setItem('user', JSON.stringify(this.user))
+    }
+  }
+
+  @Mutation
+  public setIsExpired(expired: boolean): void {
+    if (this.user) {
+      this.user.isExpired = expired
+      localStorage.setItem('user', JSON.stringify(this.user))
+    }
   }
 
   @Mutation
   public loginFailure(): void {
     this.status.loggedIn = false
     this.user = null
+    localStorage.removeItem('user')
   }
 
   @Mutation
   public logout(): void {
     this.status.loggedIn = false
     this.user = null
+    localStorage.removeItem('user')
   }
 
   @Action({ rawError: true })
@@ -73,6 +88,16 @@ class Auth extends VuexModule {
         return Promise.reject(message)
       },
     )
+  }
+  @Action({ rawError: true })
+  checkIsExpired(): Promise<boolean> {
+    if (!this.user) return Promise.resolve(false)
+    const idToken: string = this.user?.idToken
+    const bpayload = idToken.split('.')[1]
+    const payload = JSON.parse(atob(bpayload))
+    const expired = new Date() > new Date(payload.exp * 1000)
+    this.context.commit('setIsExpired', expired)
+    return Promise.resolve(expired)
   }
 
   @Action({ rawError: true })
@@ -110,7 +135,6 @@ class Auth extends VuexModule {
   loginWithToken(token: string): Promise<AuthUser> {
     return AuthService.loginWithToken(token).then(
       (user) => {
-        this.context.commit('loginSuccess', user)
         return Promise.resolve(user)
       },
       (error) => {
@@ -130,9 +154,13 @@ class Auth extends VuexModule {
   refreshToken(): Promise<AuthUser> {
     const token: string = this.user?.refreshToken || ''
     return AuthService.refreshToken(token).then(
-      (user) => {
-        this.context.commit('loginSuccess', user)
-        return Promise.resolve(user)
+      (idToken) => {
+        this.context.commit('updateIdToken', idToken)
+        if (this.user) {
+          return Promise.resolve(this.user)
+        } else {
+          return Promise.reject('user data was broken')
+        }
       },
       (error) => {
         this.context.commit('loginFailure')
@@ -149,7 +177,6 @@ class Auth extends VuexModule {
 
   @Action
   signOut(): void {
-    AuthService.logout()
     this.context.commit('logout')
   }
 
