@@ -45,7 +45,7 @@ export default Vue.extend({
   props: {
     items: {
       type: Array as () => Status[],
-      default: [],
+      default: () => [],
     },
   },
   methods: {
