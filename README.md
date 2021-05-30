@@ -38,3 +38,7 @@ yarn lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+## ライセンス
+
+GNU AGPL v3 です。
