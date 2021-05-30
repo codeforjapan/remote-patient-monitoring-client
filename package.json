@@ -15,7 +15,7 @@
   "dependencies": {
     "apexcharts": "3.26.3",
     "axios": "0.21.1",
-    "core-js": "3.12.1",
+    "core-js": "3.13.1",
     "dayjs": "1.10.5",
     "register-service-worker": "1.7.2",
     "sass": "1.34.0",
