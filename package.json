@@ -13,7 +13,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "apexcharts": "3.26.3",
+    "apexcharts": "3.27.1",
     "axios": "0.21.1",
     "core-js": "3.14.0",
     "dayjs": "1.10.5",
