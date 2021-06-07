@@ -65,13 +65,9 @@
     "vue-svg-loader": "0.17.0-beta.2",
     "vue-template-compiler": "2.6.13"
   },
-  "gitHooks": {
-    "pre-commit": "lint-staged"
-  },
   "lint-staged": {
-    "*.{js,jsx,vue,ts,tsx}": [
-      "vue-cli-service lint"
-    ]
+    "*.{ts,js,vue}": "yarn lint",
+    "*.{css,vue}": "yarn stylelint"
   },
   "jest": {
     "moduleFileExtensions": [
