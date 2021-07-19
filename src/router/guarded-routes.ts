@@ -1,6 +1,5 @@
 import { RouteConfig } from 'vue-router'
 import Record from '@/views/Record.vue'
-import Registered from '@/views/Registered.vue'
 import History from '@/views/History.vue'
 import Detail from '@/views/Detail.vue'
 import Terms from '@/views/Terms.vue'
@@ -10,11 +9,6 @@ const guardedRoutes: Array<RouteConfig> = [
     path: '/record',
     name: 'Record',
     component: Record,
-  },
-  {
-    path: '/registered',
-    name: 'Registered',
-    component: Registered,
   },
   {
     path: '/history',
