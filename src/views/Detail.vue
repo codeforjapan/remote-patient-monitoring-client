@@ -40,6 +40,9 @@ const Statuses = namespace('Statuses')
     DeleteRecord,
     FooterButtons,
   },
+  metaInfo: {
+    title: '記録詳細',
+  },
 })
 export default class Detail extends Vue {
   error = ''
@@ -92,7 +95,6 @@ export default class Detail extends Vue {
 .message {
   padding: 10px;
   margin-top: 8px;
-  /* Color Universal/Base Green */
   background: #77d9a8;
   border-radius: 10px;
 }

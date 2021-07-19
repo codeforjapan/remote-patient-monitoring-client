@@ -92,6 +92,9 @@ const Auth = namespace('Auth')
     ActionButton,
     VCheckbox,
   },
+  metaInfo: {
+    title: '利用規約',
+  },
 })
 export default class Terms extends Vue {
   private message = ''

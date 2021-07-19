@@ -39,6 +39,9 @@ export default Vue.extend({
     FooterButtons,
     Message,
   },
+  metaInfo: {
+    title: '登録完了',
+  },
   data() {
     return {
       status: {
