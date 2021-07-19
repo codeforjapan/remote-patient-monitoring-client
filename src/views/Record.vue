@@ -117,6 +117,9 @@ type SymptomItem = {
     ToggleSwitch,
     FooterButtons,
   },
+  metaInfo: {
+    title: '体調記録',
+  },
 })
 export default class Record extends Vue {
   @Auth.Action

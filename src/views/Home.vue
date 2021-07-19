@@ -16,6 +16,10 @@ export default Vue.extend({
     ActionButton,
     Logo,
   },
+  metaInfo: {
+    title: '遠隔療養者モニタリングシステム',
+    titleTemplate: undefined,
+  },
 })
 </script>
 

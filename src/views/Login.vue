@@ -72,6 +72,9 @@ const User = namespace('User')
     InputTextField,
     ActionButton,
   },
+  metaInfo: {
+    title: 'ログイン',
+  },
 })
 export default class Login extends Vue {
   private phone = ''
@@ -238,7 +241,6 @@ export default class Login extends Vue {
   top: 20.07%;
   bottom: 73.22%;
   padding: 20px;
-
   background: #c9e3ff;
   border-radius: 10px;
 }
