@@ -4,22 +4,15 @@
       <div class="footerButtonsAlert" v-if="isNullTelNumber">
         電話番号が設定されていません
       </div>
-      <ul class="footerButtonsList">
-        <li
+      <div class="footerButtons">
+        <div
           class="footerButtonsItem healthCenter"
           @click="confirmToTel('healthCenter')"
         >
           <PhoneIcon />
           保健所へ電話
-        </li>
-        <li
-          class="footerButtonsItem emergency"
-          @click="confirmToTel('emergency')"
-        >
-          <PhoneIcon />
-          救急要請(119)
-        </li>
-      </ul>
+        </div>
+      </div>
     </div>
     <ConfirmModal
       :is-open="isOpenConfirm"
@@ -59,11 +52,6 @@ export default class FooterButtons extends Vue {
       destination: 'healthCenter',
       telNumber: '',
       text: '担当保健所に電話しますか？',
-    },
-    {
-      destination: 'emergency',
-      telNumber: '119',
-      text: '119番に電話します。よろしいですか？',
     },
   ]
   confirmText = ''
@@ -125,14 +113,14 @@ export default class FooterButtons extends Vue {
   padding: 12px;
   border: 2px solid $error;
 }
-.footerButtonsList {
+.footerButtons {
   height: 4em;
   display: flex;
   align-items: center;
   margin: 0;
 }
 .footerButtonsItem {
-  flex: 0 0 50%;
+  flex: 0 0 100%;
   height: 100%;
   display: flex;
   align-items: center;
@@ -147,10 +135,6 @@ export default class FooterButtons extends Vue {
     color: $primary;
     background-color: $white;
     border: 2px solid currentColor;
-  }
-  &.emergency {
-    color: $white;
-    background-color: $secondary;
   }
 }
 </style>
