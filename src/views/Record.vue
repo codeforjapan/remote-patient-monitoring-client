@@ -36,7 +36,6 @@
             placeholder="98"
             required
             spo2
-            is-number
             rules="required"
           />
         </li>
@@ -124,7 +123,6 @@ type SymptomItem = {
 export default class Record extends Vue {
   @Auth.Action
   private signOut!: () => void
-  private myDate = new Date()
   private loading = false
   private message = ''
   symptomItems: SymptomItem[] = [
@@ -152,7 +150,6 @@ export default class Record extends Vue {
   inputSpO2 = ''
   inputPulse = ''
   inputTemperature = ''
-  selectedItems: string[] = []
 
   get status(): ConsumeStatus {
     return {
