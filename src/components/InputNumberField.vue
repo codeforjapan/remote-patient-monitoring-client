@@ -68,7 +68,6 @@ export default class InputNumberField extends Vue {
 
   @Prop({ type: Boolean, default: false })
   spo2: boolean | undefined
-  isNumber: boolean | undefined
 }
 </script>
 
