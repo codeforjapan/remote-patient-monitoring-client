@@ -22,7 +22,7 @@
         >
           ログインURLを取得する
         </ActionButton>
-        <div class="spanform">
+        <div class="linkWrap">
           <a @click="showUserForm">ユーザID/パスワードでログインする</a>
         </div>
       </div>
@@ -50,7 +50,7 @@
         >
           ログイン
         </ActionButton>
-        <div class="spanform">
+        <div class="linkWrap">
           <a @click="showForm">ログインURLを取得する</a>
         </div>
       </div>
@@ -244,7 +244,7 @@ export default class Login extends Vue {
   background: #c9e3ff;
   border-radius: 10px;
 }
-.spanform {
+.linkWrap {
   margin-top: 30px;
   text-align: right;
   text-decoration: underline;
