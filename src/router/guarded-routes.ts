@@ -2,6 +2,7 @@ import { RouteConfig } from 'vue-router'
 import Record from '@/views/Record.vue'
 import History from '@/views/History.vue'
 import Detail from '@/views/Detail.vue'
+import TermsAgree from '@/views/TermsAgree.vue'
 import Terms from '@/views/Terms.vue'
 
 const guardedRoutes: Array<RouteConfig> = [
@@ -20,6 +21,11 @@ const guardedRoutes: Array<RouteConfig> = [
     name: 'Detail',
     props: true,
     component: Detail,
+  },
+  {
+    path: '/terms-agree',
+    name: 'TermsAgree',
+    component: TermsAgree,
   },
   {
     path: '/terms',

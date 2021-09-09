@@ -125,7 +125,7 @@ export default class Login extends Vue {
             if (this.isPolicyAccepted) {
               this.$router.push('/record')
             } else {
-              this.$router.push('/terms')
+              this.$router.push('/terms-agree')
             }
           })
           .catch((err) => {
@@ -166,7 +166,7 @@ export default class Login extends Vue {
           if (data.policy_accepted) {
             this.$router.push('/record')
           } else {
-            this.$router.push('/terms')
+            this.$router.push('/terms-agree')
           }
         })
       },
@@ -187,7 +187,7 @@ export default class Login extends Vue {
             if (data.policy_accepted) {
               this.$router.push('/record')
             } else {
-              this.$router.push('/terms')
+              this.$router.push('/terms-agree')
             }
           })
         },
