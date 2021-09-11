@@ -85,6 +85,9 @@
         <ActionButton size="L" :theme="btnTheme" @click="submitRecord">
           記録する
         </ActionButton>
+        <div class="linkWrap">
+          <router-link to="/terms">利用規約を読む</router-link>
+        </div>
       </div>
     </form>
     <FooterButtons />
@@ -243,5 +246,9 @@ export default class Record extends Vue {
 }
 .buttonContainer {
   margin: 24px 0 80px;
+}
+.linkWrap {
+  margin-top: 60px;
+  text-align: center;
 }
 </style>
