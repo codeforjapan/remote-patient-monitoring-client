@@ -40,6 +40,9 @@ const Statuses = namespace('Statuses')
     FooterButtons,
     HistoryGraph,
   },
+  metaInfo: {
+    title: '記録一覧',
+  },
 })
 export default class History extends Vue {
   displayMode = 'list'

@@ -22,7 +22,7 @@
         >
           ログインURLを取得する
         </ActionButton>
-        <div class="spanform">
+        <div class="linkWrap">
           <a @click="showUserForm">ユーザID/パスワードでログインする</a>
         </div>
       </div>
@@ -50,7 +50,7 @@
         >
           ログイン
         </ActionButton>
-        <div class="spanform">
+        <div class="linkWrap">
           <a @click="showForm">ログインURLを取得する</a>
         </div>
       </div>
@@ -71,6 +71,9 @@ const User = namespace('User')
   components: {
     InputTextField,
     ActionButton,
+  },
+  metaInfo: {
+    title: 'ログイン',
   },
 })
 export default class Login extends Vue {
@@ -122,7 +125,7 @@ export default class Login extends Vue {
             if (this.isPolicyAccepted) {
               this.$router.push('/record')
             } else {
-              this.$router.push('/terms')
+              this.$router.push('/terms-agree')
             }
           })
           .catch((err) => {
@@ -163,7 +166,7 @@ export default class Login extends Vue {
           if (data.policy_accepted) {
             this.$router.push('/record')
           } else {
-            this.$router.push('/terms')
+            this.$router.push('/terms-agree')
           }
         })
       },
@@ -184,7 +187,7 @@ export default class Login extends Vue {
             if (data.policy_accepted) {
               this.$router.push('/record')
             } else {
-              this.$router.push('/terms')
+              this.$router.push('/terms-agree')
             }
           })
         },
@@ -238,11 +241,10 @@ export default class Login extends Vue {
   top: 20.07%;
   bottom: 73.22%;
   padding: 20px;
-
   background: #c9e3ff;
   border-radius: 10px;
 }
-.spanform {
+.linkWrap {
   margin-top: 30px;
   text-align: right;
   text-decoration: underline;

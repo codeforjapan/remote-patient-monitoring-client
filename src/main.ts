@@ -5,6 +5,7 @@ import { ValidationProvider, extend } from 'vee-validate'
 import { required } from 'vee-validate/dist/rules'
 import { mapState } from 'vuex'
 import axios from 'axios'
+import VueMeta from 'vue-meta'
 
 import router from './router'
 import store from './store'
@@ -23,6 +24,9 @@ extend('required', {
   ...required,
   message: 'This field is required',
 })
+
+Vue.use(VueMeta)
+
 new Vue({
   router,
   store,
