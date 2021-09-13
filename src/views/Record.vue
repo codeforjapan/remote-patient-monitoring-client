@@ -36,7 +36,6 @@
             placeholder="98"
             required
             spo2
-            is-number
             rules="required"
           />
         </li>
@@ -86,6 +85,9 @@
         <ActionButton size="L" :theme="btnTheme" @click="submitRecord">
           記録する
         </ActionButton>
+        <div class="linkWrap">
+          <router-link to="/terms">利用規約を読む</router-link>
+        </div>
       </div>
     </form>
     <FooterButtons />
@@ -117,11 +119,13 @@ type SymptomItem = {
     ToggleSwitch,
     FooterButtons,
   },
+  metaInfo: {
+    title: '体調記録',
+  },
 })
 export default class Record extends Vue {
   @Auth.Action
   private signOut!: () => void
-  private myDate = new Date()
   private loading = false
   private message = ''
   symptomItems: SymptomItem[] = [
@@ -149,7 +153,6 @@ export default class Record extends Vue {
   inputSpO2 = ''
   inputPulse = ''
   inputTemperature = ''
-  selectedItems: string[] = []
 
   get status(): ConsumeStatus {
     return {
@@ -243,5 +246,9 @@ export default class Record extends Vue {
 }
 .buttonContainer {
   margin: 24px 0 80px;
+}
+.linkWrap {
+  margin-top: 60px;
+  text-align: center;
 }
 </style>

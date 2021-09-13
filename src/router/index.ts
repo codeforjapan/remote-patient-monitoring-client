@@ -32,7 +32,7 @@ router.beforeEach(async (to, from, next) => {
               if (user.policy_accepted) {
                 next()
               } else {
-                next('/terms')
+                next('/terms-agree')
               }
             })
             .catch((err) => {
@@ -40,10 +40,10 @@ router.beforeEach(async (to, from, next) => {
               next('/login')
             })
         } else {
-          if (to.name == 'Terms' || JSON.parse(user).policy_accepted) {
+          if (to.name == 'TermsAgree' || JSON.parse(user).policy_accepted) {
             next()
           } else {
-            next('/terms')
+            next('/terms-agree')
           }
         }
       })
