@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.a092bfb0d96ea5ed8ea9cbc85744b433.js"
+  "/precache-manifest.ed921e8066fea0ac7eac9fb25ba0b757.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "remote-patient-monitoring-client"});
