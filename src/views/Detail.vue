@@ -15,7 +15,6 @@
       <StatusInfo :status="status" />
       <DeleteRecord :patientId="status.patientId" :statusId="statusId" />
     </template>
-    <FooterButtons />
   </div>
 </template>
 
@@ -26,7 +25,6 @@ import AngleLeftIcon from '@/assets/images/icon-angle-left.svg'
 import ActionButton from '@/components/ActionButton.vue'
 import StatusInfo from '@/components/StatusInfo.vue'
 import DeleteRecord from '@/components/DeleteRecord.vue'
-import FooterButtons from '@/components/FooterButtons.vue'
 import { Status } from '@/@types/component-interfaces/status'
 import { namespace } from 'vuex-class'
 
@@ -38,7 +36,6 @@ const Statuses = namespace('Statuses')
     ActionButton,
     StatusInfo,
     DeleteRecord,
-    FooterButtons,
   },
   metaInfo: {
     title: '記録詳細',
