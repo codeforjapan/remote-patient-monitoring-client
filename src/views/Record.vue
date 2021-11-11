@@ -90,7 +90,6 @@
         </div>
       </div>
     </form>
-    <FooterButtons />
   </div>
 </template>
 
@@ -100,7 +99,6 @@ import ActionButton from '@/components/ActionButton.vue'
 import InputTextField from '@/components/InputTextField.vue'
 import InputNumberField from '@/components/InputNumberField.vue'
 import ToggleSwitch from '@/components/ToggleSwitch.vue'
-import FooterButtons from '@/components/FooterButtons.vue'
 import { ConsumeStatus, Status } from '@/@types/component-interfaces/status'
 import { namespace } from 'vuex-class'
 
@@ -117,7 +115,6 @@ type SymptomItem = {
     InputTextField,
     InputNumberField,
     ToggleSwitch,
-    FooterButtons,
   },
   metaInfo: {
     title: '体調記録',
