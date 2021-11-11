@@ -14,7 +14,6 @@
     </header>
     <HistoryTable :items="statuses" v-if="displayMode === 'list'" />
     <HistoryGraph :items="statuses" v-if="displayMode === 'graph'" />
-    <FooterButtons />
   </div>
 </template>
 
@@ -25,7 +24,6 @@ import AngleLeftIcon from '@/assets/images/icon-angle-left.svg'
 import ActionButton from '@/components/ActionButton.vue'
 import ListOrGraphSwitch from '@/components/ListOrGraphSwitch.vue'
 import HistoryTable from '@/components/HistoryTable.vue'
-import FooterButtons from '@/components/FooterButtons.vue'
 import { Status } from '@/@types/component-interfaces/status'
 import HistoryGraph from '@/components/HistoryGraph.vue'
 
@@ -37,7 +35,6 @@ const Statuses = namespace('Statuses')
     ActionButton,
     ListOrGraphSwitch,
     HistoryTable,
-    FooterButtons,
     HistoryGraph,
   },
   metaInfo: {
