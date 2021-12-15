@@ -146,6 +146,26 @@ export default class Record extends Vue {
       name: 'sore_throat',
       label: 'のどの痛み',
     },
+    {
+      name: 'malaise',
+      label: '全身倦怠感',
+    },
+    {
+      name: 'nausea',
+      label: '嘔気・嘔吐',
+    },
+    {
+      name: 'diarrhea',
+      label: '下痢',
+    },
+    {
+      name: 'difficulty_eating',
+      label: '食事困難',
+    },
+    {
+      name: 'no_urination',
+      label: '半日排尿がない',
+    },
   ]
   inputSpO2 = ''
   inputPulse = ''
@@ -162,6 +182,11 @@ export default class Record extends Vue {
         suffocation: false,
         headache: false,
         sore_throat: false,
+        malaise: false,
+        nausea: false,
+        diarrhea: false,
+        difficulty_eating: false,
+        no_urination: false,
         remarks: '',
       },
     }
@@ -183,7 +208,17 @@ export default class Record extends Vue {
 
   itemSelectControl(checked: boolean, value: string): void {
     this.status.symptom[
-      value as 'cough' | 'phlegm' | 'suffocation' | 'headache' | 'sore_throat'
+      value as
+        | 'cough'
+        | 'phlegm'
+        | 'suffocation'
+        | 'headache'
+        | 'sore_throat'
+        | 'malaise'
+        | 'nausea'
+        | 'diarrhea'
+        | 'difficulty_eating'
+        | 'no_urination'
     ] = checked
   }
 
