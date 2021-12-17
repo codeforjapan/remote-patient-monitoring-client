@@ -18,13 +18,22 @@
         <div>
           <span class="symptom" v-if="status.symptom.cough">せき</span>
           <span class="symptom" v-if="status.symptom.phlegm">たん</span>
-          <span class="symptom" v-if="status.symptom.suffocation"
-            >息苦しさ</span
-          >
+          <span class="symptom" v-if="status.symptom.suffocation">
+            息苦しさ
+          </span>
           <span class="symptom" v-if="status.symptom.headache">頭痛</span>
-          <span class="symptom" v-if="status.symptom.sore_throat"
-            >喉の痛み</span
-          >
+          <span class="symptom" v-if="status.symptom.sore_throat">
+            のどの痛み
+          </span>
+          <span class="symptom" v-if="status.symptom.malaise">全身倦怠感</span>
+          <span class="symptom" v-if="status.symptom.nausea">嘔気・嘔吐</span>
+          <span class="symptom" v-if="status.symptom.diarrhea">下痢</span>
+          <span class="symptom" v-if="status.symptom.difficulty_eating">
+            食事困難
+          </span>
+          <span class="symptom" v-if="status.symptom.no_urination">
+            半日排尿がない
+          </span>
         </div>
         <div class="symptomRemarks">{{ status.symptom.remarks }}</div>
       </dd>
@@ -55,6 +64,11 @@ export default Vue.extend({
           suffocation: false,
           headache: false,
           sore_throat: false,
+          malaise: false,
+          nausea: false,
+          diarrhea: false,
+          difficulty_eating: false,
+          no_urination: false,
           remarks: '',
         },
       }),
