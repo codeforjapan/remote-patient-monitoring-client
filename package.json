@@ -34,8 +34,8 @@
   "devDependencies": {
     "@types/jest": "27.0.3",
     "@types/sinon": "10.0.11",
-    "@typescript-eslint/eslint-plugin": "5.6.0",
-    "@typescript-eslint/parser": "5.6.0",
+    "@typescript-eslint/eslint-plugin": "5.62.0",
+    "@typescript-eslint/parser": "5.62.0",
     "@vue/cli-plugin-babel": "4.5.18",
     "@vue/cli-plugin-eslint": "4.5.18",
     "@vue/cli-plugin-pwa": "4.5.18",
